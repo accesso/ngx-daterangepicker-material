@@ -1,5 +1,5 @@
 export { NgxDaterangepickerMd } from './daterangepicker.module';
-export { DaterangepickerComponent } from './daterangepicker.component';
-export { DaterangepickerDirective } from './daterangepicker.directive';
-export { LocaleConfig , LOCALE_CONFIG, DefaultLocaleConfig } from './daterangepicker.config';
-export { LocaleService } from './locale.service';
+export { DaterangepickerComponent } from './components/daterangepicker.component';
+export { DaterangepickerDirective } from './directives/daterangepicker.directive';
+export { LocaleConfig, LOCALE_CONFIG, DefaultLocaleConfig } from './daterangepicker.config';
+export { LocaleService } from './services/locale.service';

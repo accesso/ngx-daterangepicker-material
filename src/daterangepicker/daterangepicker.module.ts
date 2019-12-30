@@ -1,41 +1,37 @@
-import { CommonModule } from '@angular/common';
-import {  ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 
-import { DaterangepickerComponent } from './daterangepicker.component';
-import { DaterangepickerDirective } from './daterangepicker.directive';
-import { LocaleConfig, LOCALE_CONFIG } from './daterangepicker.config';
-import { LocaleService } from './locale.service';
+import {DaterangepickerComponent} from './components/daterangepicker.component';
+import {DaterangepickerDirective} from './directives/daterangepicker.directive';
+import {LOCALE_CONFIG, LocaleConfig} from './daterangepicker.config';
+import {LocaleService} from './services/locale.service';
 
 @NgModule({
-  declarations: [
-    DaterangepickerComponent,
-    DaterangepickerDirective
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [],
-  exports: [
-    DaterangepickerComponent,
-    DaterangepickerDirective
-  ],
-  entryComponents: [
-    DaterangepickerComponent
-  ]
+	declarations: [DaterangepickerComponent, DaterangepickerDirective],
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatDatepickerModule,
+		MatIconModule
+	],
+	providers: [],
+	exports: [DaterangepickerComponent, DaterangepickerDirective],
+	entryComponents: [DaterangepickerComponent]
 })
 export class NgxDaterangepickerMd {
-  constructor() {
-  }
-  static forRoot(config: LocaleConfig = {}): ModuleWithProviders {
-    return {
-      ngModule: NgxDaterangepickerMd,
-      providers: [
-        { provide: LOCALE_CONFIG, useValue: config},
-        { provide: LocaleService, useClass: LocaleService, deps: [LOCALE_CONFIG]}
-      ]
-    };
-  }
+	constructor() {}
+	static forRoot(config: LocaleConfig = {}): ModuleWithProviders {
+		return {
+			ngModule: NgxDaterangepickerMd,
+			providers: [
+				{ provide: LOCALE_CONFIG, useValue: config },
+				{ provide: LocaleService, useClass: LocaleService, deps: [LOCALE_CONFIG] }
+			]
+		};
+	}
 }
