@@ -13,12 +13,12 @@
 	[class]="'drops-' + drops + '-' + opens"
 >
 	<div class="field-row">
-		<mat-form-field>
-			<input matInput [value]="endDate | date: 'MM/dd/yyyy'" readonly />
-			<span matPrefix>
+    <mat-form-field color="primary">
+      <input matInput color="primary" [value]="endDate | date: 'MM/dd/yyyy'" readonly />
+      <span matPrefix>
 				<mat-icon matDatepickerToggleIcon>date_range</mat-icon>
 			</span>
-		</mat-form-field>
+    </mat-form-field>
 		<mat-form-field>
 			<input matInput [value]="startDate | date: 'MM/dd/yyyy'" readonly />
 			<span matPrefix>
