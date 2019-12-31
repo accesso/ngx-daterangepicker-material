@@ -242,9 +242,6 @@ export class DaterangepickerComponent implements OnInit {
 					this.rangesArray.push(range);
 				}
 			}
-			if (this.showCustomRangeLabel) {
-				this.rangesArray.push(this.locale.customRangeLabel);
-			}
 			this.showCalInRanges = !this.rangesArray.length || this.alwaysShowCalendars;
 			if (!this.timePicker) {
 				this.startDate = this.startDate.startOf('day');

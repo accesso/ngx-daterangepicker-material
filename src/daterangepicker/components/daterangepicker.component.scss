@@ -152,9 +152,21 @@ div {
     flex-direction: column;
   }
 
+  .mat-card-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0;
+  }
+
   .mat-form-field-wrapper, .mat-form-field-infix {
+    border-top: none;
     padding: 0;
     margin: 0;
+  }
+
+  .custom-range-label {
+    display: inline-flex;
   }
 
 	&.double {
@@ -168,6 +180,9 @@ div {
     bottom: 0;
     padding: 15px;
     border-top: 1px solid #eeeeee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 	}
 	&.inline {
 		position: relative;
@@ -839,9 +854,7 @@ div {
 }
 
 .cal-reset-btn {
-	margin-top: 15px;
-	float: right;
-	margin-right: 15px;
+  margin-right: 15px;
 }
 
 td.available:hover {

@@ -425,25 +425,25 @@
 		<mat-card-footer>
 			<div class="buttons" *ngIf="!autoApply && (!rangesArray.length || (showCalInRanges && !singleDatePicker))">
 				<div class="bottom-buttons">
-					<div class="ranges">
-						<ul>
-							<li *ngFor="let range of rangesArray">
-								<button
-									mat-button
-									color="default"
-									class="{{ buttonClassRange }}"
-									(click)="clickRange($event, range)"
-									[disabled]="disableRange(range)"
-									[ngClass]="{ active: range === chosenRange }"
-								>
-									{{ range }}
-								</button>
-							</li>
-						</ul>
-					</div>
-					<div class="buttons_input">
-						<button mat-flat-button color="primary" (click)="clickApply($event)">{{_locale.applyLabel}}</button>
-					</div>
+          <div class="range-buttons">
+            <div class="custom-range-label" *ngIf="showCustomRangeLabel">
+              <strong>{{_locale.customRangeLabel}}:</strong>
+            </div>
+            <button
+              *ngFor="let range of rangesArray"
+              mat-button
+              color="default"
+              class="{{ buttonClassRange }}"
+              (click)="clickRange($event, range)"
+              [disabled]="disableRange(range)"
+              [ngClass]="{ active: range === chosenRange }"
+            >
+              {{ range }}
+            </button>
+          </div>
+          <div class="control-buttons">
+            <button mat-flat-button color="primary" (click)="clickApply($event)">{{_locale.applyLabel}}</button>
+          </div>
 				</div>
 			</div>
 		</mat-card-footer>

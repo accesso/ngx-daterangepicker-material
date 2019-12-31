@@ -299,6 +299,8 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 		const element = this._el.nativeElement;
 		console.log('container', container);
 		console.log('element', element);
+		console.log('element.offsetTop', element.offsetTop);
+		console.log('container.clientHeight', container.clientHeight);
 
 		if (this.drops && this.drops === 'up') {
 			containerTop = element.offsetTop - container.clientHeight + 'px';
