@@ -18,16 +18,16 @@
 				{{_locale.clearLabel}}
 			</button>
 			<mat-form-field>
-				<input matInput [value]="startDate | date: 'MM/dd/yyyy'"  />
-<!--				<span matPrefix>-->
-<!--					<mat-icon matDatepickerToggleIcon>date_range</mat-icon>-->
-<!--				</span>-->
+				<input matInput [value]="startDate | date: 'MM/dd/yyyy'" readonly />
+				<span matPrefix>
+					<mat-icon matDatepickerToggleIcon>date_range</mat-icon>
+				</span>
 			</mat-form-field>
 			<mat-form-field color="primary">
 				<input matInput [value]="endDate | date: 'MM/dd/yyyy'" readonly />
-<!--				<span matPrefix>-->
-<!--					<mat-icon matDatepickerToggleIcon>date_range</mat-icon>-->
-<!--				</span>-->
+				<span matPrefix>
+					<mat-icon matDatepickerToggleIcon>date_range</mat-icon>
+				</span>
 			</mat-form-field>
 		</mat-card-title>
 		<mat-card-content class="calendar-content">

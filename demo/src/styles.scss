@@ -7,6 +7,12 @@
     border-radius: 1px !important;
     color: white !important;
 }
+
+mat-form-field .mat-form-field-flex input, mat-form-field .mat-form-field-flex input:focus {
+  border-bottom: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
 .first-day {
     background-color: greenyellow;
 }

@@ -163,6 +163,15 @@ div {
     margin: 0;
   }
 
+  .mat-form-field-flex {
+    align-items: center;
+  }
+
+  .mat-card>.mat-card-actions:last-child {
+    margin-bottom: 12px;
+    padding-bottom: 0;
+  }
+
   .mat-form-field-wrapper, .mat-form-field-infix {
     border-top: none;
     margin: 0;
