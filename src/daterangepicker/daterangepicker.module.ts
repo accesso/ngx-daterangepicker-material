@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-	MatButtonModule,
-	MatCardModule,
-	MatDatepickerModule,
-	MatFormFieldModule,
-	MatIconModule,
-	MatInputModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 import { DaterangepickerComponent } from './components/daterangepicker.component';
 import { DaterangepickerDirective } from './directives/daterangepicker.directive';
