@@ -1,4 +1,4 @@
-import {InjectionToken} from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import * as _moment from 'moment';
 
 const moment = _moment;
@@ -15,6 +15,8 @@ export interface LocaleConfig {
 	cancelLabel?: string;
 	clearLabel?: string;
 	customRangeLabel?: string;
+	startDateLabel?: string;
+	endDateLabel?: string;
 	daysOfWeek?: string[];
 	monthNames?: string[];
 	firstDay?: number;
@@ -27,9 +29,11 @@ export const DefaultLocaleConfig: LocaleConfig = {
 	direction: 'ltr',
 	separator: ' - ',
 	weekLabel: 'W',
-	applyLabel: 'Apply',
-	cancelLabel: 'Cancel',
+	applyLabel: 'Done',
+	cancelLabel: 'Reset',
 	clearLabel: 'Clear',
+	startDateLabel: 'Start Date',
+	endDateLabel: 'End Date',
 	customRangeLabel: 'Custom range',
 	daysOfWeek: moment.weekdaysMin(),
 	monthNames: moment.months(),

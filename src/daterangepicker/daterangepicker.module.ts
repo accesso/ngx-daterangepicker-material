@@ -1,12 +1,19 @@
-import {CommonModule} from '@angular/common';
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatDatepickerModule,
+	MatFormFieldModule,
+	MatIconModule,
+	MatInputModule
+} from '@angular/material';
 
-import {DaterangepickerComponent} from './components/daterangepicker.component';
-import {DaterangepickerDirective} from './directives/daterangepicker.directive';
-import {LOCALE_CONFIG, LocaleConfig} from './daterangepicker.config';
-import {LocaleService} from './services/locale.service';
+import { DaterangepickerComponent } from './components/daterangepicker.component';
+import { DaterangepickerDirective } from './directives/daterangepicker.directive';
+import { LOCALE_CONFIG, LocaleConfig } from './daterangepicker.config';
+import { LocaleService } from './services/locale.service';
 
 @NgModule({
 	declarations: [DaterangepickerComponent, DaterangepickerDirective],
@@ -17,7 +24,9 @@ import {LocaleService} from './services/locale.service';
 		MatFormFieldModule,
 		MatInputModule,
 		MatDatepickerModule,
-		MatIconModule
+		MatIconModule,
+		MatButtonModule,
+		MatCardModule
 	],
 	providers: [],
 	exports: [DaterangepickerComponent, DaterangepickerDirective],

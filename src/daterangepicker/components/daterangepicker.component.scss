@@ -51,7 +51,7 @@ $md-drppicker-control-border-color: #ccc !default;
 $md-drppicker-control-border-radius: 25px !default;
 
 $md-drppicker-control-active-border-size: 1px !default;
-$md-drppicker-control-active-border-color: #08c !default;
+$md-drppicker-control-active-border-color: #42a5f5 !default;
 $md-drppicker-control-active-border-radius: $md-drppicker-control-border-radius !default;
 
 $md-drppicker-control-disabled-color: #ccc !default;
@@ -132,28 +132,42 @@ div {
 }
 
 .md-drppicker {
+  display: flex;
 	position: absolute;
 	color: $md-drppicker-color;
 	background-color: $md-drppicker-bg-color;
 	border-radius: 4px;
 	width: $md-drppicker-width;
 	height: 565px;
-	padding: 4px;
+	padding: 0;
 	margin-top: -10px;
 	overflow: visible;
-	z-index: 1000;
+	z-index: 9999;
 	font-size: 16px;
 	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+
+  .mat-card {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .mat-form-field-wrapper, .mat-form-field-infix {
+    padding: 0;
+    margin: 0;
+  }
+
 	&.double {
 		width: $md-drppicker-width-double;
 	}
 	.bottom-buttons {
-		height: 40px;
-		position: fixed;
-		width: calc(100% - 35px);
-		bottom: 0;
-		padding: 15px;
-		border-top: 1px solid #eeeeee;
+    height: 65px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    border-top: 1px solid #eeeeee;
 	}
 	&.inline {
 		position: relative;
@@ -383,7 +397,11 @@ div {
 			height: 44px;
 			width: 44px;
 			background-color: #42a5f5;
+      border-color: #42a5f5;
 		}
+    &.active:hover {
+      border-color: #e3f2fd;
+    }
 	}
 
 	th {

@@ -102,6 +102,12 @@ export class DaterangepickerComponent implements OnInit {
 	firstDayOfNextMonthClass: string = null;
 	@Input()
 	lastDayOfPreviousMonthClass: string = null;
+	@Input()
+	buttonClassApply: string = null;
+	@Input()
+	buttonClassReset: string = null;
+	@Input()
+	buttonClassRange: string = null;
 	_locale: LocaleConfig = {};
 	@Input() set locale(value) {
 		this._locale = { ...this._localeService.config, ...value };

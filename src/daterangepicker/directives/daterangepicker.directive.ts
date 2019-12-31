@@ -63,6 +63,12 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 	@Input()
 	linkedCalendars: boolean;
 	@Input()
+	buttonClassApply: string;
+	@Input()
+	buttonClassReset: string;
+	@Input()
+	buttonClassRange: string;
+	@Input()
 	dateLimit: number = null;
 	@Input()
 	singleDatePicker: boolean;
@@ -291,10 +297,13 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 		// todo: revisit the offsets where when both the shared components are done and the order search rework is finished
 		const container = this.picker.pickerContainer.nativeElement;
 		const element = this._el.nativeElement;
+		console.log('container', container);
+		console.log('element', element);
+
 		if (this.drops && this.drops === 'up') {
 			containerTop = element.offsetTop - container.clientHeight + 'px';
 		} else {
-			containerTop = '-20px';
+			containerTop = element.offsetTop + 'px';
 		}
 		if (this.opens === 'left') {
 			style = {
