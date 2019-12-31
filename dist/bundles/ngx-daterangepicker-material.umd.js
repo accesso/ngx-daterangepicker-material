@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/material'), require('moment')) :
-    typeof define === 'function' && define.amd ? define('ngx-daterangepicker-material', ['exports', '@angular/common', '@angular/core', '@angular/forms', '@angular/material', 'moment'], factory) :
-    (global = global || self, factory(global['ngx-daterangepicker-material'] = {}, global.ng.common, global.ng.core, global.ng.forms, global.ng.material, global.moment));
-}(this, function (exports, common, core, forms, material, _moment) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/material/button'), require('@angular/material/card'), require('@angular/material/datepicker'), require('@angular/material/form-field'), require('@angular/material/icon'), require('@angular/material/input'), require('moment')) :
+    typeof define === 'function' && define.amd ? define('ngx-daterangepicker-material', ['exports', '@angular/common', '@angular/core', '@angular/forms', '@angular/material/button', '@angular/material/card', '@angular/material/datepicker', '@angular/material/form-field', '@angular/material/icon', '@angular/material/input', 'moment'], factory) :
+    (global = global || self, factory(global['ngx-daterangepicker-material'] = {}, global.ng.common, global.ng.core, global.ng.forms, global.ng.material.button, global.ng.material.card, global.ng.material.datepicker, global.ng.material['form-field'], global.ng.material.icon, global.ng.material.input, global.moment));
+}(this, (function (exports, common, core, forms, button, card, datepicker, formField, icon, input, _moment) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -18,6 +18,20 @@
     See the Apache Version 2.0 License for specific language governing permissions
     and limitations under the License.
     ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
 
     var __assign = function() {
         __assign = Object.assign || function __assign(t) {
@@ -29,6 +43,18 @@
         };
         return __assign.apply(this, arguments);
     };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
 
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -43,6 +69,58 @@
 
     function __metadata(metadataKey, metadataValue) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        if (m) return m.call(o);
+        return {
+            next: function () {
+                if (o && i >= o.length) o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
     }
 
     function __read(o, n) {
@@ -68,6 +146,61 @@
         return ar;
     }
 
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
     var moment = _moment;
     var LOCALE_CONFIG = new core.InjectionToken('daterangepicker.config');
     /**
@@ -77,9 +210,11 @@
         direction: 'ltr',
         separator: ' - ',
         weekLabel: 'W',
-        applyLabel: 'Apply',
-        cancelLabel: 'Cancel',
+        applyLabel: 'Done',
+        cancelLabel: 'Reset',
         clearLabel: 'Clear',
+        startDateLabel: 'Start Date',
+        endDateLabel: 'End Date',
         customRangeLabel: 'Custom range',
         daysOfWeek: moment.weekdaysMin(),
         monthNames: moment.months(),
@@ -97,10 +232,12 @@
             enumerable: true,
             configurable: true
         });
+        LocaleService.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [LOCALE_CONFIG,] }] }
+        ]; };
         LocaleService = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(LOCALE_CONFIG)),
-            __metadata("design:paramtypes", [Object])
+            __param(0, core.Inject(LOCALE_CONFIG))
         ], LocaleService);
         return LocaleService;
     }());
@@ -149,6 +286,9 @@
             this.emptyWeekRowClass = null;
             this.firstDayOfNextMonthClass = null;
             this.lastDayOfPreviousMonthClass = null;
+            this.buttonClassApply = null;
+            this.buttonClassReset = null;
+            this.buttonClassRange = null;
             this._locale = {};
             // custom ranges
             this._ranges = {};
@@ -584,7 +724,9 @@
                     .isBefore(this.endDate)) {
                 this.endDate = this.startDate.clone().add(this.dateLimit, 'day');
             }
-            if (!this.isShown) ;
+            if (!this.isShown) {
+                // this.updateElement();
+            }
             this.endDateChanged.emit({ endDate: this.endDate });
             this.updateMonthsInView();
         };
@@ -1058,7 +1200,9 @@
                 }
             }
             // if a new date range was selected, invoke the user callback function
-            if (!this.startDate.isSame(this._old.start) || !this.endDate.isSame(this._old.end)) ;
+            if (!this.startDate.isSame(this._old.start) || !this.endDate.isSame(this._old.end)) {
+                // this.callback(this.startDate, this.endDate, this.chosenLabel);
+            }
             // if picker is attached to a text input, update it
             this.updateElement();
             this.isShown = false;
@@ -1273,185 +1417,151 @@
             return false;
         };
         var DaterangepickerComponent_1;
+        DaterangepickerComponent.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.ChangeDetectorRef },
+            { type: LocaleService }
+        ]; };
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "startDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "endDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Number)
+            core.Input()
         ], DaterangepickerComponent.prototype, "dateLimit", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "minDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "maxDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "autoApply", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "singleDatePicker", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showDropdowns", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showWeekNumbers", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showISOWeekNumbers", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "linkedCalendars", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "autoUpdateInput", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "alwaysShowCalendars", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "lockStartDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "timePicker", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "timePicker24Hour", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "timePickerIncrement", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "timePickerSeconds", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showClearButton", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "firstMonthDayClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "lastMonthDayClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "emptyWeekRowClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "firstDayOfNextMonthClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "lastDayOfPreviousMonthClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
+            core.Input()
+        ], DaterangepickerComponent.prototype, "buttonClassApply", void 0);
+        __decorate([
+            core.Input()
+        ], DaterangepickerComponent.prototype, "buttonClassReset", void 0);
+        __decorate([
+            core.Input()
+        ], DaterangepickerComponent.prototype, "buttonClassRange", void 0);
+        __decorate([
+            core.Input()
         ], DaterangepickerComponent.prototype, "locale", null);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
+            core.Input()
         ], DaterangepickerComponent.prototype, "ranges", null);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showCustomRangeLabel", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showCancel", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "keepCalendarOpeningWithRange", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "showRangeLabelOnInput", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "customRangeDirection", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "drops", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerComponent.prototype, "opens", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerComponent.prototype, "closeOnAutoApply", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerComponent.prototype, "choosedDate", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerComponent.prototype, "rangeClicked", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerComponent.prototype, "datesUpdated", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerComponent.prototype, "startDateChanged", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerComponent.prototype, "endDateChanged", void 0);
         __decorate([
-            core.ViewChild('pickerContainer'),
-            __metadata("design:type", core.ElementRef)
+            core.ViewChild('pickerContainer', { static: true })
         ], DaterangepickerComponent.prototype, "pickerContainer", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [Object]),
-            __metadata("design:returntype", void 0)
+            core.Input()
         ], DaterangepickerComponent.prototype, "isInvalidDate", null);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [Object]),
-            __metadata("design:returntype", void 0)
+            core.Input()
         ], DaterangepickerComponent.prototype, "isCustomDate", null);
         DaterangepickerComponent = DaterangepickerComponent_1 = __decorate([
             core.Component({
                 // tslint:disable-next-line:component-selector
                 selector: 'ngx-daterangepicker-material',
-                template: "<div\n\tclass=\"md-drppicker\"\n\t#pickerContainer\n\t[ngClass]=\"{\n\t\tltr: locale.direction === 'ltr',\n\t\trtl: this.locale.direction === 'rtl',\n\t\tshown: isShown || inline,\n\t\thidden: !isShown && !inline,\n\t\tinline: inline,\n\t\tdouble: !singleDatePicker && showCalInRanges,\n\t\t'show-ranges': rangesArray.length\n\t}\"\n\t[class]=\"'drops-' + drops + '-' + opens\"\n>\n\t<div class=\"field-row\">\n    <mat-form-field color=\"primary\">\n      <input matInput color=\"primary\" [value]=\"endDate | date: 'MM/dd/yyyy'\" readonly />\n      <span matPrefix>\n\t\t\t\t<mat-icon matDatepickerToggleIcon>date_range</mat-icon>\n\t\t\t</span>\n    </mat-form-field>\n\t\t<mat-form-field>\n\t\t\t<input matInput [value]=\"startDate | date: 'MM/dd/yyyy'\" readonly />\n\t\t\t<span matPrefix>\n\t\t\t\t<mat-icon matDatepickerToggleIcon>date_range</mat-icon>\n\t\t\t</span>\n\t\t</mat-form-field>\n\t\t<button type=\"button\" *ngIf=\"showClearButton\" class=\"accesso-text-default cal-reset-btn\" (click)=\"clear()\">\n\t\t\tReset\n\t\t</button>\n\t</div>\n\t<div class=\"calendar\" [ngClass]=\"{ right: singleDatePicker, left: !singleDatePicker }\" *ngIf=\"showCalInRanges\">\n\t\t<div class=\"calendar-table\">\n\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(calendarVariables.left.calendar.firstDay) &&\n\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<div (click)=\"clickPrev(sideEnum.left)\" class=\"prev available\"></div>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t<th colspan=\"5\" class=\"month drp-animate\">\n\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t<select class=\"monthselect\" (change)=\"monthChanged($event, sideEnum.left)\">\n\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.left.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.left.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.left.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t[selected]=\"calendarVariables.left.dropdowns.currentMonth == m\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{{ locale.monthNames[m] }}\n\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t\t<select class=\"yearselect\" (change)=\"yearChanged($event, sideEnum.left)\">\n\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.left.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t[selected]=\"y === calendarVariables.left.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{{ y }}\n\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t{{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(calendarVariables.left.calendar.lastDay)) &&\n\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<div class=\"next available\" (click)=\"clickNext(sideEnum.left)\"></div>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody class=\"drp-animate\">\n\t\t\t\t\t<tr\n\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.left.calRows\"\n\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row].classList\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<!-- add week number -->\n\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<!-- cal -->\n\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.left.calCols\"\n\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row][col]\"\n\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.left, row, col)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\tclass=\"hourselect select-item\"\n\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedHour\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t>\n\t\t\t\t\t<option\n\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.hours\"\n\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t>\n\t\t\t\t</select>\n\t\t\t</div>\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedMinute\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t>\n\t\t\t\t\t<option\n\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.minutes; let index = index\"\n\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t>{{ timepickerVariables.left.minutesLabel[index] }}</option\n\t\t\t\t\t>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedSecond\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t>\n\t\t\t\t\t<option\n\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.seconds; let index = index\"\n\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t>{{ timepickerVariables.left.secondsLabel[index] }}</option\n\t\t\t\t\t>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.ampmModel\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t>\n\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.left.amDisabled\">AM</option>\n\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.left.pmDisabled\">PM</option>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"calendar right\" *ngIf=\"showCalInRanges && !singleDatePicker\">\n\t\t<div class=\"calendar-table\">\n\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<div (click)=\"clickPrev(sideEnum.right)\" class=\"prev available\"></div>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t<th colspan=\"5\" class=\"month\">\n\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t<select class=\"monthselect\" (change)=\"monthChanged($event, sideEnum.right)\">\n\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.right.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.right.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.right.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t[selected]=\"calendarVariables.right.dropdowns.currentMonth == m\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{{ locale.monthNames[m] }}\n\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t\t<select class=\"yearselect\" (change)=\"yearChanged($event, sideEnum.right)\">\n\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.right.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t[selected]=\"y === calendarVariables.right.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{{ y }}\n\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t{{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(calendarVariables.right.calendar.lastDay) &&\n\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<div class=\"next available\" (click)=\"clickNext(sideEnum.right)\"></div>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr\n\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.right.calRows\"\n\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row].classList\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.right.calCols\"\n\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row][col]\"\n\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.right, row, col)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\tclass=\"select-item hourselect\"\n\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedHour\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t>\n\t\t\t\t\t<option\n\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.hours\"\n\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedMinute\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t>\n\t\t\t\t\t<option\n\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.minutes; let index = index\"\n\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t>{{ timepickerVariables.right.minutesLabel[index] }}</option\n\t\t\t\t\t>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedSecond\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t>\n\t\t\t\t\t<option\n\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.seconds; let index = index\"\n\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t>{{ timepickerVariables.right.secondsLabel[index] }}</option\n\t\t\t\t\t>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t\t<div class=\"select\">\n\t\t\t\t<select\n\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.ampmModel\"\n\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t>\n\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.right.amDisabled\">AM</option>\n\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.right.pmDisabled\">PM</option>\n\t\t\t\t</select>\n\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"buttons\" *ngIf=\"!autoApply && (!rangesArray.length || (showCalInRanges && !singleDatePicker))\">\n\t\t<div class=\"bottom-buttons\">\n\t\t\t<div class=\"ranges\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li *ngFor=\"let range of rangesArray\">\n\t\t\t\t\t\t<button\n\t\t\t\t\t\t\ttype=\"button\"\n\t\t\t\t\t\t\tclass=\"accesso-text-primary\"\n\t\t\t\t\t\t\t(click)=\"clickRange($event, range)\"\n\t\t\t\t\t\t\t[disabled]=\"disableRange(range)\"\n\t\t\t\t\t\t\t[ngClass]=\"{ active: range === chosenRange }\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{{ range }}\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t\t<div class=\"buttons_input\">\n\t\t\t\t<button type=\"button\" class=\"accesso-contained-primary\" (click)=\"clickApply($event)\">Done</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n",
+                template: "<div\n\tclass=\"md-drppicker\"\n\t#pickerContainer\n\t[ngClass]=\"{\n\t\tltr: locale.direction === 'ltr',\n\t\trtl: this.locale.direction === 'rtl',\n\t\tshown: isShown || inline,\n\t\thidden: !isShown && !inline,\n\t\tinline: inline,\n\t\tdouble: !singleDatePicker && showCalInRanges,\n\t\t'show-ranges': rangesArray.length\n\t}\"\n\t[class]=\"'drops-' + drops + '-' + opens\"\n>\n\t<mat-card>\n\t\t<mat-card-title>\n\t\t\t<button mat-button *ngIf=\"showClearButton\" class=\"cal-reset-btn\" (click)=\"clear()\">\n\t\t\t\t{{_locale.clearLabel}}\n\t\t\t</button>\n\t\t\t<mat-form-field>\n\t\t\t\t<input matInput [value]=\"startDate | date: 'MM/dd/yyyy'\" readonly />\n<!--\t\t\t\t<span matPrefix>-->\n<!--\t\t\t\t\t<mat-icon matDatepickerToggleIcon>date_range</mat-icon>-->\n<!--\t\t\t\t</span>-->\n\t\t\t</mat-form-field>\n\t\t\t<mat-form-field color=\"primary\">\n\t\t\t\t<input matInput [value]=\"endDate | date: 'MM/dd/yyyy'\" readonly />\n<!--\t\t\t\t<span matPrefix>-->\n<!--\t\t\t\t\t<mat-icon matDatepickerToggleIcon>date_range</mat-icon>-->\n<!--\t\t\t\t</span>-->\n\t\t\t</mat-form-field>\n\t\t</mat-card-title>\n\t\t<mat-card-content class=\"calendar-content\">\n\t\t\t<div\n\t\t\t\tclass=\"calendar\"\n\t\t\t\t[ngClass]=\"{ right: singleDatePicker, left: !singleDatePicker }\"\n\t\t\t\t*ngIf=\"showCalInRanges\"\n\t\t\t>\n\t\t\t\t<div class=\"calendar-table\">\n\t\t\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<div (click)=\"clickPrev(sideEnum.left)\" class=\"prev available\"></div>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<th colspan=\"5\" class=\"month drp-animate\">\n\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t\t\t{{\n\t\t\t\t\t\t\t\t\t\t\t\tthis.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()]\n\t\t\t\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\t\t\t\t<select class=\"monthselect\" (change)=\"monthChanged($event, sideEnum.left)\">\n\t\t\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.left.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.left.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.left.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[selected]=\"calendarVariables.left.dropdowns.currentMonth == m\"\n\t\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{ locale.monthNames[m] }}\n\t\t\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t\t\t{{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t\t\t\t<select class=\"yearselect\" (change)=\"yearChanged($event, sideEnum.left)\">\n\t\t\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.left.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[selected]=\"y === calendarVariables.left.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{ y }}\n\t\t\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t\t{{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<div class=\"next available\" (click)=\"clickNext(sideEnum.left)\"></div>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody class=\"drp-animate\">\n\t\t\t\t\t\t\t<tr\n\t\t\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.left.calRows\"\n\t\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row].classList\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<!-- add week number -->\n\t\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<!-- cal -->\n\t\t\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.left.calCols\"\n\t\t\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row][col]\"\n\t\t\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.left, row, col)\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"hourselect select-item\"\n\t\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedHour\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.hours\"\n\t\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedMinute\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.minutes; let index = index\"\n\t\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t\t\t>{{ timepickerVariables.left.minutesLabel[index] }}</option\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedSecond\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.seconds; let index = index\"\n\t\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t\t\t>{{ timepickerVariables.left.secondsLabel[index] }}</option\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.ampmModel\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.left.amDisabled\">AM</option>\n\t\t\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.left.pmDisabled\">PM</option>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"calendar right\" *ngIf=\"showCalInRanges && !singleDatePicker\">\n\t\t\t\t<div class=\"calendar-table\">\n\t\t\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<div (click)=\"clickPrev(sideEnum.right)\" class=\"prev available\"></div>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<th colspan=\"5\" class=\"month\">\n\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t\t\t{{\n\t\t\t\t\t\t\t\t\t\t\t\tthis.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()]\n\t\t\t\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\t\t\t\t<select class=\"monthselect\" (change)=\"monthChanged($event, sideEnum.right)\">\n\t\t\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.right.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.right.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.right.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[selected]=\"calendarVariables.right.dropdowns.currentMonth == m\"\n\t\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{ locale.monthNames[m] }}\n\t\t\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"dropdowns\">\n\t\t\t\t\t\t\t\t\t\t\t{{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t\t\t\t<select class=\"yearselect\" (change)=\"yearChanged($event, sideEnum.right)\">\n\t\t\t\t\t\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.right.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[selected]=\"y === calendarVariables.right.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{ y }}\n\t\t\t\t\t\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t\t{{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<div class=\"next available\" (click)=\"clickNext(sideEnum.right)\"></div>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t<tr\n\t\t\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.right.calRows\"\n\t\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row].classList\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.right.calCols\"\n\t\t\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row][col]\"\n\t\t\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.right, row, col)\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"select-item hourselect\"\n\t\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedHour\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.hours\"\n\t\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedMinute\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.minutes; let index = index\"\n\t\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t\t\t>{{ timepickerVariables.right.minutesLabel[index] }}</option\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedSecond\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.seconds; let index = index\"\n\t\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t\t\t>{{ timepickerVariables.right.secondsLabel[index] }}</option\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"select\">\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.ampmModel\"\n\t\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.right.amDisabled\">AM</option>\n\t\t\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.right.pmDisabled\">PM</option>\n\t\t\t\t\t\t</select>\n\t\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</mat-card-content>\n\t\t<mat-card-footer>\n\t\t\t<div class=\"buttons\" *ngIf=\"!autoApply && (!rangesArray.length || (showCalInRanges && !singleDatePicker))\">\n\t\t\t\t<div class=\"bottom-buttons\">\n\t\t\t\t\t<div class=\"ranges\">\n\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t<li *ngFor=\"let range of rangesArray\">\n\t\t\t\t\t\t\t\t<button\n\t\t\t\t\t\t\t\t\tmat-button\n\t\t\t\t\t\t\t\t\tcolor=\"default\"\n\t\t\t\t\t\t\t\t\tclass=\"{{ buttonClassRange }}\"\n\t\t\t\t\t\t\t\t\t(click)=\"clickRange($event, range)\"\n\t\t\t\t\t\t\t\t\t[disabled]=\"disableRange(range)\"\n\t\t\t\t\t\t\t\t\t[ngClass]=\"{ active: range === chosenRange }\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t{{ range }}\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"buttons_input\">\n\t\t\t\t\t\t<button mat-flat-button color=\"primary\" (click)=\"clickApply($event)\">{{_locale.applyLabel}}</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</mat-card-footer>\n\t</mat-card>\n</div>\n",
                 // tslint:disable-next-line:no-host-metadata-property
                 host: {
                     '(click)': 'handleInternalClick($event)'
@@ -1464,9 +1574,8 @@
                         multi: true
                     }
                 ],
-                styles: ["td.hidden span,tr.hidden{display:none;cursor:default}td.available:not(.off):hover{border:2px solid #42a5f5}.ranges li{display:inline-block}div.available.prev{display:block;background-image:url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K);background-repeat:no-repeat;background-size:.6em;background-position:center;opacity:1;transition:background-color .2s;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);left:-20px;background-color:#fff;box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}div.available.next{transform:rotate(180deg);display:block;background-image:url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K);background-repeat:no-repeat;background-size:.6em;background-position:center;opacity:1;transition:background-color .2s;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);right:-20px;background-color:#fff;box-shadow:0 -4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}div.available:hover{background-color:#eee;border-color:transparent;color:inherit;cursor:pointer}.md-drppicker{position:absolute;color:inherit;background-color:#fff;border-radius:4px;width:420px;height:565px;padding:4px;margin-top:-10px;overflow:visible;z-index:1000;font-size:16px;box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 2px 8px 0 rgba(0,0,0,.12)}.md-drppicker.double{width:auto}.md-drppicker .bottom-buttons{height:40px;position:fixed;width:calc(100% - 35px);bottom:0;padding:15px;border-top:1px solid #eee}.md-drppicker.inline{position:relative;display:inline-block}.md-drppicker:after,.md-drppicker:before{position:absolute;display:inline-block;border-bottom-color:rgba(0,0,0,.2);content:''}.md-drppicker.openscenter:after,.md-drppicker.openscenter:before{left:0;right:0;width:0;margin-left:auto;margin-right:auto}.md-drppicker.single .calendar,.md-drppicker.single .ranges{float:none}.md-drppicker.shown{transform:scale(1);transition:.1s ease-in-out;transform-origin:0 0;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.shown.drops-up-left{transform-origin:100% 100%}.md-drppicker.shown.drops-up-right{transform-origin:0 100%}.md-drppicker.shown.drops-down-left{transform-origin:100% 0}.md-drppicker.shown.drops-down-right{transform-origin:0 0}.md-drppicker.shown.drops-down-center{transform-origin:NaN}.md-drppicker.shown.drops-up-center{transform-origin:50%}.md-drppicker.shown .calendar{display:block}.md-drppicker.hidden{transition:.1s;transform:scale(0);transform-origin:0 0;cursor:default;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.hidden.drops-up-left{transform-origin:100% 100%}.md-drppicker.hidden.drops-up-right{transform-origin:0 100%}.md-drppicker.hidden.drops-down-left{transform-origin:100% 0}.md-drppicker.hidden.drops-down-right{transform-origin:0 0}.md-drppicker.hidden.drops-down-center{transform-origin:NaN}.md-drppicker.hidden.drops-up-center{transform-origin:50%}.md-drppicker.hidden .calendar{display:none}.md-drppicker .calendar{max-width:390px;margin:0 15px 15px}.md-drppicker .calendar .week-days th{height:28px;width:15px;color:#424242;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar .month{height:28px;width:103px;color:#000;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar.single .calendar-table{border:none}.md-drppicker .calendar td,.md-drppicker .calendar th{padding:0;white-space:nowrap;text-align:center;min-width:44px;height:44px}.md-drppicker .calendar td span,.md-drppicker .calendar th span{pointer-events:none}.md-drppicker .calendar-table{border:1px solid #fff;padding:15px;border-radius:25px;background-color:#fff}.md-drppicker table{width:100%;margin:0;border-collapse:separate}.md-drppicker th{color:#988c8c}.md-drppicker td,.md-drppicker th{text-align:center;border-radius:25px;border:2px solid transparent;white-space:nowrap;cursor:pointer;height:2em;width:2em}.md-drppicker td.week,.md-drppicker th.week{font-size:80%;color:#ccc}.md-drppicker td{margin:.25em 0;opacity:.8;transition:background-color .2s;border-radius:2em;transform:scale(1)}.md-drppicker td.off,.md-drppicker td.off.end-date,.md-drppicker td.off.in-range,.md-drppicker td.off.start-date{background-color:#fff;border-color:transparent;color:#999}.md-drppicker td.in-range{background-color:#e3f2fd;border-color:#e3f2fd;color:#000;opacity:1;border-radius:0}.md-drppicker td.start-date{border-radius:2em 0 0 2em}.md-drppicker td.end-date{border-radius:0 2em 2em 0}.md-drppicker td.start-date.end-date{border-radius:25px}.md-drppicker td.active{transition:background .3s ease-out;color:#fff;box-sizing:border-box;height:44px;width:44px;background-color:#42a5f5}.md-drppicker th.month{width:auto}.md-drppicker option.disabled,.md-drppicker td.disabled{color:#999;cursor:not-allowed;text-decoration:line-through}.md-drppicker .dropdowns{background-repeat:no-repeat;background-size:10px;background-position-y:center;background-position-x:right;width:108px;background-image:url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDI1NSAyNTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYXJyb3ctZHJvcC1kb3duIj4KCQk8cG9seWdvbiBwb2ludHM9IjAsNjMuNzUgMTI3LjUsMTkxLjI1IDI1NSw2My43NSAgICIgZmlsbD0iIzk4OGM4YyIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)}.md-drppicker .dropdowns select{display:inline-block;background-color:rgba(255,255,255,.9);width:100%;padding:5px;border:1px solid #f2f2f2;border-radius:2px;height:3rem}.md-drppicker .dropdowns select.ampmselect,.md-drppicker .dropdowns select.hourselect,.md-drppicker .dropdowns select.minuteselect,.md-drppicker .dropdowns select.secondselect{width:50px;margin:0 auto;background:#eee;border:1px solid #eee;padding:2px;outline:0;font-size:12px}.md-drppicker .dropdowns select.monthselect,.md-drppicker .dropdowns select.yearselect{font-size:12px;height:auto;cursor:pointer;opacity:0;position:absolute;top:0;left:0;margin:0;padding:0}.md-drppicker th.month>div{position:relative;display:inline-block}.md-drppicker .calendar-time{text-align:center;margin:4px auto 0;line-height:30px;position:relative}.md-drppicker .calendar-time .select{display:inline}.md-drppicker .calendar-time .select .select-item{display:inline-block;width:auto;position:relative;font-family:inherit;background-color:transparent;padding:10px 10px 10px 0;font-size:18px;border-radius:0;border:none;border-bottom:1px solid rgba(0,0,0,.12)}.md-drppicker .calendar-time .select .select-item:after{position:absolute;top:18px;right:10px;width:0;height:0;padding:0;content:'';border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(0,0,0,.12);pointer-events:none}.md-drppicker .calendar-time .select .select-item:focus{outline:0}.md-drppicker .calendar-time .select .select-item .select-label{color:rgba(0,0,0,.26);font-size:16px;font-weight:400;position:absolute;pointer-events:none;left:0;top:10px;transition:.2s}.md-drppicker .calendar-time select.disabled{color:#ccc;cursor:not-allowed}.md-drppicker .label-input{border:1px solid #ccc;border-radius:25px;color:#555;height:30px;line-height:30px;display:block;vertical-align:middle;margin:0 auto 5px;padding:0 0 0 28px;width:100%}.md-drppicker .label-input.active{border:1px solid #08c;border-radius:25px}.md-drppicker .md-drppicker_input{position:relative;padding:0 30px 0 0}.md-drppicker .md-drppicker_input i,.md-drppicker .md-drppicker_input svg{position:absolute;left:8px;top:8px}.md-drppicker.rtl .label-input{padding-right:28px;padding-left:6px}.md-drppicker.rtl .md-drppicker_input i,.md-drppicker.rtl .md-drppicker_input svg{left:auto;right:8px}.md-drppicker .show-ranges .drp-calendar.left{border-left:1px solid #ddd}.md-drppicker .ranges{float:none;text-align:left;margin:0}.md-drppicker .ranges ul{list-style:none;margin:0 auto;padding:0;width:100%}.md-drppicker .ranges ul li{font-size:12px;margin-right:20px}.md-drppicker .ranges ul li button{padding:8px 12px;width:100%;background:0 0;border:none;text-align:left;cursor:pointer}.md-drppicker .ranges ul li button[disabled]{opacity:.3}.md-drppicker .show-calendar .ranges{margin-top:8px}.md-drppicker [hidden]{display:none}.md-drppicker .buttons{text-align:right;margin:0 5px 5px 0}.md-drppicker .btn{position:relative;overflow:hidden;border-width:0;outline:0;padding:0 6px;cursor:pointer;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.6);background-color:#3f51b5;color:#ecf0f1;transition:background-color .4s;height:auto;text-transform:uppercase;line-height:36px;border:none}.md-drppicker .btn:focus,.md-drppicker .btn:hover{background-color:#3f51b5}.md-drppicker .btn>*{position:relative}.md-drppicker .btn span{display:block;padding:12px 24px}.md-drppicker .btn:before{content:'';position:absolute;top:50%;left:50%;display:block;width:0;padding-top:0;border-radius:100%;background-color:rgba(236,240,241,.3);transform:translate(-50%,-50%)}.md-drppicker .btn:active:before{width:120%;padding-top:120%;transition:width .2s ease-out,padding-top .2s ease-out}.md-drppicker .btn:disabled{opacity:.5}.md-drppicker .btn.btn-default{color:#000;background-color:#dcdcdc}.md-drppicker .clear{box-shadow:none;background-color:#fff!important}.md-drppicker .clear svg{color:#eb3232;fill:currentColor}@media (min-width:564px){.md-drppicker{width:auto}.md-drppicker.single .calendar.left{clear:none}.md-drppicker.ltr{direction:ltr;text-align:left}.md-drppicker.ltr .calendar.left{clear:left}.md-drppicker.ltr .calendar.left .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0;padding-right:12px}.md-drppicker.ltr .calendar.right{margin-left:0}.md-drppicker.ltr .calendar.right .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.ltr .left .md-drppicker_input,.md-drppicker.ltr .right .md-drppicker_input{padding-right:35px}.md-drppicker.ltr .calendar,.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl{direction:rtl;text-align:right}.md-drppicker.rtl .calendar.left{clear:right;margin-left:0}.md-drppicker.rtl .calendar.left .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.rtl .calendar.right{margin-right:0}.md-drppicker.rtl .calendar.right .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0}.md-drppicker.rtl .calendar.left .calendar-table,.md-drppicker.rtl .left .md-drppicker_input{padding-left:12px}.md-drppicker.rtl .calendar,.md-drppicker.rtl .ranges{text-align:right;float:right}.drp-animate{transform:translate(0);transition:transform .2s,opacity .2s}.drp-animate.drp-picker-site-this{transition-timing-function:linear}.drp-animate.drp-animate-right{transform:translateX(10%);opacity:0}.drp-animate.drp-animate-left{transform:translateX(-10%);opacity:0}}@media (min-width:730px){.md-drppicker .ranges{width:auto}.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl .ranges{float:right}.md-drppicker .calendar.left{clear:none!important}}.field-row{width:100%;height:65px;border-bottom:1px solid #eee}.field-row mat-form-field{float:right;margin-right:15px}.field-row .mat-form-field-flex{height:55px;padding-top:10px}.cal-reset-btn{margin-top:15px;float:right;margin-right:15px}td.available:hover{border:2px solid #42a5f5}.mobile-datepicker ngx-daterangepicker-material{top:0;left:0}.mobile-datepicker .md-drppicker{height:calc(100vh);width:calc(100% - 8px);top:0!important;left:0!important;right:auto!important;overflow:hidden}.mobile-datepicker .md-drppicker .calendar-table{padding:0}.mobile-datepicker .md-drppicker .prev{top:85px;left:10px}.mobile-datepicker .md-drppicker .next{top:85px;left:calc(100vw - 55px)}.mobile-datepicker .field-row{width:100vw;height:65px}.mobile-datepicker .field-row mat-form-field{float:right;margin-right:10px;width:36%}.mobile-datepicker .field-row button{width:20%;margin-right:5px}.mobile-datepicker .calendar{text-align:center;margin:35px 0 0 -5px;max-width:100vw}"]
-            }),
-            __metadata("design:paramtypes", [core.ElementRef, core.ChangeDetectorRef, LocaleService])
+                styles: ["td.hidden span,tr.hidden{display:none;cursor:default}td.available:not(.off):hover{border:2px solid #42a5f5}.ranges li{display:inline-block}div.available.prev{display:block;background-image:url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K);background-repeat:no-repeat;background-size:.6em;background-position:center;opacity:1;transition:background-color .2s;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);left:-20px;background-color:#fff;box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}div.available.next{transform:rotate(180deg);display:block;background-image:url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K);background-repeat:no-repeat;background-size:.6em;background-position:center;opacity:1;transition:background-color .2s;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);right:-20px;background-color:#fff;box-shadow:0 -4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}div.available:hover{background-color:#eee;border-color:transparent;color:inherit;cursor:pointer}.md-drppicker{display:flex;position:absolute;color:inherit;background-color:#fff;border-radius:4px;width:420px;height:565px;padding:0;margin-top:-10px;overflow:visible;z-index:9999;font-size:16px;box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 2px 8px 0 rgba(0,0,0,.12)}.md-drppicker .mat-card{display:flex;justify-content:space-between;flex-direction:column}.md-drppicker .mat-form-field-infix,.md-drppicker .mat-form-field-wrapper{padding:0;margin:0}.md-drppicker.double{width:auto}.md-drppicker .bottom-buttons{height:65px;position:fixed;left:0;right:0;bottom:0;padding:15px;border-top:1px solid #eee}.md-drppicker.inline{position:relative;display:inline-block}.md-drppicker:after,.md-drppicker:before{position:absolute;display:inline-block;border-bottom-color:rgba(0,0,0,.2);content:\"\"}.md-drppicker.openscenter:after,.md-drppicker.openscenter:before{left:0;right:0;width:0;margin-left:auto;margin-right:auto}.md-drppicker.single .calendar,.md-drppicker.single .ranges{float:none}.md-drppicker.shown{transform:scale(1);transition:.1s ease-in-out;transform-origin:0 0;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.shown.drops-up-left{transform-origin:100% 100%}.md-drppicker.shown.drops-up-right{transform-origin:0 100%}.md-drppicker.shown.drops-down-left{transform-origin:100% 0}.md-drppicker.shown.drops-down-right{transform-origin:0 0}.md-drppicker.shown.drops-down-center{transform-origin:NaN%}.md-drppicker.shown.drops-up-center{transform-origin:50%}.md-drppicker.shown .calendar{display:block}.md-drppicker.hidden{transition:.1s;transform:scale(0);transform-origin:0 0;cursor:default;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.hidden.drops-up-left{transform-origin:100% 100%}.md-drppicker.hidden.drops-up-right{transform-origin:0 100%}.md-drppicker.hidden.drops-down-left{transform-origin:100% 0}.md-drppicker.hidden.drops-down-right{transform-origin:0 0}.md-drppicker.hidden.drops-down-center{transform-origin:NaN%}.md-drppicker.hidden.drops-up-center{transform-origin:50%}.md-drppicker.hidden .calendar{display:none}.md-drppicker .calendar{max-width:390px;margin:0 15px 15px}.md-drppicker .calendar .week-days th{height:28px;width:15px;color:#424242;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar .month{height:28px;width:103px;color:#000;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar.single .calendar-table{border:none}.md-drppicker .calendar td,.md-drppicker .calendar th{padding:0;white-space:nowrap;text-align:center;min-width:44px;height:44px}.md-drppicker .calendar td span,.md-drppicker .calendar th span{pointer-events:none}.md-drppicker .calendar-table{border:1px solid #fff;padding:15px;border-radius:25px;background-color:#fff}.md-drppicker table{width:100%;margin:0;border-collapse:separate}.md-drppicker th{color:#988c8c}.md-drppicker td,.md-drppicker th{text-align:center;border-radius:25px;border:2px solid transparent;white-space:nowrap;cursor:pointer;height:2em;width:2em}.md-drppicker td.week,.md-drppicker th.week{font-size:80%;color:#ccc}.md-drppicker td{margin:.25em 0;opacity:.8;transition:background-color .2s;border-radius:2em;transform:scale(1)}.md-drppicker td.off,.md-drppicker td.off.end-date,.md-drppicker td.off.in-range,.md-drppicker td.off.start-date{background-color:#fff;border-color:transparent;color:#999}.md-drppicker td.in-range{background-color:#e3f2fd;border-color:#e3f2fd;color:#000;opacity:1;border-radius:0}.md-drppicker td.start-date{border-radius:2em 0 0 2em}.md-drppicker td.end-date{border-radius:0 2em 2em 0}.md-drppicker td.start-date.end-date{border-radius:25px}.md-drppicker td.active{transition:background .3s ease-out;color:#fff;box-sizing:border-box;height:44px;width:44px;background-color:#42a5f5;border-color:#42a5f5}.md-drppicker td.active:hover{border-color:#e3f2fd}.md-drppicker th.month{width:auto}.md-drppicker option.disabled,.md-drppicker td.disabled{color:#999;cursor:not-allowed;text-decoration:line-through}.md-drppicker .dropdowns{background-repeat:no-repeat;background-size:10px;background-position-y:center;background-position-x:right;width:108px;background-image:url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDI1NSAyNTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYXJyb3ctZHJvcC1kb3duIj4KCQk8cG9seWdvbiBwb2ludHM9IjAsNjMuNzUgMTI3LjUsMTkxLjI1IDI1NSw2My43NSAgICIgZmlsbD0iIzk4OGM4YyIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)}.md-drppicker .dropdowns select{display:inline-block;background-color:rgba(255,255,255,.9);width:100%;padding:5px;border:1px solid #f2f2f2;border-radius:2px;height:3rem}.md-drppicker .dropdowns select.ampmselect,.md-drppicker .dropdowns select.hourselect,.md-drppicker .dropdowns select.minuteselect,.md-drppicker .dropdowns select.secondselect{width:50px;margin:0 auto;background:#eee;border:1px solid #eee;padding:2px;outline:0;font-size:12px}.md-drppicker .dropdowns select.monthselect,.md-drppicker .dropdowns select.yearselect{font-size:12px;height:auto;cursor:pointer;opacity:0;position:absolute;top:0;left:0;margin:0;padding:0}.md-drppicker th.month>div{position:relative;display:inline-block}.md-drppicker .calendar-time{text-align:center;margin:4px auto 0;line-height:30px;position:relative}.md-drppicker .calendar-time .select{display:inline}.md-drppicker .calendar-time .select .select-item{display:inline-block;width:auto;position:relative;font-family:inherit;background-color:transparent;padding:10px 10px 10px 0;font-size:18px;border-radius:0;border:none;border-bottom:1px solid rgba(0,0,0,.12)}.md-drppicker .calendar-time .select .select-item:after{position:absolute;top:18px;right:10px;width:0;height:0;padding:0;content:\"\";border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(0,0,0,.12);pointer-events:none}.md-drppicker .calendar-time .select .select-item:focus{outline:0}.md-drppicker .calendar-time .select .select-item .select-label{color:rgba(0,0,0,.26);font-size:16px;font-weight:400;position:absolute;pointer-events:none;left:0;top:10px;transition:.2s}.md-drppicker .calendar-time select.disabled{color:#ccc;cursor:not-allowed}.md-drppicker .label-input{border:1px solid #ccc;border-radius:25px;color:#555;height:30px;line-height:30px;display:block;vertical-align:middle;margin:0 auto 5px;padding:0 0 0 28px;width:100%}.md-drppicker .label-input.active{border:1px solid #42a5f5;border-radius:25px}.md-drppicker .md-drppicker_input{position:relative;padding:0 30px 0 0}.md-drppicker .md-drppicker_input i,.md-drppicker .md-drppicker_input svg{position:absolute;left:8px;top:8px}.md-drppicker.rtl .label-input{padding-right:28px;padding-left:6px}.md-drppicker.rtl .md-drppicker_input i,.md-drppicker.rtl .md-drppicker_input svg{left:auto;right:8px}.md-drppicker .show-ranges .drp-calendar.left{border-left:1px solid #ddd}.md-drppicker .ranges{float:none;text-align:left;margin:0}.md-drppicker .ranges ul{list-style:none;margin:0 auto;padding:0;width:100%}.md-drppicker .ranges ul li{font-size:12px;margin-right:20px}.md-drppicker .ranges ul li button{padding:8px 12px;width:100%;background:0 0;border:none;text-align:left;cursor:pointer}.md-drppicker .ranges ul li button[disabled]{opacity:.3}.md-drppicker .show-calendar .ranges{margin-top:8px}.md-drppicker [hidden]{display:none}.md-drppicker .buttons{text-align:right;margin:0 5px 5px 0}.md-drppicker .btn{position:relative;overflow:hidden;border-width:0;outline:0;padding:0 6px;cursor:pointer;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.6);background-color:#3f51b5;color:#ecf0f1;transition:background-color .4s;height:auto;text-transform:uppercase;line-height:36px;border:none}.md-drppicker .btn:focus,.md-drppicker .btn:hover{background-color:#3f51b5}.md-drppicker .btn>*{position:relative}.md-drppicker .btn span{display:block;padding:12px 24px}.md-drppicker .btn:before{content:\"\";position:absolute;top:50%;left:50%;display:block;width:0;padding-top:0;border-radius:100%;background-color:rgba(236,240,241,.3);transform:translate(-50%,-50%)}.md-drppicker .btn:active:before{width:120%;padding-top:120%;transition:width .2s ease-out,padding-top .2s ease-out}.md-drppicker .btn:disabled{opacity:.5}.md-drppicker .btn.btn-default{color:#000;background-color:#dcdcdc}.md-drppicker .clear{box-shadow:none;background-color:#fff!important}.md-drppicker .clear svg{color:#eb3232;fill:currentColor}@media (min-width:564px){.md-drppicker{width:auto}.md-drppicker.single .calendar.left{clear:none}.md-drppicker.ltr{direction:ltr;text-align:left}.md-drppicker.ltr .calendar.left{clear:left}.md-drppicker.ltr .calendar.left .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0;padding-right:12px}.md-drppicker.ltr .calendar.right{margin-left:0}.md-drppicker.ltr .calendar.right .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.ltr .left .md-drppicker_input,.md-drppicker.ltr .right .md-drppicker_input{padding-right:35px}.md-drppicker.ltr .calendar,.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl{direction:rtl;text-align:right}.md-drppicker.rtl .calendar.left{clear:right;margin-left:0}.md-drppicker.rtl .calendar.left .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.rtl .calendar.right{margin-right:0}.md-drppicker.rtl .calendar.right .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0}.md-drppicker.rtl .calendar.left .calendar-table,.md-drppicker.rtl .left .md-drppicker_input{padding-left:12px}.md-drppicker.rtl .calendar,.md-drppicker.rtl .ranges{text-align:right;float:right}.drp-animate{transform:translate(0);transition:transform .2s,opacity .2s}.drp-animate.drp-picker-site-this{transition-timing-function:linear}.drp-animate.drp-animate-right{transform:translateX(10%);opacity:0}.drp-animate.drp-animate-left{transform:translateX(-10%);opacity:0}}@media (min-width:730px){.md-drppicker .ranges{width:auto}.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl .ranges{float:right}.md-drppicker .calendar.left{clear:none!important}}.field-row{width:100%;height:65px;border-bottom:1px solid #eee}.field-row mat-form-field{float:right;margin-right:15px}.field-row .mat-form-field-flex{height:55px;padding-top:10px}.cal-reset-btn{margin-top:15px;float:right;margin-right:15px}td.available:hover{border:2px solid #42a5f5}.mobile-datepicker ngx-daterangepicker-material{top:0;left:0}.mobile-datepicker .md-drppicker{height:calc(100vh);width:calc(100% - 8px);top:0!important;left:0!important;right:auto!important;overflow:hidden}.mobile-datepicker .md-drppicker .calendar-table{padding:0}.mobile-datepicker .md-drppicker .prev{top:85px;left:10px}.mobile-datepicker .md-drppicker .next{top:85px;left:calc(100vw - 55px)}.mobile-datepicker .field-row{width:100vw;height:65px}.mobile-datepicker .field-row mat-form-field{float:right;margin-right:10px;width:36%}.mobile-datepicker .field-row button{width:20%;margin-right:5px}.mobile-datepicker .calendar{text-align:center;margin:35px 0 0 -5px;max-width:100vw}"]
+            })
         ], DaterangepickerComponent);
         return DaterangepickerComponent;
     }());
@@ -1674,11 +1783,13 @@
             // todo: revisit the offsets where when both the shared components are done and the order search rework is finished
             var container = this.picker.pickerContainer.nativeElement;
             var element = this._el.nativeElement;
+            console.log('container', container);
+            console.log('element', element);
             if (this.drops && this.drops === 'up') {
                 containerTop = element.offsetTop - container.clientHeight + 'px';
             }
             else {
-                containerTop = '-20px';
+                containerTop = element.offsetTop + 'px';
             }
             if (this.opens === 'left') {
                 style = {
@@ -1764,174 +1875,147 @@
             }
         };
         var DaterangepickerDirective_1;
+        DaterangepickerDirective.ctorParameters = function () { return [
+            { type: core.ViewContainerRef },
+            { type: core.ChangeDetectorRef },
+            { type: core.ComponentFactoryResolver },
+            { type: core.ElementRef },
+            { type: core.Renderer2 },
+            { type: core.KeyValueDiffers },
+            { type: LocaleService },
+            { type: core.ElementRef }
+        ]; };
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerDirective.prototype, "minDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerDirective.prototype, "maxDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "autoApply", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "alwaysShowCalendars", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showCustomRangeLabel", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "linkedCalendars", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Number)
+            core.Input()
+        ], DaterangepickerDirective.prototype, "buttonClassApply", void 0);
+        __decorate([
+            core.Input()
+        ], DaterangepickerDirective.prototype, "buttonClassReset", void 0);
+        __decorate([
+            core.Input()
+        ], DaterangepickerDirective.prototype, "buttonClassRange", void 0);
+        __decorate([
+            core.Input()
         ], DaterangepickerDirective.prototype, "dateLimit", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "singleDatePicker", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showWeekNumbers", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showISOWeekNumbers", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showDropdowns", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Function)
+            core.Input()
         ], DaterangepickerDirective.prototype, "isInvalidDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Function)
+            core.Input()
         ], DaterangepickerDirective.prototype, "isCustomDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showClearButton", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "customRangeDirection", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerDirective.prototype, "ranges", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "opens", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "drops", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "lastMonthDayClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "emptyWeekRowClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "firstDayOfNextMonthClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "lastDayOfPreviousMonthClass", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "keepCalendarOpeningWithRange", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showRangeLabelOnInput", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "showCancel", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "lockStartDate", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "timePicker", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "timePicker24Hour", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Number)
+            core.Input()
         ], DaterangepickerDirective.prototype, "timePickerIncrement", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
+            core.Input()
         ], DaterangepickerDirective.prototype, "timePickerSeconds", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
+            core.Input()
         ], DaterangepickerDirective.prototype, "closeOnAutoApply", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
+            core.Input()
         ], DaterangepickerDirective.prototype, "locale", null);
         __decorate([
-            core.Input(),
-            __metadata("design:type", String)
+            core.Input()
         ], DaterangepickerDirective.prototype, "_endKey", void 0);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
+            core.Input()
         ], DaterangepickerDirective.prototype, "startKey", null);
         __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
+            core.Input()
         ], DaterangepickerDirective.prototype, "endKey", null);
         __decorate([
-            core.Output('change'),
-            __metadata("design:type", core.EventEmitter)
+            core.Output('change')
         ], DaterangepickerDirective.prototype, "onChange", void 0);
         __decorate([
-            core.Output('rangeClicked'),
-            __metadata("design:type", core.EventEmitter)
+            core.Output('rangeClicked')
         ], DaterangepickerDirective.prototype, "rangeClicked", void 0);
         __decorate([
-            core.Output('datesUpdated'),
-            __metadata("design:type", core.EventEmitter)
+            core.Output('datesUpdated')
         ], DaterangepickerDirective.prototype, "datesUpdated", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerDirective.prototype, "startDateChanged", void 0);
         __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
+            core.Output()
         ], DaterangepickerDirective.prototype, "endDateChanged", void 0);
         __decorate([
-            core.HostListener('document:click', ['$event']),
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [Object]),
-            __metadata("design:returntype", void 0)
+            core.HostListener('document:click', ['$event'])
         ], DaterangepickerDirective.prototype, "outsideClick", null);
         DaterangepickerDirective = DaterangepickerDirective_1 = __decorate([
             core.Directive({
@@ -1951,15 +2035,7 @@
                         multi: true
                     }
                 ]
-            }),
-            __metadata("design:paramtypes", [core.ViewContainerRef,
-                core.ChangeDetectorRef,
-                core.ComponentFactoryResolver,
-                core.ElementRef,
-                core.Renderer2,
-                core.KeyValueDiffers,
-                LocaleService,
-                core.ElementRef])
+            })
         ], DaterangepickerDirective);
         return DaterangepickerDirective;
     }());
@@ -1986,16 +2062,17 @@
                     common.CommonModule,
                     forms.FormsModule,
                     forms.ReactiveFormsModule,
-                    material.MatFormFieldModule,
-                    material.MatInputModule,
-                    material.MatDatepickerModule,
-                    material.MatIconModule
+                    formField.MatFormFieldModule,
+                    input.MatInputModule,
+                    datepicker.MatDatepickerModule,
+                    icon.MatIconModule,
+                    button.MatButtonModule,
+                    card.MatCardModule
                 ],
                 providers: [],
                 exports: [DaterangepickerComponent, DaterangepickerDirective],
                 entryComponents: [DaterangepickerComponent]
-            }),
-            __metadata("design:paramtypes", [])
+            })
         ], NgxDaterangepickerMd);
         return NgxDaterangepickerMd;
     }());
@@ -2009,5 +2086,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=ngx-daterangepicker-material.umd.js.map

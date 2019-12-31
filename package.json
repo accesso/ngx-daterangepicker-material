@@ -23,7 +23,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4201",
     "demo:build": "ng build --prod",
     "test": "./node_modules/.bin/ng test --watch=false",
     "lint": "ng lint",
@@ -40,7 +40,12 @@
     "url": "https://github.com/fetrarij/ngx-daterangepicker-material.git"
   },
   "peerDependencies": {
-    "moment": "^2.21.0"
+    "moment": "^2.21.0",
+    "@angular/animations": "^8.2.3",
+    "@angular/cdk": "~8.2.3",
+    "@angular/forms": "^8.2.3",
+    "@angular/material": "~8.2.3",
+    "hammerjs": "^2.0.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.21",

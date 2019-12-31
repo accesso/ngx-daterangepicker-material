@@ -11,6 +11,8 @@ export interface LocaleConfig {
     cancelLabel?: string;
     clearLabel?: string;
     customRangeLabel?: string;
+    startDateLabel?: string;
+    endDateLabel?: string;
     daysOfWeek?: string[];
     monthNames?: string[];
     firstDay?: number;

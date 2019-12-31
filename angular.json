@@ -21,6 +21,7 @@
               "demo/src/favicon.ico"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "demo/src/styles.scss"
             ],
             "scripts": []
@@ -71,6 +72,7 @@
             "tsConfig": "demo/src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "demo/src/styles.scss"
             ],
             "assets": [

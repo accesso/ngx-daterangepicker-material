@@ -53,6 +53,9 @@ export declare class DaterangepickerComponent implements OnInit {
     emptyWeekRowClass: string;
     firstDayOfNextMonthClass: string;
     lastDayOfPreviousMonthClass: string;
+    buttonClassApply: string;
+    buttonClassReset: string;
+    buttonClassRange: string;
     _locale: LocaleConfig;
     locale: any;
     _ranges: any;

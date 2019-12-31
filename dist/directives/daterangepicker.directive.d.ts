@@ -24,6 +24,9 @@ export declare class DaterangepickerDirective implements OnInit, OnChanges, DoCh
     alwaysShowCalendars: boolean;
     showCustomRangeLabel: boolean;
     linkedCalendars: boolean;
+    buttonClassApply: string;
+    buttonClassReset: string;
+    buttonClassRange: string;
     dateLimit: number;
     singleDatePicker: boolean;
     showWeekNumbers: boolean;
