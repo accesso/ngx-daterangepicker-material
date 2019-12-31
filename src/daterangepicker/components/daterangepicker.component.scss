@@ -146,6 +146,10 @@ div {
 	font-size: 16px;
 	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
 
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   .mat-card {
     display: flex;
     justify-content: space-between;
@@ -161,12 +165,20 @@ div {
 
   .mat-form-field-wrapper, .mat-form-field-infix {
     border-top: none;
-    padding: 0;
     margin: 0;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: .4375em 0;
   }
 
   .custom-range-label {
     display: inline-flex;
+  }
+
+  .range-buttons {
+    display: flex;
+    align-items: flex-start;
   }
 
 	&.double {

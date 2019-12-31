@@ -34,7 +34,7 @@ export const DefaultLocaleConfig: LocaleConfig = {
 	clearLabel: 'Clear',
 	startDateLabel: 'Start Date',
 	endDateLabel: 'End Date',
-	customRangeLabel: 'Custom range',
+	customRangeLabel: 'Presets',
 	daysOfWeek: moment.weekdaysMin(),
 	monthNames: moment.months(),
 	firstDay: moment.localeData().firstDayOfWeek()

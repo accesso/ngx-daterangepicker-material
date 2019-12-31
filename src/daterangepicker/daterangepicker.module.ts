@@ -12,20 +12,22 @@ import { DaterangepickerComponent } from './components/daterangepicker.component
 import { DaterangepickerDirective } from './directives/daterangepicker.directive';
 import { LOCALE_CONFIG, LocaleConfig } from './daterangepicker.config';
 import { LocaleService } from './services/locale.service';
+import {MatDividerModule} from '@angular/material';
 
 @NgModule({
 	declarations: [DaterangepickerComponent, DaterangepickerDirective],
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatDatepickerModule,
-		MatIconModule,
-		MatButtonModule,
-		MatCardModule
-	],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule
+  ],
 	providers: [],
 	exports: [DaterangepickerComponent, DaterangepickerDirective],
 	entryComponents: [DaterangepickerComponent]
