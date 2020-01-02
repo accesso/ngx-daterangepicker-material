@@ -297,10 +297,6 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 		// todo: revisit the offsets where when both the shared components are done and the order search rework is finished
 		const container = this.picker.pickerContainer.nativeElement;
 		const element = this._el.nativeElement;
-		console.log('container', container);
-		console.log('element', element);
-		console.log('element.offsetTop', element.offsetTop);
-		console.log('container.clientHeight', container.clientHeight);
 
 		if (this.drops && this.drops === 'up') {
 			containerTop = element.offsetTop - container.clientHeight + 'px';
@@ -386,7 +382,10 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 			return;
 		}
 
-		if (!this.elementRef.nativeElement.contains(event.target)) {
+		if (
+			!this.elementRef.nativeElement.contains(event.target) &&
+			(event.target as HTMLSpanElement).className.indexOf('mat-option') === -1
+		) {
 			this.hide();
 		}
 	}

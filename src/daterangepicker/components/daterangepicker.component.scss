@@ -142,9 +142,17 @@ div {
 	padding: 0;
 	margin-top: -10px;
 	overflow: visible;
-	z-index: 9999;
+	z-index: 1000;
 	font-size: 16px;
 	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+
+  &.single {
+    height: 395px;
+
+    .calendar.right {
+      margin: 0;
+    }
+  }
 
   *, *:before, *:after {
     box-sizing: border-box;
@@ -152,7 +160,7 @@ div {
 
   .mat-card {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-direction: column;
   }
 
@@ -161,6 +169,10 @@ div {
     flex-direction: row;
     justify-content: flex-end;
     margin: 0;
+
+    .mat-form-field:not(:last-child) {
+      margin-right: 15px;
+    }
   }
 
   .mat-form-field-flex {
@@ -175,6 +187,19 @@ div {
   .mat-form-field-wrapper, .mat-form-field-infix {
     border-top: none;
     margin: 0;
+  }
+
+  .mat-select-value {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .year {
+    max-width: 88px;
+
+    mat-form-field {
+      width: 100%;
+    }
   }
 
   .mat-form-field-appearance-legacy .mat-form-field-infix {
@@ -272,7 +297,8 @@ div {
 			transform-origin: 50%% 100%;
 		}
 		.calendar {
-			display: block;
+      display: flex;
+      align-self: start;
 		}
 	}
 	&.hidden {

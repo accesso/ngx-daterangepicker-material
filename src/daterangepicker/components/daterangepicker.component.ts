@@ -375,7 +375,6 @@ export class DaterangepickerComponent implements OnInit {
 		this.timepickerVariables[side].selected = selected;
 	}
 	renderCalendar(side: SideEnum) {
-		// side enum
 		const mainCalendar: any = side === SideEnum.left ? this.leftCalendar : this.rightCalendar;
 		const month = mainCalendar.month.month();
 		const year = mainCalendar.month.year();
@@ -454,7 +453,10 @@ export class DaterangepickerComponent implements OnInit {
 		//
 		// Display the calendar
 		//
-		const minDate = side === 'left' ? this.minDate : this.startDate;
+		const minDate = side === 'left' ? this.minDate : this.startDate.clone();
+		if (this.leftCalendar.month && minDate && this.leftCalendar.month.year() < minDate.year()) {
+			minDate.year(this.leftCalendar.month.year());
+		}
 		let maxDate = this.maxDate;
 		// adjust maxDate to reflect the dateLimit setting in order to
 		// grey out end dates beyond the dateLimit
@@ -493,7 +495,7 @@ export class DaterangepickerComponent implements OnInit {
 			const currentYear = calendar[1][1].year();
 			const realCurrentYear = moment().year();
 			const maxYear = (maxDate && maxDate.year()) || realCurrentYear + 5;
-			const minYear = (minDate && minDate.year()) || realCurrentYear - 50;
+			const minYear = (minDate && minDate.year()) || realCurrentYear - 100;
 			const inMinYear = currentYear === minYear;
 			const inMaxYear = currentYear === maxYear;
 			const years = [];
@@ -511,7 +513,6 @@ export class DaterangepickerComponent implements OnInit {
 				yearArrays: years
 			};
 		}
-
 		this._buildCells(calendar, side);
 	}
 	setStartDate(startDate) {
@@ -803,7 +804,7 @@ export class DaterangepickerComponent implements OnInit {
 	 */
 	monthChanged(monthEvent: any, side: SideEnum) {
 		const year = this.calendarVariables[side].dropdowns.currentYear;
-		const month = parseInt(monthEvent.target.value, 10);
+		const month = parseInt(monthEvent.value, 10);
 		this.monthOrYearChanged(month, year, side);
 	}
 	/**
@@ -813,7 +814,7 @@ export class DaterangepickerComponent implements OnInit {
 	 */
 	yearChanged(yearEvent: any, side: SideEnum) {
 		const month = this.calendarVariables[side].dropdowns.currentMonth;
-		const year = parseInt(yearEvent.target.value, 10);
+		const year = parseInt(yearEvent.value, 10);
 		this.monthOrYearChanged(month, year, side);
 	}
 	/**
@@ -899,8 +900,10 @@ export class DaterangepickerComponent implements OnInit {
 				year = this.maxDate.year();
 			}
 		}
+
 		this.calendarVariables[side].dropdowns.currentYear = year;
 		this.calendarVariables[side].dropdowns.currentMonth = month;
+
 		if (isLeft) {
 			this.leftCalendar.month.month(month).year(year);
 			if (this.linkedCalendars) {
@@ -1290,7 +1293,11 @@ export class DaterangepickerComponent implements OnInit {
 					classes.push('active', 'end-date');
 				}
 				// highlight dates in-between the selected dates
-				if (this.endDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.endDate) {
+				if (
+					this.endDate != null &&
+					calendar[row][col].isAfter(this.startDate, 'day') &&
+					calendar[row][col].isBefore(this.endDate, 'day')
+				) {
 					classes.push('in-range');
 				}
 				// apply custom classes for this date
@@ -1319,6 +1326,7 @@ export class DaterangepickerComponent implements OnInit {
 			if (colOffCount === 7) {
 				rowClasses.push('off');
 				rowClasses.push('disabled');
+				rowClasses.push('hidden');
 			}
 			this.calendarVariables[side].classes[row].classList = rowClasses.join(' ');
 		}
