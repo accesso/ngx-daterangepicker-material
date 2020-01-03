@@ -79,16 +79,11 @@ td.available:not(.off):hover {
 	display: inline-block;
 }
 
-div {
+button {
 	&.available {
 		&.prev {
 			display: block;
-			background-image: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K');
-			background-repeat: no-repeat;
-			background-size: 0.6em;
-			background-position: center;
 			opacity: 1;
-			transition: background-color 0.2s ease;
 			border-radius: 2em;
 			height: 40px;
 			width: 40px;
@@ -96,20 +91,15 @@ div {
 			top: calc(50% - 20px);
 			left: -20px;
 			background-color: white;
-			box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-				0 2px 4px -1px rgba(0, 0, 0, 0.2);
-			&:hover {
+			color: black;
+
+			mat-icon {
+				transform: rotateY(180deg);
 			}
 		}
 		&.next {
-			transform: rotate(180deg);
 			display: block;
-			background-image: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMy43IDYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMuNyA2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjcsMC43TDEuNCwzbDIuMywyLjNMMyw2TDAsM2wzLTNMMy43LDAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K');
-			background-repeat: no-repeat;
-			background-size: 0.6em;
-			background-position: center;
 			opacity: 1;
-			transition: background-color 0.2s ease;
 			border-radius: 2em;
 			height: 40px;
 			width: 40px;
@@ -117,16 +107,7 @@ div {
 			top: calc(50% - 20px);
 			right: -20px;
 			background-color: white;
-			box-shadow: 0 -4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-				0 2px 4px -1px rgba(0, 0, 0, 0.2);
-			&:hover {
-			}
-		}
-		&:hover {
-			background-color: $md-drppicker-cell-hover-bg-color;
-			border-color: $md-drppicker-cell-hover-border-color;
-			color: $md-drppicker-cell-hover-color;
-			cursor: pointer;
+			color: black;
 		}
 	}
 }
