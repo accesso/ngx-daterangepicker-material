@@ -67,12 +67,12 @@ $input-height: 3rem !default;
 
 td.hidden span,
 tr.hidden {
-  display: none;
-  cursor: default;
+	display: none;
+	cursor: default;
 }
 
 td.available:not(.off):hover {
-  border: 2px solid #42a5f5;
+	border: 2px solid #42a5f5;
 }
 
 .ranges li {
@@ -113,107 +113,132 @@ button {
 }
 
 .md-drppicker {
-  display: flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	position: absolute;
+
+	height: 555px;
+	padding: 0;
+	margin: 0;
+
 	color: $md-drppicker-color;
 	background-color: $md-drppicker-bg-color;
-	border-radius: 4px;
 	width: $md-drppicker-width;
-	height: 565px;
-	padding: 0;
-	margin-top: -10px;
-	overflow: visible;
+
 	z-index: 1000;
-	font-size: 16px;
-	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
 
-  &.single {
-    height: 395px;
+	.dp-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 16px;
+		border-bottom: 1px solid #EEEEEE;
 
-    .calendar.right {
-      margin: 0;
-    }
-  }
+		.cal-reset-btn, .cal-start-date {
+			margin-right: 16px;
+		}
+	}
 
-  *, *:before, *:after {
-    box-sizing: border-box;
-  }
+	.dp-body {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: auto;
+	}
 
-  .mat-card {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-  }
+	.dp-footer {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 16px;
+		border-top: 1px solid #EEEEEE;
+	}
 
-  .mat-card-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin: 0;
+	&.single {
+		height: 395px;
 
-    .mat-form-field:not(:last-child) {
-      margin-right: 15px;
-    }
-  }
+		.calendar.right {
+			margin: 0;
+		}
+	}
 
-  .mat-form-field-flex {
-    align-items: center;
-  }
+	*,
+	*:before,
+	*:after {
+		box-sizing: border-box;
+	}
 
-  .mat-card>.mat-card-actions:last-child {
-    margin-bottom: 12px;
-    padding-bottom: 0;
-  }
+	.mat-form-field-flex,
+	.mat-form-field-appearance-standard .mat-form-field-flex {
+		align-items: center;
+		padding: 0;
 
-  .mat-form-field-wrapper, .mat-form-field-infix {
-    border-top: none;
-    margin: 0;
-  }
+		.mat-form-field-prefix {
+			position: absolute;
+			margin-top: 0.45em;
+			top: 0;
+			z-index: 1001;
+		}
 
-  .mat-select-value {
-    font-weight: 500;
-    font-size: 16px;
-  }
+		.mat-form-field-prefix + .mat-form-field-infix input {
+			padding-left: 40px;
+		}
+	}
 
-  .year {
-    max-width: 88px;
+	.mat-form-field-wrapper,
+	.mat-form-field-infix {
+		border-top: none;
+		margin: 0;
+		padding: 0;
+	}
 
-    mat-form-field {
-      width: 100%;
-    }
-  }
+	.mat-select {
+		border: none;
 
-  .mat-form-field-appearance-legacy .mat-form-field-infix {
-    padding: .4375em 0;
-  }
+		.mat-select-trigger {
+			margin: 0;
+		}
+	}
 
-  .custom-range-label {
-    display: inline-flex;
-  }
+	.mat-select-value {
+		font-weight: 500;
+		font-size: 16px;
+	}
 
-  .range-buttons {
-    display: flex;
-    align-items: flex-start;
-  }
+	.year {
+		max-width: 88px;
+
+		mat-form-field {
+			width: 100%;
+		}
+	}
+
+	.mat-form-field-appearance-legacy .mat-form-field-infix {
+		padding: 0.4375em 0;
+	}
+
+	.custom-range-label {
+		display: inline-flex;
+	}
+
+	.range-buttons {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		width: 100%;
+
+		button:not(:last-child) {
+			margin-right: 15px;
+		}
+	}
 
 	&.double {
 		width: $md-drppicker-width-double;
 	}
-	.bottom-buttons {
-    height: 65px;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 15px;
-    border-top: 1px solid #eeeeee;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-	}
+
 	&.inline {
 		position: relative;
-		display: inline-block;
 	}
 
 	&:before,
@@ -278,8 +303,8 @@ button {
 			transform-origin: 50%% 100%;
 		}
 		.calendar {
-      display: flex;
-      align-self: start;
+			display: flex;
+			align-self: start;
 		}
 	}
 	&.hidden {
@@ -319,7 +344,7 @@ button {
 	.calendar {
 		/* display: none; */
 		max-width: $md-drppicker-width - ($md-drppicker-calendar-margin * 2);
-		margin: 0 $md-drppicker-calendar-margin $md-drppicker-calendar-margin $md-drppicker-calendar-margin;
+		margin: 0 $md-drppicker-calendar-margin;
 
 		.week-days th {
 			height: 28px;
@@ -372,7 +397,7 @@ button {
 	table {
 		width: 100%;
 		margin: 0;
-    border-collapse: separate;
+		border-collapse: separate;
 	}
 	th {
 		color: #988c8c;
@@ -440,11 +465,11 @@ button {
 			height: 44px;
 			width: 44px;
 			background-color: #42a5f5;
-      border-color: #42a5f5;
+			border-color: #42a5f5;
 		}
-    &.active:hover {
-      border-color: #e3f2fd;
-    }
+		&.active:hover {
+			border-color: #e3f2fd;
+		}
 	}
 
 	th {
@@ -882,11 +907,11 @@ button {
 }
 
 .cal-reset-btn {
-  margin-right: 15px;
+	margin-right: 15px;
 }
 
 td.available:hover {
-  border: 2px solid #42a5f5;
+	border: 2px solid #42a5f5;
 }
 
 .mobile-datepicker {
