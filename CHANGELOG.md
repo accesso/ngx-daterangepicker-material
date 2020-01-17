@@ -77,7 +77,7 @@
 * **daterangepicker:**  add global locale config [#69](https://github.com/fetrarij/ngx-daterangepicker-material/pull/69) ([0c303f7c](https://github.com/fetrarij/ngx-daterangepicker-material/commit/0c303f7cb3028ea31642bb4cfc7d9e315a6dcb4e))
 
 ***Breaking change:***
- Instead of using `NgxDaterangepickerMd` you should now use `NgxDaterangepickerMd.forRoot()` in imports.
+ Instead of using `NgxDateRangePickerMd` you should now use `NgxDateRangePickerMd.forRoot()` in imports.
 
 ##### Bug Fixes
 

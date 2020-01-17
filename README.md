@@ -47,7 +47,7 @@ export class AppModule {}
 Html:
 
 ```html
-<input type="text" ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"/>
+<input type="text" ngxDateRangePickerMd [(ngModel)]="selected" class="form-control"/>
 ```
 Typescript: 
 
@@ -59,7 +59,7 @@ Html:
 
 ```html
 <input type="text" matInput
-    ngxDaterangepickerMd
+    ngxDateRangePickerMd
     [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
     startKey="start"
     endKey="end"
@@ -133,7 +133,7 @@ Specifiyng `startKey` and `endKey` would have different model:
 
 example: 
 ```html
-<input type="text" ngxDaterangepickerMd startKey="start" endKey="end" [(ngModel)]="model">
+<input type="text" ngxDateRangePickerMd startKey="start" endKey="end" [(ngModel)]="model">
 ```
 
 the model we got would be:  `{start: Date, end: Date}`
@@ -142,7 +142,7 @@ the model we got would be:  `{start: Date, end: Date}`
 
 (object) Set predefined date ranges the user can select from. Each key is the label for the range, and its value an array with two dates representing the bounds of the range. As an example:
 ```html
-<input type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [(ngModel)]="model">
+<input type="text" ngxDateRangePickerMd startKey="start" endKey="end" [ranges]="ranges" [(ngModel)]="model">
 ```
 ```javascript
 ranges: any = {

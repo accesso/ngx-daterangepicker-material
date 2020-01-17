@@ -1857,7 +1857,7 @@ var DateRangePickerDirective = /** @class */ (function () {
     DateRangePickerDirective = DateRangePickerDirective_1 = __decorate([
         Directive({
             // tslint:disable-next-line:directive-selector
-            selector: '*[ngxDaterangepickerMd]',
+            selector: '*[ngxDateRangePickerMd]',
             // tslint:disable-next-line:no-host-metadata-property
             host: {
                 '(keyup.esc)': 'hide()',
