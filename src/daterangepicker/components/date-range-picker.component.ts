@@ -686,6 +686,8 @@ export class DateRangePickerComponent implements OnInit {
 		this.calculateChosenLabel();
 	}
 	updateElement() {
+		const format = this.locale.displayFormat ? this.locale.displayFormat : this.locale.format;
+
 		if (!this.singleDatePicker && this.autoUpdateInput) {
 			if (this.startDate && this.endDate) {
 				// if we use ranges and should show range label on input
@@ -698,13 +700,13 @@ export class DateRangePickerComponent implements OnInit {
 					this.chosenLabel = this.chosenRange;
 				} else {
 					this.chosenLabel =
-						this.startDate.format(this.locale.format) +
+						this.startDate.format(format) +
 						this.locale.separator +
-						this.endDate.format(this.locale.format);
+						this.endDate.format(format);
 				}
 			}
 		} else if (this.autoUpdateInput) {
-			this.chosenLabel = this.startDate.format(this.locale.format);
+			this.chosenLabel = this.startDate.format(format);
 		}
 	}
 
