@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { DaterangepickerDirective } from '../../../../src/daterangepicker/directives/daterangepicker.directive';
+import { DateRangePickerDirective } from '../../../../src/daterangepicker/directives/date-range-picker.directive';
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -42,7 +42,7 @@ export class FullComponent implements OnInit {
 	timePicker: boolean;
 	dateLimit: number;
 	selected = { start: moment().subtract(3, 'days'), end: moment().add(3, 'days') };
-	@ViewChild(DaterangepickerDirective, { static: true }) daterangepicker: DaterangepickerDirective;
+	@ViewChild(DateRangePickerDirective, { static: true }) daterangepicker: DateRangePickerDirective;
 	click() {}
 
 	clear(): void {

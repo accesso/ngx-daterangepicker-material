@@ -10,11 +10,11 @@ import {
 	ViewChild,
 	ViewEncapsulation
 } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import * as _moment from 'moment';
-import { LocaleConfig } from '../daterangepicker.config';
-import { LocaleService } from '../services/locale.service';
+import {LocaleConfig} from '../date-range-picker.config';
+import {LocaleService} from '../services/locale.service';
 
 const moment = _moment;
 
@@ -26,8 +26,8 @@ export enum SideEnum {
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'ngx-daterangepicker-material',
-	styleUrls: ['./daterangepicker.component.scss'],
-	templateUrl: './daterangepicker.component.html',
+	styleUrls: ['./date-range-picker.component.scss'],
+	templateUrl: './date-range-picker.component.html',
 	// tslint:disable-next-line:no-host-metadata-property
 	host: {
 		'(click)': 'handleInternalClick($event)'
@@ -36,12 +36,12 @@ export enum SideEnum {
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => DaterangepickerComponent),
+			useExisting: forwardRef(() => DateRangePickerComponent),
 			multi: true
 		}
 	]
 })
-export class DaterangepickerComponent implements OnInit {
+export class DateRangePickerComponent implements OnInit {
 	private _old: { start: any; end: any } = { start: null, end: null };
 	chosenLabel: string;
 	calendarVariables: { left: any; right: any } = { left: {}, right: {} };

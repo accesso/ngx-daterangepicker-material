@@ -65,6 +65,12 @@ $input-height: 3rem !default;
 * styles
 */
 
+:host {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 td.hidden span,
 tr.hidden {
 	display: none;

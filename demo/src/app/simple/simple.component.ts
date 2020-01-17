@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { DaterangepickerComponent, DaterangepickerDirective } from '../../../../src/daterangepicker';
+import { DateRangePickerComponent, DateRangePickerDirective } from '../../../../src/daterangepicker';
 
 @Component({
-	selector: 'simple',
+	selector: 'app-simple',
 	templateUrl: './simple.component.html',
 	styleUrls: ['./simple.component.scss']
 })
 export class SimpleComponent implements OnInit {
 	selected: { startDate: moment.Moment; endDate: moment.Moment };
-	@ViewChild(DaterangepickerDirective, { static: true }) pickerDirective: DaterangepickerDirective;
+	@ViewChild(DateRangePickerDirective, { static: true }) pickerDirective: DateRangePickerDirective;
 	inlineDate: any;
 	inlineDateTime: any;
-	picker: DaterangepickerComponent;
+	picker: DateRangePickerComponent;
 	constructor() {
 		this.selected = {
 			startDate: moment('2015-11-18T00:00Z'),

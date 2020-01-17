@@ -1,4 +1,4 @@
-import { LocaleConfig } from '../daterangepicker.config';
+import { LocaleConfig } from '../date-range-picker.config';
 export declare class LocaleService {
     private _config;
     constructor(_config: LocaleConfig);

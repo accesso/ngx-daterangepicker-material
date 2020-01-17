@@ -1,12 +1,15 @@
 import {
+	ApplicationRef,
 	ChangeDetectorRef,
 	ComponentFactoryResolver,
 	Directive,
 	DoCheck,
 	ElementRef,
+	EmbeddedViewRef,
 	EventEmitter,
 	forwardRef,
 	HostListener,
+	Injector,
 	Input,
 	KeyValueDiffer,
 	KeyValueDiffers,
@@ -19,15 +22,15 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as _moment from 'moment';
-import { DaterangepickerComponent } from '../components/daterangepicker.component';
-import { LocaleConfig } from '../daterangepicker.config';
+import { DateRangePickerComponent } from '../components/date-range-picker.component';
+import { LocaleConfig } from '../date-range-picker.config';
 import { LocaleService } from '../services/locale.service';
 
 const moment = _moment;
 
 @Directive({
 	// tslint:disable-next-line:directive-selector
-	selector: 'input[ngxDaterangepickerMd]',
+	selector: '*[ngxDaterangepickerMd]',
 	// tslint:disable-next-line:no-host-metadata-property
 	host: {
 		'(keyup.esc)': 'hide()',
@@ -38,13 +41,13 @@ const moment = _moment;
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => DaterangepickerDirective),
+			useExisting: forwardRef(() => DateRangePickerDirective),
 			multi: true
 		}
 	]
 })
-export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
-	public picker: DaterangepickerComponent;
+export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
+	public picker: DateRangePickerComponent;
 	private _onChange = Function.prototype;
 	private _onTouched = Function.prototype;
 	private _validatorChange = Function.prototype;
@@ -56,6 +59,14 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 	maxDate: _moment.Moment;
 	@Input()
 	autoApply: boolean;
+
+	@Input()
+	targetElementId: string;
+	@Input()
+	topAdjustment: number;
+	@Input()
+	leftAdjustment: number;
+
 	@Input()
 	alwaysShowCalendars: boolean;
 	@Input()
@@ -163,8 +174,11 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 	@Output() startDateChanged: EventEmitter<Object> = new EventEmitter();
 	@Output() endDateChanged: EventEmitter<Object> = new EventEmitter();
 	$event: any;
+
 	constructor(
+		public applicationRef: ApplicationRef,
 		public viewContainerRef: ViewContainerRef,
+		public injector: Injector,
 		public _changeDetectorRef: ChangeDetectorRef,
 		private _componentFactoryResolver: ComponentFactoryResolver,
 		private _el: ElementRef,
@@ -175,12 +189,17 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 	) {
 		this.drops = 'down';
 		this.opens = 'auto';
-		const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DaterangepickerComponent);
-		viewContainerRef.clear();
-		const componentRef = viewContainerRef.createComponent(componentFactory);
-		this.picker = <DaterangepickerComponent>componentRef.instance;
-		this.picker.inline = false; // set inline to false for all directive usage
+		const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
+		const componentRef = componentFactory.create(injector);
+		this.applicationRef.attachView(componentRef.hostView);
+		const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+
+		const applicationRoot = document.body.querySelector('*[ng-version]') as HTMLElement;
+		applicationRoot.appendChild(componentElem);
+		this.picker = <DateRangePickerComponent>componentRef.instance;
+		this.picker.inline = false;
 	}
+
 	ngOnInit() {
 		this.picker.startDateChanged.asObservable().subscribe((itemChanged: any) => {
 			this.startDateChanged.emit(itemChanged);
@@ -294,49 +313,62 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
 	setPosition() {
 		let style;
 		let containerTop;
+		this.topAdjustment = this.topAdjustment ? +this.topAdjustment : 0;
+		this.leftAdjustment = this.leftAdjustment ? +this.leftAdjustment : 0;
+
 		// todo: revisit the offsets where when both the shared components are done and the order search rework is finished
-		const container = this.picker.pickerContainer.nativeElement;
-		const element = this._el.nativeElement;
+		const container = this.picker.pickerContainer.nativeElement as HTMLElement;
+		let element = this._el.nativeElement as HTMLElement;
+
+		if (this.targetElementId) {
+			element = document.getElementById(this.targetElementId);
+		} else {
+			element = element.parentElement;
+		}
+
+		const elementLocation = element.getBoundingClientRect();
 
 		if (this.drops && this.drops === 'up') {
-			containerTop = element.offsetTop - container.clientHeight + 'px';
+			containerTop = element.offsetTop - container.clientHeight + this.topAdjustment + 'px';
 		} else {
-			containerTop = element.offsetTop + 'px';
+			containerTop = elementLocation.top + this.topAdjustment + 'px';
 		}
 		if (this.opens === 'left') {
 			style = {
 				top: containerTop,
-				left: element.offsetLeft - container.clientWidth + element.clientWidth - 100 + 'px',
+				left: ((elementLocation.left - container.clientWidth + elementLocation.width - 100)  + this.leftAdjustment) + 'px',
 				right: 'auto'
 			};
 		} else if (this.opens === 'center') {
 			style = {
 				top: containerTop,
-				left: element.offsetLeft + element.clientWidth / 2 - container.clientWidth / 2 + 'px',
+				left: ((elementLocation.left + elementLocation.width / 2 - container.clientWidth / 2)  + this.leftAdjustment) + 'px',
 				right: 'auto'
 			};
 		} else if (this.opens === 'right') {
 			style = {
 				top: containerTop,
-				left: element.offsetLeft + 'px',
+				left: (elementLocation.left + this.leftAdjustment) + 'px',
 				right: 'auto'
 			};
 		} else {
-			const position = element.offsetLeft + element.clientWidth / 2 - container.clientWidth / 2;
+			const position = elementLocation.left + elementLocation.width / 2 - container.clientWidth / 2;
+
 			if (position < 0) {
 				style = {
 					top: containerTop,
-					left: element.offsetLeft + 'px',
+					left: (elementLocation.left + this.leftAdjustment) + 'px',
 					right: 'auto'
 				};
 			} else {
 				style = {
 					top: containerTop,
-					left: position + 'px',
+					left: (position + this.leftAdjustment) + 'px',
 					right: 'auto'
 				};
 			}
 		}
+
 		if (style) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);

@@ -8,14 +8,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { DaterangepickerComponent } from './components/daterangepicker.component';
-import { DaterangepickerDirective } from './directives/daterangepicker.directive';
-import { LOCALE_CONFIG, LocaleConfig } from './daterangepicker.config';
+import { DateRangePickerComponent } from './components/date-range-picker.component';
+import { DateRangePickerDirective } from './directives/date-range-picker.directive';
+import { LOCALE_CONFIG, LocaleConfig } from './date-range-picker.config';
 import { LocaleService } from './services/locale.service';
 import { MatDividerModule, MatSelectModule } from '@angular/material';
 
 @NgModule({
-	declarations: [DaterangepickerComponent, DaterangepickerDirective],
+	declarations: [DateRangePickerComponent, DateRangePickerDirective],
 	imports: [
 		CommonModule,
 		FormsModule,
@@ -30,14 +30,14 @@ import { MatDividerModule, MatSelectModule } from '@angular/material';
 		MatSelectModule
 	],
 	providers: [],
-	exports: [DaterangepickerComponent, DaterangepickerDirective],
-	entryComponents: [DaterangepickerComponent]
+	exports: [DateRangePickerComponent, DateRangePickerDirective],
+	entryComponents: [DateRangePickerComponent]
 })
-export class NgxDaterangepickerMd {
+export class NgxDateRangePickerMd {
 	constructor() {}
 	static forRoot(config: LocaleConfig = {}): ModuleWithProviders {
 		return {
-			ngModule: NgxDaterangepickerMd,
+			ngModule: NgxDateRangePickerMd,
 			providers: [
 				{ provide: LOCALE_CONFIG, useValue: config },
 				{ provide: LocaleService, useClass: LocaleService, deps: [LOCALE_CONFIG] }

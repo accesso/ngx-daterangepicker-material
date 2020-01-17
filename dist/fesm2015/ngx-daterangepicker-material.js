@@ -1,6 +1,6 @@
 import { __decorate, __param } from 'tslib';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Inject, Injectable, EventEmitter, ElementRef, ChangeDetectorRef, Input, Output, ViewChild, Component, ViewEncapsulation, forwardRef, ViewContainerRef, ComponentFactoryResolver, Renderer2, KeyValueDiffers, HostListener, Directive, NgModule } from '@angular/core';
+import { InjectionToken, Inject, Injectable, EventEmitter, ElementRef, ChangeDetectorRef, Input, Output, ViewChild, Component, ViewEncapsulation, forwardRef, ApplicationRef, ViewContainerRef, Injector, ComponentFactoryResolver, Renderer2, KeyValueDiffers, HostListener, Directive, NgModule } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -47,14 +47,14 @@ LocaleService = __decorate([
     __param(0, Inject(LOCALE_CONFIG))
 ], LocaleService);
 
-var DaterangepickerComponent_1;
+var DateRangePickerComponent_1;
 const moment$1 = _moment;
 var SideEnum;
 (function (SideEnum) {
     SideEnum["left"] = "left";
     SideEnum["right"] = "right";
 })(SideEnum || (SideEnum = {}));
-let DaterangepickerComponent = DaterangepickerComponent_1 = class DaterangepickerComponent {
+let DateRangePickerComponent = DateRangePickerComponent_1 = class DateRangePickerComponent {
     constructor(el, _ref, _localeService) {
         this.el = el;
         this._ref = _ref;
@@ -1215,147 +1215,147 @@ let DaterangepickerComponent = DaterangepickerComponent_1 = class Daterangepicke
         return false;
     }
 };
-DaterangepickerComponent.ctorParameters = () => [
+DateRangePickerComponent.ctorParameters = () => [
     { type: ElementRef },
     { type: ChangeDetectorRef },
     { type: LocaleService }
 ];
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "startDate", void 0);
+], DateRangePickerComponent.prototype, "startDate", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "endDate", void 0);
+], DateRangePickerComponent.prototype, "endDate", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "dateLimit", void 0);
+], DateRangePickerComponent.prototype, "dateLimit", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "minDate", void 0);
+], DateRangePickerComponent.prototype, "minDate", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "maxDate", void 0);
+], DateRangePickerComponent.prototype, "maxDate", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "autoApply", void 0);
+], DateRangePickerComponent.prototype, "autoApply", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "singleDatePicker", void 0);
+], DateRangePickerComponent.prototype, "singleDatePicker", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showDropdowns", void 0);
+], DateRangePickerComponent.prototype, "showDropdowns", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showWeekNumbers", void 0);
+], DateRangePickerComponent.prototype, "showWeekNumbers", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showISOWeekNumbers", void 0);
+], DateRangePickerComponent.prototype, "showISOWeekNumbers", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "linkedCalendars", void 0);
+], DateRangePickerComponent.prototype, "linkedCalendars", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "autoUpdateInput", void 0);
+], DateRangePickerComponent.prototype, "autoUpdateInput", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "alwaysShowCalendars", void 0);
+], DateRangePickerComponent.prototype, "alwaysShowCalendars", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "lockStartDate", void 0);
+], DateRangePickerComponent.prototype, "lockStartDate", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "timePicker", void 0);
+], DateRangePickerComponent.prototype, "timePicker", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "timePicker24Hour", void 0);
+], DateRangePickerComponent.prototype, "timePicker24Hour", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "timePickerIncrement", void 0);
+], DateRangePickerComponent.prototype, "timePickerIncrement", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "timePickerSeconds", void 0);
+], DateRangePickerComponent.prototype, "timePickerSeconds", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showClearButton", void 0);
+], DateRangePickerComponent.prototype, "showClearButton", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "firstMonthDayClass", void 0);
+], DateRangePickerComponent.prototype, "firstMonthDayClass", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "lastMonthDayClass", void 0);
+], DateRangePickerComponent.prototype, "lastMonthDayClass", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "emptyWeekRowClass", void 0);
+], DateRangePickerComponent.prototype, "emptyWeekRowClass", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "firstDayOfNextMonthClass", void 0);
+], DateRangePickerComponent.prototype, "firstDayOfNextMonthClass", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "lastDayOfPreviousMonthClass", void 0);
+], DateRangePickerComponent.prototype, "lastDayOfPreviousMonthClass", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "buttonClassApply", void 0);
+], DateRangePickerComponent.prototype, "buttonClassApply", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "buttonClassReset", void 0);
+], DateRangePickerComponent.prototype, "buttonClassReset", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "buttonClassRange", void 0);
+], DateRangePickerComponent.prototype, "buttonClassRange", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "locale", null);
+], DateRangePickerComponent.prototype, "locale", null);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "ranges", null);
+], DateRangePickerComponent.prototype, "ranges", null);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showCustomRangeLabel", void 0);
+], DateRangePickerComponent.prototype, "showCustomRangeLabel", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showCancel", void 0);
+], DateRangePickerComponent.prototype, "showCancel", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "keepCalendarOpeningWithRange", void 0);
+], DateRangePickerComponent.prototype, "keepCalendarOpeningWithRange", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "showRangeLabelOnInput", void 0);
+], DateRangePickerComponent.prototype, "showRangeLabelOnInput", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "customRangeDirection", void 0);
+], DateRangePickerComponent.prototype, "customRangeDirection", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "drops", void 0);
+], DateRangePickerComponent.prototype, "drops", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "opens", void 0);
+], DateRangePickerComponent.prototype, "opens", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "closeOnAutoApply", void 0);
+], DateRangePickerComponent.prototype, "closeOnAutoApply", void 0);
 __decorate([
     Output()
-], DaterangepickerComponent.prototype, "choosedDate", void 0);
+], DateRangePickerComponent.prototype, "choosedDate", void 0);
 __decorate([
     Output()
-], DaterangepickerComponent.prototype, "rangeClicked", void 0);
+], DateRangePickerComponent.prototype, "rangeClicked", void 0);
 __decorate([
     Output()
-], DaterangepickerComponent.prototype, "datesUpdated", void 0);
+], DateRangePickerComponent.prototype, "datesUpdated", void 0);
 __decorate([
     Output()
-], DaterangepickerComponent.prototype, "startDateChanged", void 0);
+], DateRangePickerComponent.prototype, "startDateChanged", void 0);
 __decorate([
     Output()
-], DaterangepickerComponent.prototype, "endDateChanged", void 0);
+], DateRangePickerComponent.prototype, "endDateChanged", void 0);
 __decorate([
     ViewChild('pickerContainer', { static: true })
-], DaterangepickerComponent.prototype, "pickerContainer", void 0);
+], DateRangePickerComponent.prototype, "pickerContainer", void 0);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "isInvalidDate", null);
+], DateRangePickerComponent.prototype, "isInvalidDate", null);
 __decorate([
     Input()
-], DaterangepickerComponent.prototype, "isCustomDate", null);
-DaterangepickerComponent = DaterangepickerComponent_1 = __decorate([
+], DateRangePickerComponent.prototype, "isCustomDate", null);
+DateRangePickerComponent = DateRangePickerComponent_1 = __decorate([
     Component({
         // tslint:disable-next-line:component-selector
         selector: 'ngx-daterangepicker-material',
@@ -1368,19 +1368,21 @@ DaterangepickerComponent = DaterangepickerComponent_1 = __decorate([
         providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
-                useExisting: forwardRef(() => DaterangepickerComponent_1),
+                useExisting: forwardRef(() => DateRangePickerComponent_1),
                 multi: true
             }
         ],
-        styles: ["td.hidden span,tr.hidden{display:none;cursor:default}td.available:not(.off):hover{border:2px solid #42a5f5}.ranges li{display:inline-block}button.available.prev{display:block;opacity:1;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);left:-20px;background-color:#fff;color:#000}button.available.prev mat-icon{transform:rotateY(180deg)}button.available.next{display:block;opacity:1;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);right:-20px;background-color:#fff;color:#000}.md-drppicker{display:flex;flex-direction:column;justify-content:space-between;position:absolute;height:555px;padding:0;margin:0;color:inherit;background-color:#fff;width:420px;z-index:1000}.md-drppicker .dp-header{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;padding:16px;border-bottom:1px solid #eee}.md-drppicker .dp-header .cal-reset-btn,.md-drppicker .dp-header .cal-start-date{margin-right:16px}.md-drppicker .dp-body{display:flex;flex-direction:row;margin-bottom:auto}.md-drppicker .dp-footer{display:flex;flex-direction:row;justify-content:space-between;padding:16px;border-top:1px solid #eee}.md-drppicker.single{height:395px}.md-drppicker.single .calendar.right{margin:0}.md-drppicker *,.md-drppicker :after,.md-drppicker :before{box-sizing:border-box}.md-drppicker .mat-form-field-appearance-standard .mat-form-field-flex,.md-drppicker .mat-form-field-flex{align-items:center;padding:0}.md-drppicker .mat-form-field-appearance-standard .mat-form-field-flex .mat-form-field-prefix,.md-drppicker .mat-form-field-flex .mat-form-field-prefix{position:absolute;margin-top:.45em;top:0;z-index:1001}.md-drppicker .mat-form-field-appearance-standard .mat-form-field-flex .mat-form-field-prefix+.mat-form-field-infix input,.md-drppicker .mat-form-field-flex .mat-form-field-prefix+.mat-form-field-infix input{padding-left:40px}.md-drppicker .mat-form-field-infix,.md-drppicker .mat-form-field-wrapper{border-top:none;margin:0;padding:0}.md-drppicker .mat-select{border:none}.md-drppicker .mat-select .mat-select-trigger{margin:0}.md-drppicker .mat-select-value{font-weight:500;font-size:16px}.md-drppicker .year{max-width:88px}.md-drppicker .year mat-form-field{width:100%}.md-drppicker .mat-form-field-appearance-legacy .mat-form-field-infix{padding:.4375em 0}.md-drppicker .custom-range-label{display:inline-flex}.md-drppicker .range-buttons{display:flex;flex-direction:row;justify-content:flex-start;width:100%}.md-drppicker .range-buttons button:not(:last-child){margin-right:15px}.md-drppicker.double{width:auto}.md-drppicker.inline{position:relative}.md-drppicker:after,.md-drppicker:before{position:absolute;display:inline-block;border-bottom-color:rgba(0,0,0,.2);content:\"\"}.md-drppicker.openscenter:after,.md-drppicker.openscenter:before{left:0;right:0;width:0;margin-left:auto;margin-right:auto}.md-drppicker.single .calendar,.md-drppicker.single .ranges{float:none}.md-drppicker.shown{transform:scale(1);transition:.1s ease-in-out;transform-origin:0 0;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.shown.drops-up-left{transform-origin:100% 100%}.md-drppicker.shown.drops-up-right{transform-origin:0 100%}.md-drppicker.shown.drops-down-left{transform-origin:100% 0}.md-drppicker.shown.drops-down-right{transform-origin:0 0}.md-drppicker.shown.drops-down-center{transform-origin:NaN%}.md-drppicker.shown.drops-up-center{transform-origin:50%}.md-drppicker.shown .calendar{display:flex;align-self:start}.md-drppicker.hidden{transition:.1s;transform:scale(0);transform-origin:0 0;cursor:default;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.hidden.drops-up-left{transform-origin:100% 100%}.md-drppicker.hidden.drops-up-right{transform-origin:0 100%}.md-drppicker.hidden.drops-down-left{transform-origin:100% 0}.md-drppicker.hidden.drops-down-right{transform-origin:0 0}.md-drppicker.hidden.drops-down-center{transform-origin:NaN%}.md-drppicker.hidden.drops-up-center{transform-origin:50%}.md-drppicker.hidden .calendar{display:none}.md-drppicker .calendar{max-width:390px;margin:0 15px}.md-drppicker .calendar .week-days th{height:28px;width:15px;color:#424242;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar .month{height:28px;width:103px;color:#000;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar.single .calendar-table{border:none}.md-drppicker .calendar td,.md-drppicker .calendar th{padding:0;white-space:nowrap;text-align:center;min-width:44px;height:44px}.md-drppicker .calendar td span,.md-drppicker .calendar th span{pointer-events:none}.md-drppicker .calendar-table{border:1px solid #fff;padding:15px;border-radius:25px;background-color:#fff}.md-drppicker table{width:100%;margin:0;border-collapse:separate}.md-drppicker th{color:#988c8c}.md-drppicker td,.md-drppicker th{text-align:center;border-radius:25px;border:2px solid transparent;white-space:nowrap;cursor:pointer;height:2em;width:2em}.md-drppicker td.week,.md-drppicker th.week{font-size:80%;color:#ccc}.md-drppicker td{margin:.25em 0;opacity:.8;transition:background-color .2s;border-radius:2em;transform:scale(1)}.md-drppicker td.off,.md-drppicker td.off.end-date,.md-drppicker td.off.in-range,.md-drppicker td.off.start-date{background-color:#fff;border-color:transparent;color:#999}.md-drppicker td.in-range{background-color:#e3f2fd;border-color:#e3f2fd;color:#000;opacity:1;border-radius:0}.md-drppicker td.start-date{border-radius:2em 0 0 2em}.md-drppicker td.end-date{border-radius:0 2em 2em 0}.md-drppicker td.start-date.end-date{border-radius:25px}.md-drppicker td.active{transition:background .3s ease-out;color:#fff;box-sizing:border-box;height:44px;width:44px;background-color:#42a5f5;border-color:#42a5f5}.md-drppicker td.active:hover{border-color:#e3f2fd}.md-drppicker th.month{width:auto}.md-drppicker option.disabled,.md-drppicker td.disabled{color:#999;cursor:not-allowed;text-decoration:line-through}.md-drppicker .dropdowns{background-repeat:no-repeat;background-size:10px;background-position-y:center;background-position-x:right;width:108px;background-image:url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDI1NSAyNTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYXJyb3ctZHJvcC1kb3duIj4KCQk8cG9seWdvbiBwb2ludHM9IjAsNjMuNzUgMTI3LjUsMTkxLjI1IDI1NSw2My43NSAgICIgZmlsbD0iIzk4OGM4YyIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)}.md-drppicker .dropdowns select{display:inline-block;background-color:rgba(255,255,255,.9);width:100%;padding:5px;border:1px solid #f2f2f2;border-radius:2px;height:3rem}.md-drppicker .dropdowns select.ampmselect,.md-drppicker .dropdowns select.hourselect,.md-drppicker .dropdowns select.minuteselect,.md-drppicker .dropdowns select.secondselect{width:50px;margin:0 auto;background:#eee;border:1px solid #eee;padding:2px;outline:0;font-size:12px}.md-drppicker .dropdowns select.monthselect,.md-drppicker .dropdowns select.yearselect{font-size:12px;height:auto;cursor:pointer;opacity:0;position:absolute;top:0;left:0;margin:0;padding:0}.md-drppicker th.month>div{position:relative;display:inline-block}.md-drppicker .calendar-time{text-align:center;margin:4px auto 0;line-height:30px;position:relative}.md-drppicker .calendar-time .select{display:inline}.md-drppicker .calendar-time .select .select-item{display:inline-block;width:auto;position:relative;font-family:inherit;background-color:transparent;padding:10px 10px 10px 0;font-size:18px;border-radius:0;border:none;border-bottom:1px solid rgba(0,0,0,.12)}.md-drppicker .calendar-time .select .select-item:after{position:absolute;top:18px;right:10px;width:0;height:0;padding:0;content:\"\";border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(0,0,0,.12);pointer-events:none}.md-drppicker .calendar-time .select .select-item:focus{outline:0}.md-drppicker .calendar-time .select .select-item .select-label{color:rgba(0,0,0,.26);font-size:16px;font-weight:400;position:absolute;pointer-events:none;left:0;top:10px;transition:.2s}.md-drppicker .calendar-time select.disabled{color:#ccc;cursor:not-allowed}.md-drppicker .label-input{border:1px solid #ccc;border-radius:25px;color:#555;height:30px;line-height:30px;display:block;vertical-align:middle;margin:0 auto 5px;padding:0 0 0 28px;width:100%}.md-drppicker .label-input.active{border:1px solid #42a5f5;border-radius:25px}.md-drppicker .md-drppicker_input{position:relative;padding:0 30px 0 0}.md-drppicker .md-drppicker_input i,.md-drppicker .md-drppicker_input svg{position:absolute;left:8px;top:8px}.md-drppicker.rtl .label-input{padding-right:28px;padding-left:6px}.md-drppicker.rtl .md-drppicker_input i,.md-drppicker.rtl .md-drppicker_input svg{left:auto;right:8px}.md-drppicker .show-ranges .drp-calendar.left{border-left:1px solid #ddd}.md-drppicker .ranges{float:none;text-align:left;margin:0}.md-drppicker .ranges ul{list-style:none;margin:0 auto;padding:0;width:100%}.md-drppicker .ranges ul li{font-size:12px;margin-right:20px}.md-drppicker .ranges ul li button{padding:8px 12px;width:100%;background:0 0;border:none;text-align:left;cursor:pointer}.md-drppicker .ranges ul li button[disabled]{opacity:.3}.md-drppicker .show-calendar .ranges{margin-top:8px}.md-drppicker [hidden]{display:none}.md-drppicker .buttons{text-align:right;margin:0 5px 5px 0}.md-drppicker .btn{position:relative;overflow:hidden;border-width:0;outline:0;padding:0 6px;cursor:pointer;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.6);background-color:#3f51b5;color:#ecf0f1;transition:background-color .4s;height:auto;text-transform:uppercase;line-height:36px;border:none}.md-drppicker .btn:focus,.md-drppicker .btn:hover{background-color:#3f51b5}.md-drppicker .btn>*{position:relative}.md-drppicker .btn span{display:block;padding:12px 24px}.md-drppicker .btn:before{content:\"\";position:absolute;top:50%;left:50%;display:block;width:0;padding-top:0;border-radius:100%;background-color:rgba(236,240,241,.3);transform:translate(-50%,-50%)}.md-drppicker .btn:active:before{width:120%;padding-top:120%;transition:width .2s ease-out,padding-top .2s ease-out}.md-drppicker .btn:disabled{opacity:.5}.md-drppicker .btn.btn-default{color:#000;background-color:#dcdcdc}.md-drppicker .clear{box-shadow:none;background-color:#fff!important}.md-drppicker .clear svg{color:#eb3232;fill:currentColor}@media (min-width:564px){.md-drppicker{width:auto}.md-drppicker.single .calendar.left{clear:none}.md-drppicker.ltr{direction:ltr;text-align:left}.md-drppicker.ltr .calendar.left{clear:left}.md-drppicker.ltr .calendar.left .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0;padding-right:12px}.md-drppicker.ltr .calendar.right{margin-left:0}.md-drppicker.ltr .calendar.right .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.ltr .left .md-drppicker_input,.md-drppicker.ltr .right .md-drppicker_input{padding-right:35px}.md-drppicker.ltr .calendar,.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl{direction:rtl;text-align:right}.md-drppicker.rtl .calendar.left{clear:right;margin-left:0}.md-drppicker.rtl .calendar.left .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.rtl .calendar.right{margin-right:0}.md-drppicker.rtl .calendar.right .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0}.md-drppicker.rtl .calendar.left .calendar-table,.md-drppicker.rtl .left .md-drppicker_input{padding-left:12px}.md-drppicker.rtl .calendar,.md-drppicker.rtl .ranges{text-align:right;float:right}.drp-animate{transform:translate(0);transition:transform .2s,opacity .2s}.drp-animate.drp-picker-site-this{transition-timing-function:linear}.drp-animate.drp-animate-right{transform:translateX(10%);opacity:0}.drp-animate.drp-animate-left{transform:translateX(-10%);opacity:0}}@media (min-width:730px){.md-drppicker .ranges{width:auto}.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl .ranges{float:right}.md-drppicker .calendar.left{clear:none!important}}.field-row{width:100%;height:65px;border-bottom:1px solid #eee}.field-row mat-form-field{float:right;margin-right:15px}.field-row .mat-form-field-flex{height:55px;padding-top:10px}.cal-reset-btn{margin-right:15px}td.available:hover{border:2px solid #42a5f5}.mobile-datepicker ngx-daterangepicker-material{top:0;left:0}.mobile-datepicker .md-drppicker{height:calc(100vh);width:calc(100% - 8px);top:0!important;left:0!important;right:auto!important;overflow:hidden}.mobile-datepicker .md-drppicker .calendar-table{padding:0}.mobile-datepicker .md-drppicker .prev{top:85px;left:10px}.mobile-datepicker .md-drppicker .next{top:85px;left:calc(100vw - 55px)}.mobile-datepicker .field-row{width:100vw;height:65px}.mobile-datepicker .field-row mat-form-field{float:right;margin-right:10px;width:36%}.mobile-datepicker .field-row button{width:20%;margin-right:5px}.mobile-datepicker .calendar{text-align:center;margin:35px 0 0 -5px;max-width:100vw}"]
+        styles: [":host{position:absolute;top:0;left:0}td.hidden span,tr.hidden{display:none;cursor:default}td.available:not(.off):hover{border:2px solid #42a5f5}.ranges li{display:inline-block}button.available.prev{display:block;opacity:1;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);left:-20px;background-color:#fff;color:#000}button.available.prev mat-icon{transform:rotateY(180deg)}button.available.next{display:block;opacity:1;border-radius:2em;height:40px;width:40px;position:fixed;top:calc(50% - 20px);right:-20px;background-color:#fff;color:#000}.md-drppicker{display:flex;flex-direction:column;justify-content:space-between;position:absolute;height:555px;padding:0;margin:0;color:inherit;background-color:#fff;width:420px;z-index:1000}.md-drppicker .dp-header{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;padding:16px;border-bottom:1px solid #eee}.md-drppicker .dp-header .cal-reset-btn,.md-drppicker .dp-header .cal-start-date{margin-right:16px}.md-drppicker .dp-body{display:flex;flex-direction:row;margin-bottom:auto}.md-drppicker .dp-footer{display:flex;flex-direction:row;justify-content:space-between;padding:16px;border-top:1px solid #eee}.md-drppicker.single{height:395px}.md-drppicker.single .calendar.right{margin:0}.md-drppicker *,.md-drppicker :after,.md-drppicker :before{box-sizing:border-box}.md-drppicker .mat-form-field-appearance-standard .mat-form-field-flex,.md-drppicker .mat-form-field-flex{align-items:center;padding:0}.md-drppicker .mat-form-field-appearance-standard .mat-form-field-flex .mat-form-field-prefix,.md-drppicker .mat-form-field-flex .mat-form-field-prefix{position:absolute;margin-top:.45em;top:0;z-index:1001}.md-drppicker .mat-form-field-appearance-standard .mat-form-field-flex .mat-form-field-prefix+.mat-form-field-infix input,.md-drppicker .mat-form-field-flex .mat-form-field-prefix+.mat-form-field-infix input{padding-left:40px}.md-drppicker .mat-form-field-infix,.md-drppicker .mat-form-field-wrapper{border-top:none;margin:0;padding:0}.md-drppicker .mat-select{border:none}.md-drppicker .mat-select .mat-select-trigger{margin:0}.md-drppicker .mat-select-value{font-weight:500;font-size:16px}.md-drppicker .year{max-width:88px}.md-drppicker .year mat-form-field{width:100%}.md-drppicker .mat-form-field-appearance-legacy .mat-form-field-infix{padding:.4375em 0}.md-drppicker .custom-range-label{display:inline-flex}.md-drppicker .range-buttons{display:flex;flex-direction:row;justify-content:flex-start;width:100%}.md-drppicker .range-buttons button:not(:last-child){margin-right:15px}.md-drppicker.double{width:auto}.md-drppicker.inline{position:relative}.md-drppicker:after,.md-drppicker:before{position:absolute;display:inline-block;border-bottom-color:rgba(0,0,0,.2);content:\"\"}.md-drppicker.openscenter:after,.md-drppicker.openscenter:before{left:0;right:0;width:0;margin-left:auto;margin-right:auto}.md-drppicker.single .calendar,.md-drppicker.single .ranges{float:none}.md-drppicker.shown{transform:scale(1);transition:.1s ease-in-out;transform-origin:0 0;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.shown.drops-up-left{transform-origin:100% 100%}.md-drppicker.shown.drops-up-right{transform-origin:0 100%}.md-drppicker.shown.drops-down-left{transform-origin:100% 0}.md-drppicker.shown.drops-down-right{transform-origin:0 0}.md-drppicker.shown.drops-down-center{transform-origin:NaN%}.md-drppicker.shown.drops-up-center{transform-origin:50%}.md-drppicker.shown .calendar{display:flex;align-self:start}.md-drppicker.hidden{transition:.1s;transform:scale(0);transform-origin:0 0;cursor:default;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-drppicker.hidden.drops-up-left{transform-origin:100% 100%}.md-drppicker.hidden.drops-up-right{transform-origin:0 100%}.md-drppicker.hidden.drops-down-left{transform-origin:100% 0}.md-drppicker.hidden.drops-down-right{transform-origin:0 0}.md-drppicker.hidden.drops-down-center{transform-origin:NaN%}.md-drppicker.hidden.drops-up-center{transform-origin:50%}.md-drppicker.hidden .calendar{display:none}.md-drppicker .calendar{max-width:390px;margin:0 15px}.md-drppicker .calendar .week-days th{height:28px;width:15px;color:#424242;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar .month{height:28px;width:103px;color:#000;font-size:16px;letter-spacing:.44px;line-height:28px;text-align:center;font-weight:500}.md-drppicker .calendar.single .calendar-table{border:none}.md-drppicker .calendar td,.md-drppicker .calendar th{padding:0;white-space:nowrap;text-align:center;min-width:44px;height:44px}.md-drppicker .calendar td span,.md-drppicker .calendar th span{pointer-events:none}.md-drppicker .calendar-table{border:1px solid #fff;padding:15px;border-radius:25px;background-color:#fff}.md-drppicker table{width:100%;margin:0;border-collapse:separate}.md-drppicker th{color:#988c8c}.md-drppicker td,.md-drppicker th{text-align:center;border-radius:25px;border:2px solid transparent;white-space:nowrap;cursor:pointer;height:2em;width:2em}.md-drppicker td.week,.md-drppicker th.week{font-size:80%;color:#ccc}.md-drppicker td{margin:.25em 0;opacity:.8;transition:background-color .2s;border-radius:2em;transform:scale(1)}.md-drppicker td.off,.md-drppicker td.off.end-date,.md-drppicker td.off.in-range,.md-drppicker td.off.start-date{background-color:#fff;border-color:transparent;color:#999}.md-drppicker td.in-range{background-color:#e3f2fd;border-color:#e3f2fd;color:#000;opacity:1;border-radius:0}.md-drppicker td.start-date{border-radius:2em 0 0 2em}.md-drppicker td.end-date{border-radius:0 2em 2em 0}.md-drppicker td.start-date.end-date{border-radius:25px}.md-drppicker td.active{transition:background .3s ease-out;color:#fff;box-sizing:border-box;height:44px;width:44px;background-color:#42a5f5;border-color:#42a5f5}.md-drppicker td.active:hover{border-color:#e3f2fd}.md-drppicker th.month{width:auto}.md-drppicker option.disabled,.md-drppicker td.disabled{color:#999;cursor:not-allowed;text-decoration:line-through}.md-drppicker .dropdowns{background-repeat:no-repeat;background-size:10px;background-position-y:center;background-position-x:right;width:108px;background-image:url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDI1NSAyNTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYXJyb3ctZHJvcC1kb3duIj4KCQk8cG9seWdvbiBwb2ludHM9IjAsNjMuNzUgMTI3LjUsMTkxLjI1IDI1NSw2My43NSAgICIgZmlsbD0iIzk4OGM4YyIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)}.md-drppicker .dropdowns select{display:inline-block;background-color:rgba(255,255,255,.9);width:100%;padding:5px;border:1px solid #f2f2f2;border-radius:2px;height:3rem}.md-drppicker .dropdowns select.ampmselect,.md-drppicker .dropdowns select.hourselect,.md-drppicker .dropdowns select.minuteselect,.md-drppicker .dropdowns select.secondselect{width:50px;margin:0 auto;background:#eee;border:1px solid #eee;padding:2px;outline:0;font-size:12px}.md-drppicker .dropdowns select.monthselect,.md-drppicker .dropdowns select.yearselect{font-size:12px;height:auto;cursor:pointer;opacity:0;position:absolute;top:0;left:0;margin:0;padding:0}.md-drppicker th.month>div{position:relative;display:inline-block}.md-drppicker .calendar-time{text-align:center;margin:4px auto 0;line-height:30px;position:relative}.md-drppicker .calendar-time .select{display:inline}.md-drppicker .calendar-time .select .select-item{display:inline-block;width:auto;position:relative;font-family:inherit;background-color:transparent;padding:10px 10px 10px 0;font-size:18px;border-radius:0;border:none;border-bottom:1px solid rgba(0,0,0,.12)}.md-drppicker .calendar-time .select .select-item:after{position:absolute;top:18px;right:10px;width:0;height:0;padding:0;content:\"\";border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(0,0,0,.12);pointer-events:none}.md-drppicker .calendar-time .select .select-item:focus{outline:0}.md-drppicker .calendar-time .select .select-item .select-label{color:rgba(0,0,0,.26);font-size:16px;font-weight:400;position:absolute;pointer-events:none;left:0;top:10px;transition:.2s}.md-drppicker .calendar-time select.disabled{color:#ccc;cursor:not-allowed}.md-drppicker .label-input{border:1px solid #ccc;border-radius:25px;color:#555;height:30px;line-height:30px;display:block;vertical-align:middle;margin:0 auto 5px;padding:0 0 0 28px;width:100%}.md-drppicker .label-input.active{border:1px solid #42a5f5;border-radius:25px}.md-drppicker .md-drppicker_input{position:relative;padding:0 30px 0 0}.md-drppicker .md-drppicker_input i,.md-drppicker .md-drppicker_input svg{position:absolute;left:8px;top:8px}.md-drppicker.rtl .label-input{padding-right:28px;padding-left:6px}.md-drppicker.rtl .md-drppicker_input i,.md-drppicker.rtl .md-drppicker_input svg{left:auto;right:8px}.md-drppicker .show-ranges .drp-calendar.left{border-left:1px solid #ddd}.md-drppicker .ranges{float:none;text-align:left;margin:0}.md-drppicker .ranges ul{list-style:none;margin:0 auto;padding:0;width:100%}.md-drppicker .ranges ul li{font-size:12px;margin-right:20px}.md-drppicker .ranges ul li button{padding:8px 12px;width:100%;background:0 0;border:none;text-align:left;cursor:pointer}.md-drppicker .ranges ul li button[disabled]{opacity:.3}.md-drppicker .show-calendar .ranges{margin-top:8px}.md-drppicker [hidden]{display:none}.md-drppicker .buttons{text-align:right;margin:0 5px 5px 0}.md-drppicker .btn{position:relative;overflow:hidden;border-width:0;outline:0;padding:0 6px;cursor:pointer;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.6);background-color:#3f51b5;color:#ecf0f1;transition:background-color .4s;height:auto;text-transform:uppercase;line-height:36px;border:none}.md-drppicker .btn:focus,.md-drppicker .btn:hover{background-color:#3f51b5}.md-drppicker .btn>*{position:relative}.md-drppicker .btn span{display:block;padding:12px 24px}.md-drppicker .btn:before{content:\"\";position:absolute;top:50%;left:50%;display:block;width:0;padding-top:0;border-radius:100%;background-color:rgba(236,240,241,.3);transform:translate(-50%,-50%)}.md-drppicker .btn:active:before{width:120%;padding-top:120%;transition:width .2s ease-out,padding-top .2s ease-out}.md-drppicker .btn:disabled{opacity:.5}.md-drppicker .btn.btn-default{color:#000;background-color:#dcdcdc}.md-drppicker .clear{box-shadow:none;background-color:#fff!important}.md-drppicker .clear svg{color:#eb3232;fill:currentColor}@media (min-width:564px){.md-drppicker{width:auto}.md-drppicker.single .calendar.left{clear:none}.md-drppicker.ltr{direction:ltr;text-align:left}.md-drppicker.ltr .calendar.left{clear:left}.md-drppicker.ltr .calendar.left .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0;padding-right:12px}.md-drppicker.ltr .calendar.right{margin-left:0}.md-drppicker.ltr .calendar.right .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.ltr .left .md-drppicker_input,.md-drppicker.ltr .right .md-drppicker_input{padding-right:35px}.md-drppicker.ltr .calendar,.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl{direction:rtl;text-align:right}.md-drppicker.rtl .calendar.left{clear:right;margin-left:0}.md-drppicker.rtl .calendar.left .calendar-table{border-left:none;border-top-left-radius:0;border-bottom-left-radius:0}.md-drppicker.rtl .calendar.right{margin-right:0}.md-drppicker.rtl .calendar.right .calendar-table{border-right:none;border-top-right-radius:0;border-bottom-right-radius:0}.md-drppicker.rtl .calendar.left .calendar-table,.md-drppicker.rtl .left .md-drppicker_input{padding-left:12px}.md-drppicker.rtl .calendar,.md-drppicker.rtl .ranges{text-align:right;float:right}.drp-animate{transform:translate(0);transition:transform .2s,opacity .2s}.drp-animate.drp-picker-site-this{transition-timing-function:linear}.drp-animate.drp-animate-right{transform:translateX(10%);opacity:0}.drp-animate.drp-animate-left{transform:translateX(-10%);opacity:0}}@media (min-width:730px){.md-drppicker .ranges{width:auto}.md-drppicker.ltr .ranges{float:left}.md-drppicker.rtl .ranges{float:right}.md-drppicker .calendar.left{clear:none!important}}.field-row{width:100%;height:65px;border-bottom:1px solid #eee}.field-row mat-form-field{float:right;margin-right:15px}.field-row .mat-form-field-flex{height:55px;padding-top:10px}.cal-reset-btn{margin-right:15px}td.available:hover{border:2px solid #42a5f5}.mobile-datepicker ngx-daterangepicker-material{top:0;left:0}.mobile-datepicker .md-drppicker{height:calc(100vh);width:calc(100% - 8px);top:0!important;left:0!important;right:auto!important;overflow:hidden}.mobile-datepicker .md-drppicker .calendar-table{padding:0}.mobile-datepicker .md-drppicker .prev{top:85px;left:10px}.mobile-datepicker .md-drppicker .next{top:85px;left:calc(100vw - 55px)}.mobile-datepicker .field-row{width:100vw;height:65px}.mobile-datepicker .field-row mat-form-field{float:right;margin-right:10px;width:36%}.mobile-datepicker .field-row button{width:20%;margin-right:5px}.mobile-datepicker .calendar{text-align:center;margin:35px 0 0 -5px;max-width:100vw}"]
     })
-], DaterangepickerComponent);
+], DateRangePickerComponent);
 
-var DaterangepickerDirective_1;
+var DateRangePickerDirective_1;
 const moment$2 = _moment;
-let DaterangepickerDirective = DaterangepickerDirective_1 = class DaterangepickerDirective {
-    constructor(viewContainerRef, _changeDetectorRef, _componentFactoryResolver, _el, _renderer, differs, _localeService, elementRef) {
+let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePickerDirective {
+    constructor(applicationRef, viewContainerRef, injector, _changeDetectorRef, _componentFactoryResolver, _el, _renderer, differs, _localeService, elementRef) {
+        this.applicationRef = applicationRef;
         this.viewContainerRef = viewContainerRef;
+        this.injector = injector;
         this._changeDetectorRef = _changeDetectorRef;
         this._componentFactoryResolver = _componentFactoryResolver;
         this._el = _el;
@@ -1414,11 +1416,14 @@ let DaterangepickerDirective = DaterangepickerDirective_1 = class Daterangepicke
         this.endDateChanged = new EventEmitter();
         this.drops = 'down';
         this.opens = 'auto';
-        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DaterangepickerComponent);
-        viewContainerRef.clear();
-        const componentRef = viewContainerRef.createComponent(componentFactory);
+        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
+        const componentRef = componentFactory.create(injector);
+        this.applicationRef.attachView(componentRef.hostView);
+        const componentElem = componentRef.hostView.rootNodes[0];
+        const applicationRoot = document.body.querySelector('*[ng-version]');
+        applicationRoot.appendChild(componentElem);
         this.picker = componentRef.instance;
-        this.picker.inline = false; // set inline to false for all directive usage
+        this.picker.inline = false;
     }
     set locale(value) {
         this._locale = Object.assign({}, this._localeService.config, value);
@@ -1558,49 +1563,58 @@ let DaterangepickerDirective = DaterangepickerDirective_1 = class Daterangepicke
     setPosition() {
         let style;
         let containerTop;
+        this.topAdjustment = this.topAdjustment ? +this.topAdjustment : 0;
+        this.leftAdjustment = this.leftAdjustment ? +this.leftAdjustment : 0;
         // todo: revisit the offsets where when both the shared components are done and the order search rework is finished
         const container = this.picker.pickerContainer.nativeElement;
-        const element = this._el.nativeElement;
-        if (this.drops && this.drops === 'up') {
-            containerTop = element.offsetTop - container.clientHeight + 'px';
+        let element = this._el.nativeElement;
+        if (this.targetElementId) {
+            element = document.getElementById(this.targetElementId);
         }
         else {
-            containerTop = element.offsetTop + 'px';
+            element = element.parentElement;
+        }
+        const elementLocation = element.getBoundingClientRect();
+        if (this.drops && this.drops === 'up') {
+            containerTop = element.offsetTop - container.clientHeight + this.topAdjustment + 'px';
+        }
+        else {
+            containerTop = elementLocation.top + this.topAdjustment + 'px';
         }
         if (this.opens === 'left') {
             style = {
                 top: containerTop,
-                left: element.offsetLeft - container.clientWidth + element.clientWidth - 100 + 'px',
+                left: ((elementLocation.left - container.clientWidth + elementLocation.width - 100) + this.leftAdjustment) + 'px',
                 right: 'auto'
             };
         }
         else if (this.opens === 'center') {
             style = {
                 top: containerTop,
-                left: element.offsetLeft + element.clientWidth / 2 - container.clientWidth / 2 + 'px',
+                left: ((elementLocation.left + elementLocation.width / 2 - container.clientWidth / 2) + this.leftAdjustment) + 'px',
                 right: 'auto'
             };
         }
         else if (this.opens === 'right') {
             style = {
                 top: containerTop,
-                left: element.offsetLeft + 'px',
+                left: (elementLocation.left + this.leftAdjustment) + 'px',
                 right: 'auto'
             };
         }
         else {
-            const position = element.offsetLeft + element.clientWidth / 2 - container.clientWidth / 2;
+            const position = elementLocation.left + elementLocation.width / 2 - container.clientWidth / 2;
             if (position < 0) {
                 style = {
                     top: containerTop,
-                    left: element.offsetLeft + 'px',
+                    left: (elementLocation.left + this.leftAdjustment) + 'px',
                     right: 'auto'
                 };
             }
             else {
                 style = {
                     top: containerTop,
-                    left: position + 'px',
+                    left: (position + this.leftAdjustment) + 'px',
                     right: 'auto'
                 };
             }
@@ -1652,8 +1666,10 @@ let DaterangepickerDirective = DaterangepickerDirective_1 = class Daterangepicke
         }
     }
 };
-DaterangepickerDirective.ctorParameters = () => [
+DateRangePickerDirective.ctorParameters = () => [
+    { type: ApplicationRef },
     { type: ViewContainerRef },
+    { type: Injector },
     { type: ChangeDetectorRef },
     { type: ComponentFactoryResolver },
     { type: ElementRef },
@@ -1664,140 +1680,149 @@ DaterangepickerDirective.ctorParameters = () => [
 ];
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "minDate", void 0);
+], DateRangePickerDirective.prototype, "minDate", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "maxDate", void 0);
+], DateRangePickerDirective.prototype, "maxDate", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "autoApply", void 0);
+], DateRangePickerDirective.prototype, "autoApply", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "alwaysShowCalendars", void 0);
+], DateRangePickerDirective.prototype, "targetElementId", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showCustomRangeLabel", void 0);
+], DateRangePickerDirective.prototype, "topAdjustment", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "linkedCalendars", void 0);
+], DateRangePickerDirective.prototype, "leftAdjustment", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "buttonClassApply", void 0);
+], DateRangePickerDirective.prototype, "alwaysShowCalendars", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "buttonClassReset", void 0);
+], DateRangePickerDirective.prototype, "showCustomRangeLabel", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "buttonClassRange", void 0);
+], DateRangePickerDirective.prototype, "linkedCalendars", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "dateLimit", void 0);
+], DateRangePickerDirective.prototype, "buttonClassApply", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "singleDatePicker", void 0);
+], DateRangePickerDirective.prototype, "buttonClassReset", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showWeekNumbers", void 0);
+], DateRangePickerDirective.prototype, "buttonClassRange", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showISOWeekNumbers", void 0);
+], DateRangePickerDirective.prototype, "dateLimit", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showDropdowns", void 0);
+], DateRangePickerDirective.prototype, "singleDatePicker", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "isInvalidDate", void 0);
+], DateRangePickerDirective.prototype, "showWeekNumbers", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "isCustomDate", void 0);
+], DateRangePickerDirective.prototype, "showISOWeekNumbers", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showClearButton", void 0);
+], DateRangePickerDirective.prototype, "showDropdowns", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "customRangeDirection", void 0);
+], DateRangePickerDirective.prototype, "isInvalidDate", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "ranges", void 0);
+], DateRangePickerDirective.prototype, "isCustomDate", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "opens", void 0);
+], DateRangePickerDirective.prototype, "showClearButton", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "drops", void 0);
+], DateRangePickerDirective.prototype, "customRangeDirection", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "lastMonthDayClass", void 0);
+], DateRangePickerDirective.prototype, "ranges", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "emptyWeekRowClass", void 0);
+], DateRangePickerDirective.prototype, "opens", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "firstDayOfNextMonthClass", void 0);
+], DateRangePickerDirective.prototype, "drops", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "lastDayOfPreviousMonthClass", void 0);
+], DateRangePickerDirective.prototype, "lastMonthDayClass", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "keepCalendarOpeningWithRange", void 0);
+], DateRangePickerDirective.prototype, "emptyWeekRowClass", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showRangeLabelOnInput", void 0);
+], DateRangePickerDirective.prototype, "firstDayOfNextMonthClass", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "showCancel", void 0);
+], DateRangePickerDirective.prototype, "lastDayOfPreviousMonthClass", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "lockStartDate", void 0);
+], DateRangePickerDirective.prototype, "keepCalendarOpeningWithRange", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "timePicker", void 0);
+], DateRangePickerDirective.prototype, "showRangeLabelOnInput", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "timePicker24Hour", void 0);
+], DateRangePickerDirective.prototype, "showCancel", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "timePickerIncrement", void 0);
+], DateRangePickerDirective.prototype, "lockStartDate", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "timePickerSeconds", void 0);
+], DateRangePickerDirective.prototype, "timePicker", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "closeOnAutoApply", void 0);
+], DateRangePickerDirective.prototype, "timePicker24Hour", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "locale", null);
+], DateRangePickerDirective.prototype, "timePickerIncrement", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "_endKey", void 0);
+], DateRangePickerDirective.prototype, "timePickerSeconds", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "startKey", null);
+], DateRangePickerDirective.prototype, "closeOnAutoApply", void 0);
 __decorate([
     Input()
-], DaterangepickerDirective.prototype, "endKey", null);
+], DateRangePickerDirective.prototype, "locale", null);
+__decorate([
+    Input()
+], DateRangePickerDirective.prototype, "_endKey", void 0);
+__decorate([
+    Input()
+], DateRangePickerDirective.prototype, "startKey", null);
+__decorate([
+    Input()
+], DateRangePickerDirective.prototype, "endKey", null);
 __decorate([
     Output('change')
-], DaterangepickerDirective.prototype, "onChange", void 0);
+], DateRangePickerDirective.prototype, "onChange", void 0);
 __decorate([
     Output('rangeClicked')
-], DaterangepickerDirective.prototype, "rangeClicked", void 0);
+], DateRangePickerDirective.prototype, "rangeClicked", void 0);
 __decorate([
     Output('datesUpdated')
-], DaterangepickerDirective.prototype, "datesUpdated", void 0);
+], DateRangePickerDirective.prototype, "datesUpdated", void 0);
 __decorate([
     Output()
-], DaterangepickerDirective.prototype, "startDateChanged", void 0);
+], DateRangePickerDirective.prototype, "startDateChanged", void 0);
 __decorate([
     Output()
-], DaterangepickerDirective.prototype, "endDateChanged", void 0);
+], DateRangePickerDirective.prototype, "endDateChanged", void 0);
 __decorate([
     HostListener('document:click', ['$event'])
-], DaterangepickerDirective.prototype, "outsideClick", null);
-DaterangepickerDirective = DaterangepickerDirective_1 = __decorate([
+], DateRangePickerDirective.prototype, "outsideClick", null);
+DateRangePickerDirective = DateRangePickerDirective_1 = __decorate([
     Directive({
         // tslint:disable-next-line:directive-selector
-        selector: 'input[ngxDaterangepickerMd]',
+        selector: '*[ngxDaterangepickerMd]',
         // tslint:disable-next-line:no-host-metadata-property
         host: {
             '(keyup.esc)': 'hide()',
@@ -1808,19 +1833,19 @@ DaterangepickerDirective = DaterangepickerDirective_1 = __decorate([
         providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
-                useExisting: forwardRef(() => DaterangepickerDirective_1),
+                useExisting: forwardRef(() => DateRangePickerDirective_1),
                 multi: true
             }
         ]
     })
-], DaterangepickerDirective);
+], DateRangePickerDirective);
 
-var NgxDaterangepickerMd_1;
-let NgxDaterangepickerMd = NgxDaterangepickerMd_1 = class NgxDaterangepickerMd {
+var NgxDateRangePickerMd_1;
+let NgxDateRangePickerMd = NgxDateRangePickerMd_1 = class NgxDateRangePickerMd {
     constructor() { }
     static forRoot(config = {}) {
         return {
-            ngModule: NgxDaterangepickerMd_1,
+            ngModule: NgxDateRangePickerMd_1,
             providers: [
                 { provide: LOCALE_CONFIG, useValue: config },
                 { provide: LocaleService, useClass: LocaleService, deps: [LOCALE_CONFIG] }
@@ -1828,9 +1853,9 @@ let NgxDaterangepickerMd = NgxDaterangepickerMd_1 = class NgxDaterangepickerMd {
         };
     }
 };
-NgxDaterangepickerMd = NgxDaterangepickerMd_1 = __decorate([
+NgxDateRangePickerMd = NgxDateRangePickerMd_1 = __decorate([
     NgModule({
-        declarations: [DaterangepickerComponent, DaterangepickerDirective],
+        declarations: [DateRangePickerComponent, DateRangePickerDirective],
         imports: [
             CommonModule,
             FormsModule,
@@ -1845,14 +1870,14 @@ NgxDaterangepickerMd = NgxDaterangepickerMd_1 = __decorate([
             MatSelectModule
         ],
         providers: [],
-        exports: [DaterangepickerComponent, DaterangepickerDirective],
-        entryComponents: [DaterangepickerComponent]
+        exports: [DateRangePickerComponent, DateRangePickerDirective],
+        entryComponents: [DateRangePickerComponent]
     })
-], NgxDaterangepickerMd);
+], NgxDateRangePickerMd);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { DaterangepickerComponent, DaterangepickerDirective, DefaultLocaleConfig, LOCALE_CONFIG, LocaleService, NgxDaterangepickerMd };
+export { DateRangePickerComponent, DateRangePickerDirective, DefaultLocaleConfig, LOCALE_CONFIG, LocaleService, NgxDateRangePickerMd };
 //# sourceMappingURL=ngx-daterangepicker-material.js.map
