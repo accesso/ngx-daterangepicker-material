@@ -1,4 +1,11 @@
+.github/
 demo/
-docs/
-.ng_build/
+e2e/
+src/
 node_modules/
+.editorconfig
+.npmignore
+.prettierrc
+.travis.yml
+
+

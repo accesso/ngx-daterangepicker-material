@@ -19,27 +19,8 @@
   ],
   "homepage": "https://github.com/fetrarij/ngx-daterangepicker-material",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve --port 4201",
-    "demo:build": "ng build --prod",
-    "test": "./node_modules/.bin/ng test --watch=false",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "ngc": "./node_modules/.bin/ngc -p tsconfig.json",
-    "gh-pages": "ng build --prod --base-href=\"/ngx-daterangepicker-material/\" && ngh --dir demo/dist",
-    "build:remove": "ls ./dist/ | xargs -I % sh -c 'rm -rf ../%;'",
-    "build:publish": "cp -a ./dist/* ../",
-    "build:lib": "npx ng-packagr -p package.json",
-    "build:pack": "cd dist && npm pack",
-    "build": "npm run build:lib",
-    "build:local": "rm -rf dist && npm run build && npm run build:pack",
-    "build:release": "npm run build && npm run build:remove && npm run build:publish",
-    "format:check": "prettier \"./{src,cypress}/**/*.{scss,ts,html,json,md}\"",
-    "format:write": "prettier --write \"./{src,cypress}/**/*.{scss,ts,html,json,md}\""
-  },
+  "main": "bundles/ngx-daterangepicker-material.umd.js",
+  "typings": "ngx-daterangepicker-material.d.ts",
   "author": "Fetrarijaona R.",
   "peerDependencies": {
     "moment": "^2.21.0",
@@ -82,16 +63,15 @@
     "zone.js": "0.9.1"
   },
   "$schema": "./node_modules/ng-packagr/package.schema.json",
-  "ngPackage": {
-    "lib": {
-      "entryFile": "src/daterangepicker/index.ts",
-      "umdModuleIds": {
-        "moment": "moment"
-      }
-    },
-    "dest": "dist"
-  },
   "dependencies": {
     "tslib": "^1.9.0"
-  }
+  },
+  "module": "fesm5/ngx-daterangepicker-material.js",
+  "es2015": "fesm2015/ngx-daterangepicker-material.js",
+  "esm5": "esm5/ngx-daterangepicker-material.js",
+  "esm2015": "esm2015/ngx-daterangepicker-material.js",
+  "fesm5": "fesm5/ngx-daterangepicker-material.js",
+  "fesm2015": "fesm2015/ngx-daterangepicker-material.js",
+  "metadata": "ngx-daterangepicker-material.metadata.json",
+  "sideEffects": false
 }

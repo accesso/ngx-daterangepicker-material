@@ -77,6 +77,6 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "no-focused-tests": true,
-    "no-disabled-tests": true
+    "no-disabled-tests": true,
   }
 }
