@@ -35,10 +35,6 @@
     "format:write": "prettier --write \"./{src,cypress}/**/*.{scss,ts,html,json,md}\""
   },
   "author": "Fetrarijaona R.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fetrarij/ngx-daterangepicker-material.git"
-  },
   "peerDependencies": {
     "moment": "^2.21.0",
     "@angular/animations": "^8.2.3",
