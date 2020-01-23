@@ -7,5 +7,10 @@ node_modules/
 .npmignore
 .prettierrc
 .travis.yml
-
-
+angular.json
+package-lock.json
+protractor.conf.js
+screen.png
+tsconfig.app.json
+tsconfig.json
+tslint.json
