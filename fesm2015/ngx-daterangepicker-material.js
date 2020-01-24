@@ -69,7 +69,7 @@ let DateRangePickerComponent = DateRangePickerComponent_1 = class DateRangePicke
         this.dateLimit = null;
         // used in template for compile time support of enum values.
         this.sideEnum = SideEnum;
-        this.isMobile = true;
+        this.isMobile = false;
         this.minDate = null;
         this.maxDate = null;
         this.autoApply = false;
