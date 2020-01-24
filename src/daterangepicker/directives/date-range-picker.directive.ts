@@ -61,6 +61,9 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	autoApply: boolean;
 
 	@Input()
+	isMobile: boolean = false;
+
+	@Input()
 	targetElementId: string;
 	@Input()
 	topAdjustment: number;
@@ -369,7 +372,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 			}
 		}
 
-		if (style && !this.picker.isMobile) {
+		if (style && !this.isMobile) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);
 			this._renderer.setStyle(container, 'right', style.right);

@@ -1398,6 +1398,7 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         this._onChange = Function.prototype;
         this._onTouched = Function.prototype;
         this._validatorChange = Function.prototype;
+        this.isMobile = false;
         this.dateLimit = null;
         this.showCancel = false;
         this.lockStartDate = false;
@@ -1624,7 +1625,7 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
                 };
             }
         }
-        if (style && !this.picker.isMobile) {
+        if (style && !this.isMobile) {
             this._renderer.setStyle(container, 'top', style.top);
             this._renderer.setStyle(container, 'left', style.left);
             this._renderer.setStyle(container, 'right', style.right);
@@ -1692,6 +1693,9 @@ __decorate([
 __decorate([
     Input()
 ], DateRangePickerDirective.prototype, "autoApply", void 0);
+__decorate([
+    Input()
+], DateRangePickerDirective.prototype, "isMobile", void 0);
 __decorate([
     Input()
 ], DateRangePickerDirective.prototype, "targetElementId", void 0);

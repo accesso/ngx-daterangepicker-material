@@ -23,6 +23,7 @@ export declare class DateRangePickerDirective implements OnInit, OnChanges, DoCh
     minDate: _moment.Moment;
     maxDate: _moment.Moment;
     autoApply: boolean;
+    isMobile: boolean;
     targetElementId: string;
     topAdjustment: number;
     leftAdjustment: number;
