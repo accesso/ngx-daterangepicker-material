@@ -32,6 +32,7 @@ export declare class DateRangePickerComponent implements OnInit {
     endDate: _moment.Moment;
     dateLimit: number;
     sideEnum: typeof SideEnum;
+    isMobile: boolean;
     minDate: _moment.Moment;
     maxDate: _moment.Moment;
     autoApply: Boolean;
