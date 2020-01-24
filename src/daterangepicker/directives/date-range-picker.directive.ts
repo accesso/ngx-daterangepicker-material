@@ -369,7 +369,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 			}
 		}
 
-		if (style) {
+		if (style && !this.picker.isMobile) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);
 			this._renderer.setStyle(container, 'right', style.right);
