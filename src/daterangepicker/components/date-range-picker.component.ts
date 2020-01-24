@@ -57,8 +57,8 @@ export class DateRangePickerComponent implements OnInit {
 	dateLimit: number = null;
 	// used in template for compile time support of enum values.
 	sideEnum = SideEnum;
-	@Input()
-	isMobile: boolean = false;
+	// @Input()
+	// isMobile = false;
 	@Input()
 	minDate: _moment.Moment = null;
 	@Input()
