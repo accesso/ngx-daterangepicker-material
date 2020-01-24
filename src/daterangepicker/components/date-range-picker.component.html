@@ -19,15 +19,15 @@
 		</button>
 		<mat-form-field class="cal-start-date">
 			<input matInput [value]="startDate | date: 'MM/dd/yyyy'" readonly />
-			<span matPrefix>
+			<button matPrefix>
 				<mat-icon>date_range</mat-icon>
-			</span>
+			</button>
 		</mat-form-field>
 		<mat-form-field color="primary">
 			<input matInput [value]="endDate | date: 'MM/dd/yyyy'" readonly />
-			<span matPrefix>
+			<button matPrefix>
 				<mat-icon>date_range</mat-icon>
-			</span>
+			</button>
 		</mat-form-field>
 	</div>
 	<div class="dp-body">
