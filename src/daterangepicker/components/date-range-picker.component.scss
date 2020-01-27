@@ -149,6 +149,16 @@ button {
 		.cal-reset-btn, .cal-start-date {
 			margin-right: 16px;
 		}
+
+		.mat-form-field-type-mat-input .mat-form-field-flex::before,
+		.mat-form-field-type-mat-input .mat-form-field-flex::after {
+			margin-top: 0;
+		}
+
+		.mat-form-field-prefix,
+		.mat-form-field-suffix {
+			top: 0;
+		}
 	}
 
 	.dp-body {
