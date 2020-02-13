@@ -125,7 +125,6 @@ let DateRangePickerComponent = DateRangePickerComponent_1 = class DateRangePicke
         return this._locale;
     }
     set ranges(value) {
-        console.log('ranges set to ', value);
         this._ranges = value;
         this.renderRanges();
     }

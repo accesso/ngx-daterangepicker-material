@@ -121,7 +121,6 @@ export class DateRangePickerComponent implements OnInit {
 	_ranges: DateRangePreset[] = [];
 
 	@Input() set ranges(value: DateRangePreset[]) {
-		console.log('ranges set to ', value);
 		this._ranges = value;
 		this.renderRanges();
 	}

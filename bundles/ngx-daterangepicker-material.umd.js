@@ -328,7 +328,6 @@
                 return this._ranges;
             },
             set: function (value) {
-                console.log('ranges set to ', value);
                 this._ranges = value;
                 this.renderRanges();
             },
