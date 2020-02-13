@@ -17,22 +17,18 @@ export class CustomRangesComponent implements OnInit {
 	invalidDates: moment.Moment[] = [moment().add(2, 'days'), moment().add(3, 'days'), moment().add(5, 'days')];
 	ranges: DateRangePreset[] = [
 		{
-			key: 'today',
 			label: 'Today',
 			range: {start: moment(), end: moment()}
 		},
 		{
-			key: 'yesterday',
 			label: 'Yesterday!',
 			range: {start: moment().subtract(1, 'days'), end: moment().subtract(1, 'days')}
 		},
 		{
-			key: 'lastWeek',
 			label: 'Last 7 Days',
 			range: {start: moment().subtract(6, 'days'), end: moment()}
 		},
 		{
-			key: 'lastMonth',
 			label: 'Last 30 Days',
 			range: {start: moment().subtract(29, 'days'), end: moment()}
 		}
