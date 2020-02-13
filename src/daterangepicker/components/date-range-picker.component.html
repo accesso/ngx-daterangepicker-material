@@ -21,13 +21,13 @@
 			<button mat-icon-button matPrefix>
 				<mat-icon>date_range</mat-icon>
 			</button>
-			<input matInput [value]="startDate | date: locale.displayFormat" readonly />
+			<input matInput [value]="startDate | date: locale.displayFormat:undefined:locale.localeId" readonly />
 		</mat-form-field>
 		<mat-form-field color="primary">
 			<button mat-icon-button matPrefix>
 				<mat-icon>date_range</mat-icon>
 			</button>
-			<input matInput [value]="endDate | date: locale.displayFormat" readonly />
+			<input matInput [value]="endDate | date: locale.displayFormat:undefined:locale.localeId" readonly />
 		</mat-form-field>
 	</div>
 	<div class="dp-body">

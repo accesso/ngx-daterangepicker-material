@@ -57,7 +57,7 @@ export declare class DateRangePickerComponent implements OnInit {
     buttonClassReset: string;
     buttonClassRange: string;
     _locale: LocaleConfig;
-    locale: any;
+    locale: LocaleConfig;
     _ranges: any;
     ranges: any;
     showCustomRangeLabel: boolean;

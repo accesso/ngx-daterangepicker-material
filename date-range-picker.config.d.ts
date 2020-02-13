@@ -18,6 +18,7 @@ export interface LocaleConfig {
     firstDay?: number;
     format?: string;
     displayFormat?: string;
+    localeId?: string;
 }
 /**
  *  DefaultLocaleConfig

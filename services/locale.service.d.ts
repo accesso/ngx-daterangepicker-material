@@ -17,5 +17,6 @@ export declare class LocaleService {
         firstDay?: number;
         format?: string;
         displayFormat?: string;
+        localeId?: string;
     };
 }

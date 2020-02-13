@@ -113,7 +113,7 @@ export class DateRangePickerComponent implements OnInit {
 	@Input() set locale(value) {
 		this._locale = { ...this._localeService.config, ...value };
 	}
-	get locale(): any {
+	get locale(): LocaleConfig {
 		return this._locale;
 	}
 	// custom ranges
