@@ -26,7 +26,7 @@
     ],
     "no-arg": true,
     "no-bitwise": true,
-    "no-console": [false, "debug", "info", "log", "time", "timeEnd", "trace"],
+    "no-console": [true, "debug", "info", "log", "time", "timeEnd", "trace"],
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
@@ -77,6 +77,6 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "no-focused-tests": true,
-    "no-disabled-tests": true,
+    "no-disabled-tests": true
   }
 }
