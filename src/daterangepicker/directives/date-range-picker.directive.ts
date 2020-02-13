@@ -21,6 +21,7 @@ import {
 	ViewContainerRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DateRangePreset } from '../date-range-picker.models';
 import * as _moment from 'moment';
 import { DateRangePickerComponent } from '../components/date-range-picker.component';
 import { LocaleConfig } from '../date-range-picker.config';
@@ -101,7 +102,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	@Input()
 	customRangeDirection: boolean;
 	@Input()
-	ranges: any;
+	ranges: DateRangePreset[];
 	@Input()
 	opens: string;
 	@Input()

@@ -1,4 +1,5 @@
 import { ApplicationRef, ChangeDetectorRef, ComponentFactoryResolver, DoCheck, ElementRef, EventEmitter, Injector, KeyValueDiffers, OnChanges, OnInit, Renderer2, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { DateRangePreset } from '../date-range-picker.models';
 import * as _moment from 'moment';
 import { DateRangePickerComponent } from '../components/date-range-picker.component';
 import { LocaleConfig } from '../date-range-picker.config';
@@ -41,7 +42,7 @@ export declare class DateRangePickerDirective implements OnInit, OnChanges, DoCh
     isCustomDate: Function;
     showClearButton: boolean;
     customRangeDirection: boolean;
-    ranges: any;
+    ranges: DateRangePreset[];
     opens: string;
     drops: string;
     firstMonthDayClass: string;

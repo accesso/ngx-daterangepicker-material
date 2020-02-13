@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as _moment from 'moment';
+import { DateRangePreset } from '../date-range-picker.models';
 import { LocaleConfig } from '../date-range-picker.config';
 import { LocaleService } from '../services/locale.service';
 export declare enum SideEnum {
@@ -58,15 +59,14 @@ export declare class DateRangePickerComponent implements OnInit {
     buttonClassRange: string;
     _locale: LocaleConfig;
     locale: LocaleConfig;
-    _ranges: any;
-    ranges: any;
+    _ranges: DateRangePreset[];
+    ranges: DateRangePreset[];
     showCustomRangeLabel: boolean;
     showCancel: boolean;
     keepCalendarOpeningWithRange: boolean;
     showRangeLabelOnInput: boolean;
     customRangeDirection: boolean;
-    chosenRange: string;
-    rangesArray: Array<any>;
+    chosenRange: DateRangePreset;
     isShown: Boolean;
     inline: boolean;
     leftCalendar: any;
@@ -152,9 +152,9 @@ export declare class DateRangePickerComponent implements OnInit {
     /**
      *  Click on the custom range
      * @param e: Event
-     * @param label
+     * @param preset
      */
-    clickRange(e: any, label: any): void;
+    clickRange(e: any, preset: DateRangePreset): void;
     show(e?: any): void;
     hide(e?: any): void;
     /**
@@ -175,7 +175,7 @@ export declare class DateRangePickerComponent implements OnInit {
      * Find out if the selected range should be disabled if it doesn't
      * fit into minDate and maxDate limitations.
      */
-    disableRange(range: any): any;
+    disableRange(preset: any): any;
     /**
      *
      * @param date the date to add time

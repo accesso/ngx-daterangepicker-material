@@ -9,7 +9,7 @@
 		hidden: !isShown && !inline,
 		inline: inline,
 		double: !singleDatePicker && showCalInRanges,
-		'show-ranges': rangesArray.length
+		'show-ranges': ranges.length > 0
 	}"
 	[class]="'drops-' + drops + '-' + opens"
 >
@@ -50,6 +50,7 @@
 								"
 							>
 							</ng-container>
+							<ng-container
 							<ng-container
 								*ngIf="
 									!(
@@ -430,21 +431,21 @@
 			</div>
 		</div>
 	</div>
-	<div class="dp-footer" *ngIf="!autoApply && (!rangesArray.length || (showCalInRanges && !singleDatePicker))">
+	<div class="dp-footer" *ngIf="!autoApply && (!ranges.length || (showCalInRanges && !singleDatePicker))">
 		<div class="range-buttons">
 			<div class="custom-range-label" *ngIf="showCustomRangeLabel">
 				<strong>{{ _locale.customRangeLabel }}:</strong>
 			</div>
 			<button
-				*ngFor="let range of rangesArray"
+				*ngFor="let range of ranges"
 				mat-stroked-button
 				color="primary"
 				class="{{ buttonClassRange }}"
 				(click)="clickRange($event, range)"
 				[disabled]="disableRange(range)"
-				[ngClass]="{ active: range === chosenRange }"
+				[ngClass]="{ active: range.label === chosenRange.label }"
 			>
-				{{ range }}
+				{{ range.label }}
 			</button>
 		</div>
 		<div class="control-buttons">

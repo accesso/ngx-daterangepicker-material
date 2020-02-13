@@ -293,12 +293,11 @@
             this.buttonClassRange = null;
             this._locale = {};
             // custom ranges
-            this._ranges = {};
+            this._ranges = [];
             this.showCancel = false;
             this.keepCalendarOpeningWithRange = false;
             this.showRangeLabelOnInput = false;
             this.customRangeDirection = false;
-            this.rangesArray = [];
             // some state information
             this.isShown = false;
             this.inline = true;
@@ -329,6 +328,7 @@
                 return this._ranges;
             },
             set: function (value) {
+                console.log('ranges set to ', value);
                 this._ranges = value;
                 this.renderRanges();
             },
@@ -364,55 +364,37 @@
             this.renderRanges();
         };
         DateRangePickerComponent.prototype.renderRanges = function () {
-            this.rangesArray = [];
+            var _this = this;
             var start, end;
-            if (typeof this.ranges === 'object') {
-                for (var range in this.ranges) {
-                    if (this.ranges.hasOwnProperty(range)) {
-                        if (typeof this.ranges[range][0] === 'string') {
-                            start = moment$1(this.ranges[range][0], this.locale.format);
-                        }
-                        else {
-                            start = moment$1(this.ranges[range][0]);
-                        }
-                        if (typeof this.ranges[range][1] === 'string') {
-                            end = moment$1(this.ranges[range][1], this.locale.format);
-                        }
-                        else {
-                            end = moment$1(this.ranges[range][1]);
-                        }
-                        // If the start or end date exceed those allowed by the minDate
-                        // option, shorten the range to the allowable period.
-                        if (this.minDate && start.isBefore(this.minDate)) {
-                            start = this.minDate.clone();
-                        }
-                        var maxDate = this.maxDate;
-                        if (maxDate && end.isAfter(maxDate)) {
-                            end = maxDate.clone();
-                        }
-                        // If the end of the range is before the minimum or the start of the range is
-                        // after the maximum, don't display this range option at all.
-                        if ((this.minDate && end.isBefore(this.minDate, this.timePicker ? 'minute' : 'day')) ||
-                            (maxDate && start.isAfter(maxDate, this.timePicker ? 'minute' : 'day'))) {
-                            continue;
-                        }
-                        // Support unicode chars in the range names.
-                        var elem = document.createElement('textarea');
-                        elem.innerHTML = range;
-                        var rangeHtml = elem.value;
-                        this.ranges[rangeHtml] = [start, end];
-                    }
+            this.ranges.forEach(function (preset) {
+                start = preset.range.start;
+                end = preset.range.end;
+                // If the start or end date exceed those allowed by the minDate
+                // option, shorten the range to the allowable period.
+                if (_this.minDate && start.isBefore(_this.minDate)) {
+                    start = _this.minDate.clone();
                 }
-                for (var range in this.ranges) {
-                    if (this.ranges.hasOwnProperty(range)) {
-                        this.rangesArray.push(range);
-                    }
+                var maxDate = _this.maxDate;
+                if (maxDate && end.isAfter(maxDate)) {
+                    end = maxDate.clone();
                 }
-                this.showCalInRanges = !this.rangesArray.length || this.alwaysShowCalendars;
-                if (!this.timePicker) {
-                    this.startDate = this.startDate.startOf('day');
-                    this.endDate = this.endDate.endOf('day');
+                // If the end of the range is before the minimum or the start of the range is
+                // after the maximum, don't display this range option at all.
+                if ((_this.minDate && end.isBefore(_this.minDate, _this.timePicker ? 'minute' : 'day')) ||
+                    (maxDate && end.isAfter(maxDate, _this.timePicker ? 'minute' : 'day'))) {
+                    // continue;
                 }
+                else {
+                    // Support unicode chars in the range names.
+                    var elem = document.createElement('textarea');
+                    elem.innerHTML = preset.label;
+                    preset.label = elem.value;
+                }
+            });
+            this.showCalInRanges = true;
+            if (!this.timePicker) {
+                this.startDate = this.startDate.startOf('day');
+                this.endDate = this.endDate.endOf('day');
             }
         };
         DateRangePickerComponent.prototype.renderTimePicker = function (side) {
@@ -809,11 +791,11 @@
             if (!this.singleDatePicker && this.autoUpdateInput) {
                 if (this.startDate && this.endDate) {
                     // if we use ranges and should show range label on input
-                    if (this.rangesArray.length &&
+                    if (this.ranges.length &&
                         this.showRangeLabelOnInput === true &&
-                        this.chosenRange &&
-                        this.locale.customRangeLabel !== this.chosenRange) {
-                        this.chosenLabel = this.chosenRange;
+                        this.chosenRange /*&&
+                    this.locale.customRangeLabel !== this.chosenRange.label*/) {
+                        this.chosenLabel = this.chosenRange.label;
                     }
                     else {
                         this.chosenLabel =
@@ -834,46 +816,41 @@
          * this should calculate the label
          */
         DateRangePickerComponent.prototype.calculateChosenLabel = function () {
+            var _this = this;
             if (!this.locale || !this.locale.separator) {
                 this._buildLocale();
             }
             var customRange = true;
             var i = 0;
-            if (this.rangesArray.length > 0) {
-                for (var range in this.ranges) {
-                    if (this.ranges[range]) {
-                        if (this.timePicker) {
-                            var format = this.timePickerSeconds ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm';
-                            // ignore times when comparing dates if time picker seconds is not enabled
-                            if (this.startDate.format(format) === this.ranges[range][0].format(format) &&
-                                this.endDate.format(format) === this.ranges[range][1].format(format)) {
-                                customRange = false;
-                                this.chosenRange = this.rangesArray[i];
-                                break;
-                            }
-                        }
-                        else {
-                            // ignore times when comparing dates if time picker is not enabled
-                            if (this.startDate.format('YYYY-MM-DD') === this.ranges[range][0].format('YYYY-MM-DD') &&
-                                this.endDate.format('YYYY-MM-DD') === this.ranges[range][1].format('YYYY-MM-DD')) {
-                                customRange = false;
-                                this.chosenRange = this.rangesArray[i];
-                                break;
-                            }
-                        }
-                        i++;
+            this.ranges.forEach(function (preset) {
+                if (_this.timePicker) {
+                    var format = _this.timePickerSeconds ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm';
+                    // ignore times when comparing dates if time picker seconds is not enabled
+                    if (_this.startDate.format(format) === preset.range.start.format(format) &&
+                        _this.endDate.format(format) === preset.range.end.format(format)) {
+                        customRange = false;
+                        _this.chosenRange = preset;
                     }
                 }
-                if (customRange) {
-                    if (this.showCustomRangeLabel) {
-                        this.chosenRange = this.locale.customRangeLabel;
+                else {
+                    // ignore times when comparing dates if time picker is not enabled
+                    if (_this.startDate.format('YYYY-MM-DD') === preset.range.start.format('YYYY-MM-DD') &&
+                        _this.endDate.format('YYYY-MM-DD') === preset.range.end.format('YYYY-MM-DD')) {
+                        customRange = false;
+                        _this.chosenRange = preset;
                     }
-                    else {
-                        this.chosenRange = null;
-                    }
-                    // if custom label: show calendar
-                    this.showCalInRanges = true;
                 }
+                i++;
+            });
+            if (customRange) {
+                if (this.showCustomRangeLabel) {
+                    // this.chosenRange.label = this.locale.customRangeLabel;
+                }
+                else {
+                    this.chosenRange = null;
+                }
+                // if custom label: show calendar
+                this.showCalInRanges = true;
             }
             this.updateElement();
         };
@@ -1071,9 +1048,6 @@
                     return;
                 }
             }
-            if (this.rangesArray.length) {
-                this.chosenRange = this.locale.customRangeLabel;
-            }
             var date = side === SideEnum.left ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
             if ((this.endDate || (date.isBefore(this.startDate, 'day') && this.customRangeDirection === false)) &&
                 this.lockStartDate === false) {
@@ -1123,59 +1097,52 @@
         /**
          *  Click on the custom range
          * @param e: Event
-         * @param label
+         * @param preset
          */
-        DateRangePickerComponent.prototype.clickRange = function (e, label) {
-            this.chosenRange = label;
-            if (label === this.locale.customRangeLabel) {
-                this.isShown = true; // show calendars
-                this.showCalInRanges = true;
+        DateRangePickerComponent.prototype.clickRange = function (e, preset) {
+            this.chosenRange = preset;
+            this.startDate = preset.range.start.clone();
+            this.endDate = preset.range.end.clone();
+            if (this.showRangeLabelOnInput) {
+                this.chosenLabel = preset.label;
             }
             else {
-                var dates = this.ranges[label];
-                this.startDate = dates[0].clone();
-                this.endDate = dates[1].clone();
-                if (this.showRangeLabelOnInput && label !== this.locale.customRangeLabel) {
-                    this.chosenLabel = label;
-                }
-                else {
-                    this.calculateChosenLabel();
-                }
-                this.showCalInRanges = !this.rangesArray.length || this.alwaysShowCalendars;
-                if (!this.timePicker) {
-                    this.startDate.startOf('day');
-                    this.endDate.endOf('day');
-                }
+                this.calculateChosenLabel();
+            }
+            this.showCalInRanges = true;
+            if (!this.timePicker) {
+                this.startDate.startOf('day');
+                this.endDate.endOf('day');
+            }
+            if (!this.alwaysShowCalendars) {
+                this.isShown = false; // hide calendars
+            }
+            this.rangeClicked.emit({ label: preset.label, dates: preset.range });
+            if (!this.keepCalendarOpeningWithRange) {
+                this.clickApply();
+            }
+            else {
                 if (!this.alwaysShowCalendars) {
-                    this.isShown = false; // hide calendars
+                    return this.clickApply();
                 }
-                this.rangeClicked.emit({ label: label, dates: dates });
-                if (!this.keepCalendarOpeningWithRange) {
-                    this.clickApply();
+                if (this.maxDate && this.maxDate.isSame(preset.range.start, 'month')) {
+                    this.rightCalendar.month.month(preset.range.start.month());
+                    this.rightCalendar.month.year(preset.range.start.year());
+                    this.leftCalendar.month.month(preset.range.start.month() - 1);
+                    this.leftCalendar.month.year(preset.range.end.year());
                 }
                 else {
-                    if (!this.alwaysShowCalendars) {
-                        return this.clickApply();
-                    }
-                    if (this.maxDate && this.maxDate.isSame(dates[0], 'month')) {
-                        this.rightCalendar.month.month(dates[0].month());
-                        this.rightCalendar.month.year(dates[0].year());
-                        this.leftCalendar.month.month(dates[0].month() - 1);
-                        this.leftCalendar.month.year(dates[1].year());
-                    }
-                    else {
-                        this.leftCalendar.month.month(dates[0].month());
-                        this.leftCalendar.month.year(dates[0].year());
-                        // get the next year
-                        var nextMonth = dates[0].clone().add(1, 'month');
-                        this.rightCalendar.month.month(nextMonth.month());
-                        this.rightCalendar.month.year(nextMonth.year());
-                    }
-                    this.updateCalendars();
-                    if (this.timePicker) {
-                        this.renderTimePicker(SideEnum.left);
-                        this.renderTimePicker(SideEnum.right);
-                    }
+                    this.leftCalendar.month.month(preset.range.start.month());
+                    this.leftCalendar.month.year(preset.range.start.year());
+                    // get the next year
+                    var nextMonth = preset.range.start.clone().add(1, 'month');
+                    this.rightCalendar.month.month(nextMonth.month());
+                    this.rightCalendar.month.year(nextMonth.year());
+                }
+                this.updateCalendars();
+                if (this.timePicker) {
+                    this.renderTimePicker(SideEnum.left);
+                    this.renderTimePicker(SideEnum.right);
                 }
             }
         };
@@ -1244,24 +1211,16 @@
          * Find out if the selected range should be disabled if it doesn't
          * fit into minDate and maxDate limitations.
          */
-        DateRangePickerComponent.prototype.disableRange = function (range) {
-            var _this = this;
-            if (range === this.locale.customRangeLabel) {
+        DateRangePickerComponent.prototype.disableRange = function (preset) {
+            if (preset.label === this.locale.customRangeLabel) {
                 return false;
             }
-            var rangeMarkers = this.ranges[range];
-            var areBothBefore = rangeMarkers.every(function (date) {
-                if (!_this.minDate) {
-                    return false;
-                }
-                return date.isBefore(_this.minDate);
-            });
-            var areBothAfter = rangeMarkers.every(function (date) {
-                if (!_this.maxDate) {
-                    return false;
-                }
-                return date.isAfter(_this.maxDate);
-            });
+            var areBothBefore = this.minDate
+                && preset.range.start.isBefore(this.minDate)
+                && preset.range.end.isBefore(this.minDate);
+            var areBothAfter = this.maxDate
+                && preset.range.start.isAfter(this.maxDate)
+                && preset.range.end.isAfter(this.maxDate);
             return areBothBefore || areBothAfter;
         };
         /**
@@ -1566,7 +1525,7 @@
             core.Component({
                 // tslint:disable-next-line:component-selector
                 selector: 'ngx-daterangepicker-material',
-                template: "<div\n\tclass=\"md-drppicker\"\n\t#pickerContainer\n\t[ngClass]=\"{\n\t\tltr: locale.direction === 'ltr',\n\t\trtl: this.locale.direction === 'rtl',\n\t\tshown: isShown || inline,\n\t\tsingle: singleDatePicker,\n\t\thidden: !isShown && !inline,\n\t\tinline: inline,\n\t\tdouble: !singleDatePicker && showCalInRanges,\n\t\t'show-ranges': rangesArray.length\n\t}\"\n\t[class]=\"'drops-' + drops + '-' + opens\"\n>\n\t<div class=\"dp-header\" *ngIf=\"!singleDatePicker\">\n\t\t<button mat-button *ngIf=\"showClearButton\" class=\"cal-reset-btn\" (click)=\"clear()\">\n\t\t\t{{ _locale.clearLabel }}\n\t\t</button>\n\t\t<mat-form-field class=\"cal-start-date\">\n\t\t\t<button mat-icon-button matPrefix>\n\t\t\t\t<mat-icon>date_range</mat-icon>\n\t\t\t</button>\n\t\t\t<input matInput [value]=\"startDate | date: locale.displayFormat:undefined:locale.localeId\" readonly />\n\t\t</mat-form-field>\n\t\t<mat-form-field color=\"primary\">\n\t\t\t<button mat-icon-button matPrefix>\n\t\t\t\t<mat-icon>date_range</mat-icon>\n\t\t\t</button>\n\t\t\t<input matInput [value]=\"endDate | date: locale.displayFormat:undefined:locale.localeId\" readonly />\n\t\t</mat-form-field>\n\t</div>\n\t<div class=\"dp-body\">\n\t\t<div class=\"calendar\" [ngClass]=\"{ right: singleDatePicker, left: !singleDatePicker }\" *ngIf=\"showCalInRanges\">\n\t\t\t<button color=\"primary\" mat-mini-fab class=\"prev available\" (click)=\"clickPrev(sideEnum.left)\">\n\t\t\t\t<mat-icon>arrow_forward_ios</mat-icon>\n\t\t\t</button>\n\t\t\t<div class=\"calendar-table\">\n\t\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<th [colSpan]=\"!showDropdowns ? 7 : 5\" class=\"month drp-animate\">\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.left.dropdowns.currentMonth\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"monthChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.left.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.left.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.left.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ locale.monthNames[m] }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t{{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngIf=\"showDropdowns && calendarVariables.left.dropdowns\" colspan=\"2\" class=\"year\">\n\t\t\t\t\t\t\t\t<ng-container>\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.left.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"yearChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.left.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"y\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ y }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<button\n\t\t\t\t\t\t\t\t\tcolor=\"primary\"\n\t\t\t\t\t\t\t\t\tmat-mini-fab\n\t\t\t\t\t\t\t\t\tclass=\"next available\"\n\t\t\t\t\t\t\t\t\t(click)=\"clickNext(sideEnum.left)\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<mat-icon>arrow_forward_ios</mat-icon>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody class=\"drp-animate\">\n\t\t\t\t\t\t<tr\n\t\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.left.calRows\"\n\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row].classList\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<!-- add week number -->\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<!-- cal -->\n\t\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.left.calCols\"\n\t\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row][col]\"\n\t\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.left, row, col)\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"hourselect select-item\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedHour\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.hours\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedMinute\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.minutes; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.left.minutesLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedSecond\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.seconds; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.left.secondsLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.ampmModel\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.left.amDisabled\">AM</option>\n\t\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.left.pmDisabled\">PM</option>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"calendar right\" *ngIf=\"showCalInRanges && !singleDatePicker\">\n\t\t\t<button color=\"primary\" mat-mini-fab class=\"next available\" (click)=\"clickNext(sideEnum.right)\">\n\t\t\t\t<mat-icon>arrow_forward_ios</mat-icon>\n\t\t\t</button>\n\t\t\t<div class=\"calendar-table\">\n\t\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<th [colSpan]=\"!showDropdowns ? 7 : 5\" class=\"month\">\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.right.dropdowns.currentMonth\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"monthChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.right.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.right.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.right.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ locale.monthNames[m] }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t{{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngIf=\"showDropdowns && calendarVariables.right.dropdowns\" colspan=\"2\" class=\"year\">\n\t\t\t\t\t\t\t\t<ng-container>\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.right.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"yearChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.right.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"y\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ y }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t<tr\n\t\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.right.calRows\"\n\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row].classList\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.right.calCols\"\n\t\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row][col]\"\n\t\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.right, row, col)\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item hourselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedHour\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.hours\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedMinute\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.minutes; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.right.minutesLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedSecond\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.seconds; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.right.secondsLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.ampmModel\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.right.amDisabled\">AM</option>\n\t\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.right.pmDisabled\">PM</option>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"dp-footer\" *ngIf=\"!autoApply && (!rangesArray.length || (showCalInRanges && !singleDatePicker))\">\n\t\t<div class=\"range-buttons\">\n\t\t\t<div class=\"custom-range-label\" *ngIf=\"showCustomRangeLabel\">\n\t\t\t\t<strong>{{ _locale.customRangeLabel }}:</strong>\n\t\t\t</div>\n\t\t\t<button\n\t\t\t\t*ngFor=\"let range of rangesArray\"\n\t\t\t\tmat-stroked-button\n\t\t\t\tcolor=\"primary\"\n\t\t\t\tclass=\"{{ buttonClassRange }}\"\n\t\t\t\t(click)=\"clickRange($event, range)\"\n\t\t\t\t[disabled]=\"disableRange(range)\"\n\t\t\t\t[ngClass]=\"{ active: range === chosenRange }\"\n\t\t\t>\n\t\t\t\t{{ range }}\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"control-buttons\">\n\t\t\t<button mat-flat-button color=\"primary\" (click)=\"clickApply($event)\">\n\t\t\t\t{{ _locale.applyLabel }}\n\t\t\t</button>\n\t\t</div>\n\t</div>\n</div>\n",
+                template: "<div\n\tclass=\"md-drppicker\"\n\t#pickerContainer\n\t[ngClass]=\"{\n\t\tltr: locale.direction === 'ltr',\n\t\trtl: this.locale.direction === 'rtl',\n\t\tshown: isShown || inline,\n\t\tsingle: singleDatePicker,\n\t\thidden: !isShown && !inline,\n\t\tinline: inline,\n\t\tdouble: !singleDatePicker && showCalInRanges,\n\t\t'show-ranges': ranges.length > 0\n\t}\"\n\t[class]=\"'drops-' + drops + '-' + opens\"\n>\n\t<div class=\"dp-header\" *ngIf=\"!singleDatePicker\">\n\t\t<button mat-button *ngIf=\"showClearButton\" class=\"cal-reset-btn\" (click)=\"clear()\">\n\t\t\t{{ _locale.clearLabel }}\n\t\t</button>\n\t\t<mat-form-field class=\"cal-start-date\">\n\t\t\t<button mat-icon-button matPrefix>\n\t\t\t\t<mat-icon>date_range</mat-icon>\n\t\t\t</button>\n\t\t\t<input matInput [value]=\"startDate | date: locale.displayFormat:undefined:locale.localeId\" readonly />\n\t\t</mat-form-field>\n\t\t<mat-form-field color=\"primary\">\n\t\t\t<button mat-icon-button matPrefix>\n\t\t\t\t<mat-icon>date_range</mat-icon>\n\t\t\t</button>\n\t\t\t<input matInput [value]=\"endDate | date: locale.displayFormat:undefined:locale.localeId\" readonly />\n\t\t</mat-form-field>\n\t</div>\n\t<div class=\"dp-body\">\n\t\t<div class=\"calendar\" [ngClass]=\"{ right: singleDatePicker, left: !singleDatePicker }\" *ngIf=\"showCalInRanges\">\n\t\t\t<button color=\"primary\" mat-mini-fab class=\"prev available\" (click)=\"clickPrev(sideEnum.left)\">\n\t\t\t\t<mat-icon>arrow_forward_ios</mat-icon>\n\t\t\t</button>\n\t\t\t<div class=\"calendar-table\">\n\t\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t!calendarVariables.left.minDate ||\n\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t(!this.linkedCalendars || true))\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<th [colSpan]=\"!showDropdowns ? 7 : 5\" class=\"month drp-animate\">\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.left.dropdowns.currentMonth\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"monthChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.left.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.left.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.left.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.left.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ locale.monthNames[m] }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.left.dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t{{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngIf=\"showDropdowns && calendarVariables.left.dropdowns\" colspan=\"2\" class=\"year\">\n\t\t\t\t\t\t\t\t<ng-container>\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.left.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"yearChanged($event, sideEnum.left)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.left.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"y\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ y }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<button\n\t\t\t\t\t\t\t\t\tcolor=\"primary\"\n\t\t\t\t\t\t\t\t\tmat-mini-fab\n\t\t\t\t\t\t\t\t\tclass=\"next available\"\n\t\t\t\t\t\t\t\t\t(click)=\"clickNext(sideEnum.left)\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<mat-icon>arrow_forward_ios</mat-icon>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t(!calendarVariables.left.maxDate ||\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.left.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker)\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody class=\"drp-animate\">\n\t\t\t\t\t\t<tr\n\t\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.left.calRows\"\n\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row].classList\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<!-- add week number -->\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<!-- cal -->\n\t\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.left.calCols\"\n\t\t\t\t\t\t\t\t[class]=\"calendarVariables.left.classes[row][col]\"\n\t\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.left, row, col)\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.left.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"hourselect select-item\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedHour\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.hours\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedMinute\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.minutes; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.left.minutesLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.selectedSecond\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.left.seconds; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.left.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.left.secondsLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.left.ampmModel\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.left)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.left.amDisabled\">AM</option>\n\t\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.left.pmDisabled\">PM</option>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"calendar right\" *ngIf=\"showCalInRanges && !singleDatePicker\">\n\t\t\t<button color=\"primary\" mat-mini-fab class=\"next available\" (click)=\"clickNext(sideEnum.right)\">\n\t\t\t\t<mat-icon>arrow_forward_ios</mat-icon>\n\t\t\t</button>\n\t\t\t<div class=\"calendar-table\">\n\t\t\t\t<table class=\"table-condensed\" *ngIf=\"calendarVariables\">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\"></th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t(!calendarVariables.right.minDate ||\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.minDate.isBefore(\n\t\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.firstDay\n\t\t\t\t\t\t\t\t\t\t\t)) &&\n\t\t\t\t\t\t\t\t\t\t!this.linkedCalendars\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<th [colSpan]=\"!showDropdowns ? 7 : 5\" class=\"month\">\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"showDropdowns && calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.right.dropdowns.currentMonth\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"monthChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t[disabled]=\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMinYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm < calendarVariables.right.minDate.month()) ||\n\t\t\t\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.dropdowns.inMaxYear &&\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tm > calendarVariables.right.maxDate.month())\n\t\t\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let m of calendarVariables.right.dropdowns.monthArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"m\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ locale.monthNames[m] }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t<ng-container *ngIf=\"!showDropdowns || !calendarVariables.right.dropdowns\">\n\t\t\t\t\t\t\t\t\t{{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}\n\t\t\t\t\t\t\t\t\t{{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngIf=\"showDropdowns && calendarVariables.right.dropdowns\" colspan=\"2\" class=\"year\">\n\t\t\t\t\t\t\t\t<ng-container>\n\t\t\t\t\t\t\t\t\t<mat-form-field>\n\t\t\t\t\t\t\t\t\t\t<mat-select\n\t\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"calendarVariables.right.dropdowns.currentYear\"\n\t\t\t\t\t\t\t\t\t\t\t(selectionChange)=\"yearChanged($event, sideEnum.right)\"\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t<mat-option\n\t\t\t\t\t\t\t\t\t\t\t\t*ngFor=\"let y of calendarVariables.right.dropdowns.yearArrays\"\n\t\t\t\t\t\t\t\t\t\t\t\t[value]=\"y\"\n\t\t\t\t\t\t\t\t\t\t\t\t>{{ y }}</mat-option\n\t\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t</mat-select>\n\t\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t<ng-container\n\t\t\t\t\t\t\t\t*ngIf=\"\n\t\t\t\t\t\t\t\t\t!(\n\t\t\t\t\t\t\t\t\t\t!calendarVariables.right.maxDate ||\n\t\t\t\t\t\t\t\t\t\t(calendarVariables.right.maxDate.isAfter(\n\t\t\t\t\t\t\t\t\t\t\tcalendarVariables.right.calendar.lastDay\n\t\t\t\t\t\t\t\t\t\t) &&\n\t\t\t\t\t\t\t\t\t\t\t(!linkedCalendars || singleDatePicker || true))\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr class=\"week-days\">\n\t\t\t\t\t\t\t<th *ngIf=\"showWeekNumbers || showISOWeekNumbers\" class=\"week\">\n\t\t\t\t\t\t\t\t<span>{{ this.locale.weekLabel }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t<th *ngFor=\"let dayofweek of locale.daysOfWeek\">\n\t\t\t\t\t\t\t\t<span>{{ dayofweek[0] }}</span>\n\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t<tr\n\t\t\t\t\t\t\t*ngFor=\"let row of calendarVariables.right.calRows\"\n\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row].classList\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].week() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td class=\"week\" *ngIf=\"showISOWeekNumbers\">\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][0].isoWeek() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td\n\t\t\t\t\t\t\t\t*ngFor=\"let col of calendarVariables.right.calCols\"\n\t\t\t\t\t\t\t\t[class]=\"calendarVariables.right.classes[row][col]\"\n\t\t\t\t\t\t\t\t(click)=\"clickDate($event, sideEnum.right, row, col)\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<span>{{ calendarVariables.right.calendar[row][col].date() }}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t\t<div class=\"calendar-time\" *ngIf=\"timePicker\">\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item hourselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedHour\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.hours\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledHours.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ i }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\tclass=\"select-item minuteselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedMinute\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.minutes; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledMinutes.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.right.minutesLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\t*ngIf=\"timePickerSeconds\"\n\t\t\t\t\t\tclass=\"select-item secondselect\"\n\t\t\t\t\t\t[disabled]=\"!endDate\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.selectedSecond\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t*ngFor=\"let i of timepickerVariables.right.seconds; let index = index\"\n\t\t\t\t\t\t\t[value]=\"i\"\n\t\t\t\t\t\t\t[disabled]=\"timepickerVariables.right.disabledSeconds.indexOf(i) > -1\"\n\t\t\t\t\t\t\t>{{ timepickerVariables.right.secondsLabel[index] }}</option\n\t\t\t\t\t\t>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"select\">\n\t\t\t\t\t<select\n\t\t\t\t\t\t*ngIf=\"!timePicker24Hour\"\n\t\t\t\t\t\tclass=\"select-item ampmselect\"\n\t\t\t\t\t\t[(ngModel)]=\"timepickerVariables.right.ampmModel\"\n\t\t\t\t\t\t(ngModelChange)=\"timeChanged($event, sideEnum.right)\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<option value=\"AM\" [disabled]=\"timepickerVariables.right.amDisabled\">AM</option>\n\t\t\t\t\t\t<option value=\"PM\" [disabled]=\"timepickerVariables.right.pmDisabled\">PM</option>\n\t\t\t\t\t</select>\n\t\t\t\t\t<span class=\"select-highlight\"></span>\n\t\t\t\t\t<span class=\"select-bar\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"dp-footer\" *ngIf=\"!autoApply && (!ranges.length || (showCalInRanges && !singleDatePicker))\">\n\t\t<div class=\"range-buttons\">\n\t\t\t<div class=\"custom-range-label\" *ngIf=\"showCustomRangeLabel\">\n\t\t\t\t<strong>{{ _locale.customRangeLabel }}:</strong>\n\t\t\t</div>\n\t\t\t<button\n\t\t\t\t*ngFor=\"let range of ranges\"\n\t\t\t\tmat-stroked-button\n\t\t\t\tcolor=\"primary\"\n\t\t\t\tclass=\"{{ buttonClassRange }}\"\n\t\t\t\t(click)=\"clickRange($event, range)\"\n\t\t\t\t[disabled]=\"disableRange(range)\"\n\t\t\t\t[ngClass]=\"{ active: range.label === chosenRange.label }\"\n\t\t\t>\n\t\t\t\t{{ range.label }}\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"control-buttons\">\n\t\t\t<button mat-flat-button color=\"primary\" (click)=\"clickApply($event)\">\n\t\t\t\t{{ _locale.applyLabel }}\n\t\t\t</button>\n\t\t</div>\n\t</div>\n</div>\n",
                 // tslint:disable-next-line:no-host-metadata-property
                 host: {
                     '(click)': 'handleInternalClick($event)'
