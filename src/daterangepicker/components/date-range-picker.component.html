@@ -443,7 +443,7 @@
 				class="{{ buttonClassRange }}"
 				(click)="clickRange($event, range)"
 				[disabled]="disableRange(range)"
-				[ngClass]="{ active: range.label === chosenRange.label }"
+				[ngClass]="{ active: range.label === chosenLabel }"
 			>
 				{{ range.label }}
 			</button>
