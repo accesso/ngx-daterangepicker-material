@@ -1,5 +1,5 @@
-var NgxDateRangePickerMd_1;
 import * as tslib_1 from "tslib";
+var NgxDateRangePickerMd_1;
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
