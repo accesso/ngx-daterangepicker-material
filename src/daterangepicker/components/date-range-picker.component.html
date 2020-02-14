@@ -12,27 +12,38 @@
 		'show-ranges': ranges.length > 0
 	}"
 	[class]="'drops-' + drops + '-' + opens"
+	data-cy="date-range-picker__content"
 >
 	<div class="dp-header" *ngIf="!singleDatePicker">
-		<button mat-button *ngIf="showClearButton" class="cal-reset-btn" (click)="clear()">
+		<button mat-button *ngIf="showClearButton" class="cal-reset-btn" (click)="clear()" data-cy="date-range-picker-clear__button">
 			{{ _locale.clearLabel }}
 		</button>
 		<mat-form-field class="cal-start-date">
 			<button mat-icon-button matPrefix>
 				<mat-icon>date_range</mat-icon>
 			</button>
-			<input matInput [value]="startDate | date: locale.displayFormat:undefined:locale.localeId" readonly />
+			<input
+				matInput
+				[value]="startDate | date: locale.displayFormat:undefined:locale.localeId"
+				readonly
+				data-cy="date-range-picker-start-date__input"
+			/>
 		</mat-form-field>
 		<mat-form-field color="primary">
 			<button mat-icon-button matPrefix>
 				<mat-icon>date_range</mat-icon>
 			</button>
-			<input matInput [value]="endDate | date: locale.displayFormat:undefined:locale.localeId" readonly />
+			<input
+				matInput
+				[value]="endDate | date: locale.displayFormat:undefined:locale.localeId"
+				readonly
+				data-cy="date-range-picker-end-date__input"
+			/>
 		</mat-form-field>
 	</div>
 	<div class="dp-body">
 		<div class="calendar" [ngClass]="{ right: singleDatePicker, left: !singleDatePicker }" *ngIf="showCalInRanges">
-			<button color="primary" mat-mini-fab class="prev available" (click)="clickPrev(sideEnum.left)">
+			<button color="primary" mat-mini-fab class="prev available" (click)="clickPrev(sideEnum.left)" data-cy="date-range-picker-previous__button">
 				<mat-icon>arrow_forward_ios</mat-icon>
 			</button>
 			<div class="calendar-table">
@@ -119,6 +130,7 @@
 									mat-mini-fab
 									class="next available"
 									(click)="clickNext(sideEnum.left)"
+									data-cy="date-range-picker-next__button--single-calendar"
 								>
 									<mat-icon>arrow_forward_ios</mat-icon>
 								</button>
@@ -147,7 +159,7 @@
 					</thead>
 					<tbody class="drp-animate">
 						<tr
-							*ngFor="let row of calendarVariables.left.calRows"
+							*ngFor="let row of calendarVariables.left.calRows; let rowIndex = index;"
 							[class]="calendarVariables.left.classes[row].classList"
 						>
 							<!-- add week number -->
@@ -159,9 +171,10 @@
 							</td>
 							<!-- cal -->
 							<td
-								*ngFor="let col of calendarVariables.left.calCols"
+								*ngFor="let col of calendarVariables.left.calCols; let colIndex = index"
 								[class]="calendarVariables.left.classes[row][col]"
 								(click)="clickDate($event, sideEnum.left, row, col)"
+								[attr.data-cy]="'date-range-picker-row-' + rowIndex + '-col-' + colIndex + '__button'"
 							>
 								<span>{{ calendarVariables.left.calendar[row][col].date() }}</span>
 							</td>
@@ -236,7 +249,7 @@
 			</div>
 		</div>
 		<div class="calendar right" *ngIf="showCalInRanges && !singleDatePicker">
-			<button color="primary" mat-mini-fab class="next available" (click)="clickNext(sideEnum.right)">
+			<button color="primary" mat-mini-fab class="next available" (click)="clickNext(sideEnum.right)" data-cy="date-range-picker-next__button">
 				<mat-icon>arrow_forward_ios</mat-icon>
 			</button>
 			<div class="calendar-table">
@@ -342,7 +355,7 @@
 					</thead>
 					<tbody>
 						<tr
-							*ngFor="let row of calendarVariables.right.calRows"
+							*ngFor="let row of calendarVariables.right.calRows; let rowIndex = index;"
 							[class]="calendarVariables.right.classes[row].classList"
 						>
 							<td class="week" *ngIf="showWeekNumbers">
@@ -352,9 +365,10 @@
 								<span>{{ calendarVariables.right.calendar[row][0].isoWeek() }}</span>
 							</td>
 							<td
-								*ngFor="let col of calendarVariables.right.calCols"
+								*ngFor="let col of calendarVariables.right.calCols; let colIndex = index;"
 								[class]="calendarVariables.right.classes[row][col]"
 								(click)="clickDate($event, sideEnum.right, row, col)"
+								[attr.data-cy]="'date-range-picker-row-' + rowIndex + '-col-' + colIndex + '__button'"
 							>
 								<span>{{ calendarVariables.right.calendar[row][col].date() }}</span>
 							</td>
@@ -444,12 +458,13 @@
 				(click)="clickRange($event, range)"
 				[disabled]="disableRange(range)"
 				[ngClass]="{ active: range.label === chosenLabel }"
+				[attr.data-cy]="'date-range-picker-range-' + range.key + '__button'"
 			>
 				{{ range.label }}
 			</button>
 		</div>
 		<div class="control-buttons">
-			<button mat-flat-button color="primary" (click)="clickApply($event)">
+			<button mat-flat-button color="primary" (click)="clickApply($event)" data-cy="date-range-picker-apply__button">
 				{{ _locale.applyLabel }}
 			</button>
 		</div>
