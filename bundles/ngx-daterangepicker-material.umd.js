@@ -1587,7 +1587,10 @@
             this.applicationRef.attachView(componentRef.hostView);
             var componentElem = componentRef.hostView.rootNodes[0];
             var applicationRoot = document.body.querySelector('*[ng-version]');
-            applicationRoot.appendChild(componentElem);
+            var dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
+            if (!dateRangePickerElement) {
+                applicationRoot.appendChild(componentElem);
+            }
             this.picker = componentRef.instance;
             this.picker.inline = false;
         }

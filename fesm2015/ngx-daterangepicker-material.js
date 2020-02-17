@@ -1381,7 +1381,10 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         this.applicationRef.attachView(componentRef.hostView);
         const componentElem = componentRef.hostView.rootNodes[0];
         const applicationRoot = document.body.querySelector('*[ng-version]');
-        applicationRoot.appendChild(componentElem);
+        const dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
+        if (!dateRangePickerElement) {
+            applicationRoot.appendChild(componentElem);
+        }
         this.picker = componentRef.instance;
         this.picker.inline = false;
     }
