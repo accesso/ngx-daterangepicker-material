@@ -1392,16 +1392,16 @@ var DateRangePickerDirective = /** @class */ (function () {
         this.endDateChanged = new EventEmitter();
         this.drops = 'down';
         this.opens = 'auto';
-        var componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
-        var componentRef = componentFactory.create(injector);
-        this.applicationRef.attachView(componentRef.hostView);
-        var componentElem = componentRef.hostView.rootNodes[0];
         var applicationRoot = document.body.querySelector('*[ng-version]');
         var dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
         if (!dateRangePickerElement) {
+            var componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
+            var componentRef = componentFactory.create(injector);
+            this.applicationRef.attachView(componentRef.hostView);
+            var componentElem = componentRef.hostView.rootNodes[0];
             applicationRoot.appendChild(componentElem);
+            this.picker = componentRef.instance;
         }
-        this.picker = componentRef.instance;
         this.picker.inline = false;
     }
     DateRangePickerDirective_1 = DateRangePickerDirective;
