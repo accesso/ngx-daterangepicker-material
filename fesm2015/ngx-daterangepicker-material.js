@@ -1378,14 +1378,15 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         this.opens = 'auto';
         const applicationRoot = document.body.querySelector('*[ng-version]');
         const dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
-        if (!dateRangePickerElement) {
-            const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
-            const componentRef = componentFactory.create(injector);
-            this.applicationRef.attachView(componentRef.hostView);
-            const componentElem = componentRef.hostView.rootNodes[0];
-            applicationRoot.appendChild(componentElem);
-            this.picker = componentRef.instance;
+        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
+        const componentRef = componentFactory.create(injector);
+        this.applicationRef.attachView(componentRef.hostView);
+        const componentElem = componentRef.hostView.rootNodes[0];
+        if (dateRangePickerElement) {
+            applicationRoot.removeChild(dateRangePickerElement);
         }
+        applicationRoot.appendChild(componentElem);
+        this.picker = componentRef.instance;
         this.picker.inline = false;
     }
     set locale(value) {

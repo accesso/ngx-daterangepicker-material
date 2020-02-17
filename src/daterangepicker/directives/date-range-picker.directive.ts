@@ -195,16 +195,18 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		this.opens = 'auto';
 		const applicationRoot = document.body.querySelector('*[ng-version]') as HTMLElement;
 		const dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
+		const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
+		const componentRef = componentFactory.create(injector);
+		this.applicationRef.attachView(componentRef.hostView);
+		const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
 
-		if (!dateRangePickerElement) {
-			const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
-			const componentRef = componentFactory.create(injector);
-			this.applicationRef.attachView(componentRef.hostView);
-			const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-			applicationRoot.appendChild(componentElem);
-			this.picker = <DateRangePickerComponent>componentRef.instance;
+		if (dateRangePickerElement) {
+			applicationRoot.removeChild(dateRangePickerElement);
 		}
 
+		applicationRoot.appendChild(componentElem);
+
+		this.picker = <DateRangePickerComponent>componentRef.instance;
 		this.picker.inline = false;
 	}
 
