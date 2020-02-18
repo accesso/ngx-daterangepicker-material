@@ -1510,8 +1510,10 @@ var DateRangePickerDirective = /** @class */ (function () {
     };
     DateRangePickerDirective.prototype.open = function (event) {
         var _this = this;
+        console.log('trying to open');
         this.picker.show(event);
         setTimeout(function () {
+            console.log('set position');
             _this.setPosition();
         });
     };

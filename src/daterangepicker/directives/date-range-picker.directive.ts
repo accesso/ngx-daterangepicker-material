@@ -270,8 +270,10 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	}
 
 	open(event?: any) {
+		console.log('trying to open');
 		this.picker.show(event);
 		setTimeout(() => {
+			console.log('set position');
 			this.setPosition();
 		});
 	}

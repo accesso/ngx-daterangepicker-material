@@ -1475,8 +1475,10 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         this._onTouched();
     }
     open(event) {
+        console.log('trying to open');
         this.picker.show(event);
         setTimeout(() => {
+            console.log('set position');
             this.setPosition();
         });
     }
