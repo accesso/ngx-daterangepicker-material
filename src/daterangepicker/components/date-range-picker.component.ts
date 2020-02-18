@@ -1062,8 +1062,6 @@ export class DateRangePickerComponent implements OnInit {
 		this._old.start = this.startDate.clone();
 		this._old.end = this.endDate.clone();
 		this.isShown = true;
-		(this.pickerContainer.nativeElement as HTMLElement).classList.add('shown');
-		(this.pickerContainer.nativeElement as HTMLElement).classList.remove('hidden');
 		this.updateView();
 	}
 

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule, MatSelectModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,10 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { DateRangePickerComponent } from './components/date-range-picker.component';
-import { DateRangePickerDirective } from './directives/date-range-picker.directive';
 import { LOCALE_CONFIG, LocaleConfig } from './date-range-picker.config';
+import { DateRangePickerDirective } from './directives/date-range-picker.directive';
 import { LocaleService } from './services/locale.service';
-import { MatDividerModule, MatSelectModule } from '@angular/material';
 
 @NgModule({
 	declarations: [DateRangePickerComponent, DateRangePickerDirective],

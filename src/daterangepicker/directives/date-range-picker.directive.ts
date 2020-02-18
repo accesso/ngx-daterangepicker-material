@@ -7,7 +7,7 @@ import {
 	ElementRef,
 	EmbeddedViewRef,
 	EventEmitter,
-	forwardRef,
+	forwardRef, Host,
 	HostListener,
 	Injector,
 	Input,
@@ -21,10 +21,10 @@ import {
 	ViewContainerRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DateRangePreset } from '../date-range-picker.models';
 import * as _moment from 'moment';
 import { DateRangePickerComponent } from '../components/date-range-picker.component';
 import { LocaleConfig } from '../date-range-picker.config';
+import { DateRangePreset } from '../date-range-picker.models';
 import { LocaleService } from '../services/locale.service';
 
 const moment = _moment;
@@ -189,10 +189,11 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		private _renderer: Renderer2,
 		private differs: KeyValueDiffers,
 		private _localeService: LocaleService,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
 	) {
 		this.drops = 'down';
 		this.opens = 'auto';
+
 		const applicationRoot = document.body.querySelector('*[ng-version]') as HTMLElement;
 		const dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
 		const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
@@ -270,10 +271,8 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	}
 
 	open(event?: any) {
-		console.log('trying to open', this.picker);
 		this.picker.show(event);
 		setTimeout(() => {
-			console.log('set position');
 			this.setPosition();
 		});
 	}
@@ -381,8 +380,6 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 			}
 		}
 
-		console.log('style', style);
-
 		if (style /*&& !this.isMobile*/) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);
@@ -414,6 +411,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		this.picker.setEndDate(end);
 		this.picker.updateView();
 	}
+
 	/**
 	 * For click outside of the calendar's container
 	 * @param event event object
@@ -426,6 +424,11 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 
 		if (event.target.classList.contains('ngx-daterangepicker-action')) {
 			return;
+		}
+
+		const targetElement = document.getElementById(this.targetElementId);
+		if (targetElement.contains(event.target)) {
+			this.open(event);
 		}
 
 		if (

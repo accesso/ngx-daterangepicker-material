@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/material/button'), require('@angular/material/card'), require('@angular/material/datepicker'), require('@angular/material/form-field'), require('@angular/material/icon'), require('@angular/material/input'), require('moment'), require('@angular/material')) :
-    typeof define === 'function' && define.amd ? define('ngx-daterangepicker-material', ['exports', '@angular/common', '@angular/core', '@angular/forms', '@angular/material/button', '@angular/material/card', '@angular/material/datepicker', '@angular/material/form-field', '@angular/material/icon', '@angular/material/input', 'moment', '@angular/material'], factory) :
-    (global = global || self, factory(global['ngx-daterangepicker-material'] = {}, global.ng.common, global.ng.core, global.ng.forms, global.ng.material.button, global.ng.material.card, global.ng.material.datepicker, global.ng.material['form-field'], global.ng.material.icon, global.ng.material.input, global.moment, global.ng.material));
-}(this, (function (exports, common, core, forms, button, card, datepicker, formField, icon, input, _moment, material) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/material'), require('@angular/material/button'), require('@angular/material/card'), require('@angular/material/datepicker'), require('@angular/material/form-field'), require('@angular/material/icon'), require('@angular/material/input'), require('moment')) :
+    typeof define === 'function' && define.amd ? define('ngx-daterangepicker-material', ['exports', '@angular/common', '@angular/core', '@angular/forms', '@angular/material', '@angular/material/button', '@angular/material/card', '@angular/material/datepicker', '@angular/material/form-field', '@angular/material/icon', '@angular/material/input', 'moment'], factory) :
+    (global = global || self, factory(global['ngx-daterangepicker-material'] = {}, global.ng.common, global.ng.core, global.ng.forms, global.ng.material, global.ng.material.button, global.ng.material.card, global.ng.material.datepicker, global.ng.material['form-field'], global.ng.material.icon, global.ng.material.input, global.moment));
+}(this, (function (exports, common, core, forms, material, button, card, datepicker, formField, icon, input, _moment) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1152,8 +1152,6 @@
             this._old.start = this.startDate.clone();
             this._old.end = this.endDate.clone();
             this.isShown = true;
-            this.pickerContainer.nativeElement.classList.add('shown');
-            this.pickerContainer.nativeElement.classList.remove('hidden');
             this.updateView();
         };
         DateRangePickerComponent.prototype.hide = function (e) {
@@ -1702,10 +1700,8 @@
         };
         DateRangePickerDirective.prototype.open = function (event) {
             var _this = this;
-            console.log('trying to open', this.picker);
             this.picker.show(event);
             setTimeout(function () {
-                console.log('set position');
                 _this.setPosition();
             });
         };
@@ -1812,7 +1808,6 @@
                     };
                 }
             }
-            console.log('style', style);
             if (style /*&& !this.isMobile*/) {
                 this._renderer.setStyle(container, 'top', style.top);
                 this._renderer.setStyle(container, 'left', style.left);
@@ -1853,6 +1848,10 @@
             }
             if (event.target.classList.contains('ngx-daterangepicker-action')) {
                 return;
+            }
+            var targetElement = document.getElementById(this.targetElementId);
+            if (targetElement.contains(event.target)) {
+                this.open(event);
             }
             if (!this.elementRef.nativeElement.contains(event.target) &&
                 event.target.className.indexOf('mat-option') === -1) {

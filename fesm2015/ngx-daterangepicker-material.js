@@ -2,6 +2,7 @@ import { __decorate, __param } from 'tslib';
 import { CommonModule } from '@angular/common';
 import { InjectionToken, Inject, Injectable, EventEmitter, ElementRef, ChangeDetectorRef, Input, Output, ViewChild, Component, ViewEncapsulation, forwardRef, ApplicationRef, ViewContainerRef, Injector, ComponentFactoryResolver, Renderer2, KeyValueDiffers, HostListener, Directive, NgModule } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule, MatSelectModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import * as _moment from 'moment';
-import { MatDividerModule, MatSelectModule } from '@angular/material';
 
 const moment = _moment;
 const LOCALE_CONFIG = new InjectionToken('daterangepicker.config');
@@ -947,8 +947,6 @@ let DateRangePickerComponent = DateRangePickerComponent_1 = class DateRangePicke
         this._old.start = this.startDate.clone();
         this._old.end = this.endDate.clone();
         this.isShown = true;
-        this.pickerContainer.nativeElement.classList.add('shown');
-        this.pickerContainer.nativeElement.classList.remove('hidden');
         this.updateView();
     }
     hide(e) {
@@ -1477,10 +1475,8 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         this._onTouched();
     }
     open(event) {
-        console.log('trying to open', this.picker);
         this.picker.show(event);
         setTimeout(() => {
-            console.log('set position');
             this.setPosition();
         });
     }
@@ -1587,7 +1583,6 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
                 };
             }
         }
-        console.log('style', style);
         if (style /*&& !this.isMobile*/) {
             this._renderer.setStyle(container, 'top', style.top);
             this._renderer.setStyle(container, 'left', style.left);
@@ -1628,6 +1623,10 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         }
         if (event.target.classList.contains('ngx-daterangepicker-action')) {
             return;
+        }
+        const targetElement = document.getElementById(this.targetElementId);
+        if (targetElement.contains(event.target)) {
+            this.open(event);
         }
         if (!this.elementRef.nativeElement.contains(event.target) &&
             event.target.className.indexOf('mat-option') === -1) {
