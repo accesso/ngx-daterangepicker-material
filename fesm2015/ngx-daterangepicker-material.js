@@ -947,6 +947,8 @@ let DateRangePickerComponent = DateRangePickerComponent_1 = class DateRangePicke
         this._old.start = this.startDate.clone();
         this._old.end = this.endDate.clone();
         this.isShown = true;
+        this.pickerContainer.nativeElement.classList.add('shown');
+        this.pickerContainer.nativeElement.classList.remove('hidden');
         this.updateView();
     }
     hide(e) {
