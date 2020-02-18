@@ -1475,7 +1475,7 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         this._onTouched();
     }
     open(event) {
-        console.log('trying to open');
+        console.log('trying to open', this.picker);
         this.picker.show(event);
         setTimeout(() => {
             console.log('set position');
@@ -1585,6 +1585,7 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
                 };
             }
         }
+        console.log('style', style);
         if (style /*&& !this.isMobile*/) {
             this._renderer.setStyle(container, 'top', style.top);
             this._renderer.setStyle(container, 'left', style.left);

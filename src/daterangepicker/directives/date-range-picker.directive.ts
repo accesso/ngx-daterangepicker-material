@@ -270,7 +270,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	}
 
 	open(event?: any) {
-		console.log('trying to open');
+		console.log('trying to open', this.picker);
 		this.picker.show(event);
 		setTimeout(() => {
 			console.log('set position');
@@ -380,6 +380,8 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 				};
 			}
 		}
+
+		console.log('style', style);
 
 		if (style /*&& !this.isMobile*/) {
 			this._renderer.setStyle(container, 'top', style.top);

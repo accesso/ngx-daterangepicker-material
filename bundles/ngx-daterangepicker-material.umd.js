@@ -1700,7 +1700,7 @@
         };
         DateRangePickerDirective.prototype.open = function (event) {
             var _this = this;
-            console.log('trying to open');
+            console.log('trying to open', this.picker);
             this.picker.show(event);
             setTimeout(function () {
                 console.log('set position');
@@ -1810,6 +1810,7 @@
                     };
                 }
             }
+            console.log('style', style);
             if (style /*&& !this.isMobile*/) {
                 this._renderer.setStyle(container, 'top', style.top);
                 this._renderer.setStyle(container, 'left', style.left);
