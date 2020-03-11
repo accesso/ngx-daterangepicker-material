@@ -27,6 +27,7 @@ export declare class DateRangePickerDirective implements OnInit, OnChanges, DoCh
     targetElementId: string;
     topAdjustment: number;
     leftAdjustment: number;
+    isFullScreenPicker: boolean;
     alwaysShowCalendars: boolean;
     showCustomRangeLabel: boolean;
     linkedCalendars: boolean;
