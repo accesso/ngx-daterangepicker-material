@@ -7,7 +7,7 @@ import {
 	ElementRef,
 	EmbeddedViewRef,
 	EventEmitter,
-	forwardRef, Host,
+	forwardRef,
 	HostListener,
 	Injector,
 	Input,
@@ -60,9 +60,6 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	maxDate: _moment.Moment;
 	@Input()
 	autoApply: boolean;
-
-	// @Input()
-	// isMobile: boolean = false;
 
 	@Input()
 	targetElementId: string;
@@ -380,7 +377,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 			}
 		}
 
-		if (style /*&& !this.isMobile*/) {
+		if (style) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);
 			this._renderer.setStyle(container, 'right', style.right);
