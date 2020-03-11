@@ -67,6 +67,8 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	topAdjustment: number;
 	@Input()
 	leftAdjustment: number;
+	@Input()
+	isFullScreenPicker: boolean;
 
 	@Input()
 	alwaysShowCalendars: boolean;
@@ -242,6 +244,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		this.picker.opens = this.opens;
 		this.localeDiffer = this.differs.find(this.locale).create();
 		this.picker.closeOnAutoApply = this.closeOnAutoApply;
+		this.picker.isFullScreenPicker = this.isFullScreenPicker;
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -377,7 +380,12 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 			}
 		}
 
-		if (style) {
+		if (this.isFullScreenPicker) {
+			this._renderer.setStyle(container, 'position', 'fixed');
+			this._renderer.setStyle(container, 'top', 0);
+			this._renderer.setStyle(container, 'left', 0);
+			this._renderer.setStyle(container, 'right', 0);
+		} else if (style) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);
 			this._renderer.setStyle(container, 'right', style.right);
