@@ -427,7 +427,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		}
 
 		const targetElement = document.getElementById(this.targetElementId);
-		if (targetElement.contains(event.target)) {
+		if (targetElement && targetElement.contains(event.target)) {
 			this.open(event);
 		}
 
