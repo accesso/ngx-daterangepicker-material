@@ -13,7 +13,7 @@
 		'full-screen': isFullScreenPicker
 	}"
 	[class]="'drops-' + drops + '-' + opens"
-	data-cy="date-range-picker__content"
+	[attr.data-cy]="'date-range-picker__content--' + (isFullScreenPicker ? 'full-screen' : 'modal')"
 >
 	<div *ngIf="!isFullScreenPicker; else fullScreenView;">
 		<div class="dp-header" *ngIf="!singleDatePicker">
@@ -407,6 +407,9 @@
 		</div>
 		<div class="dp-body">
 			<div class="calendar" [ngClass]="{ right: singleDatePicker, left: !singleDatePicker }" *ngIf="showCalInRanges">
+				<button color="primary" mat-mini-fab class="prev available" (click)="clickPrev(sideEnum.left)" data-cy="date-range-picker-previous__button">
+					<mat-icon>arrow_forward_ios</mat-icon>
+				</button>
 				<div class="calendar-table">
 					<table class="table-condensed" *ngIf="calendarVariables">
 						<thead>
@@ -491,6 +494,9 @@
 				</div>
 			</div>
 			<div class="calendar right" *ngIf="showCalInRanges && !singleDatePicker">
+				<button color="primary" mat-mini-fab class="next available" (click)="clickNext(sideEnum.right)" data-cy="date-range-picker-next__button">
+					<mat-icon>arrow_forward_ios</mat-icon>
+				</button>
 				<div class="calendar-table">
 					<table class="table-condensed" *ngIf="calendarVariables">
 						<thead>

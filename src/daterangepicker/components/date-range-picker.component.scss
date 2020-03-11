@@ -839,6 +839,19 @@ td.available:hover {
 		.calendar-table {
 			flex: 1 0 100%;
 		}
+
+		.available {
+			z-index: 999;
+			top: calc(50% - 60px);
+
+			&.next {
+				right: 10px;
+			}
+
+			&.prev {
+				left: 10px;
+			}
+		}
 	}
 
 	.dp-footer {
