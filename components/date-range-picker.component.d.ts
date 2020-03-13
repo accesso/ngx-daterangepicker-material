@@ -57,6 +57,7 @@ export declare class DateRangePickerComponent implements OnInit {
     buttonClassApply: string;
     buttonClassReset: string;
     buttonClassRange: string;
+    isFullScreenPicker: boolean;
     _locale: LocaleConfig;
     locale: LocaleConfig;
     _ranges: DateRangePreset[];

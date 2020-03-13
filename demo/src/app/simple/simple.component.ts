@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { DateRangePickerComponent, DateRangePickerDirective } from '../../../../src/daterangepicker';
+import { DateRangePickerComponent, DateRangePickerDirective, LocaleConfig } from '../../../../src/daterangepicker';
 
 @Component({
 	selector: 'app-simple',
@@ -13,6 +13,10 @@ export class SimpleComponent implements OnInit {
 	inlineDate: any;
 	inlineDateTime: any;
 	picker: DateRangePickerComponent;
+	locale: LocaleConfig = {
+		applyLabel: 'DONE',
+		clearLabel: 'RESET'
+	};
 	constructor() {
 		this.selected = {
 			startDate: moment('2015-11-18T00:00Z'),

@@ -765,166 +765,7 @@ button {
 			fill: currentColor;
 		}
 	}
-
-	&.mobile:not(.inline) {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: auto;
-		width: 100vw;
-		height: 100vh;
-		z-index: 9999;
-
-		.dp-header {
-			background-color: #1565C0;
-			justify-content: flex-start;
-		}
-
-		.dp-body {
-			flex-direction: column;
-		}
-
-		.calendar {
-			align-self: center;
-			margin: 0 auto;
-		}
-	}
 }
-
-//@media (min-width: 564px) {
-//	.md-drppicker {
-//		width: auto;
-//
-//		&.single {
-//			.calendar.left {
-//				clear: none;
-//			}
-//		}
-//
-//		&.ltr {
-//			direction: ltr;
-//			text-align: left;
-//			.calendar {
-//				&.left {
-//					clear: left;
-//					/*margin-right: 1.5em;*/
-//
-//					.calendar-table {
-//						border-right: none;
-//						border-top-right-radius: 0;
-//						border-bottom-right-radius: 0;
-//					}
-//				}
-//
-//				&.right {
-//					margin-left: 0;
-//
-//					.calendar-table {
-//						border-left: none;
-//						border-top-left-radius: 0;
-//						border-bottom-left-radius: 0;
-//					}
-//				}
-//			}
-//
-//			.left .md-drppicker_input {
-//				padding-right: 35px;
-//			}
-//			.right .md-drppicker_input {
-//				padding-right: 35px;
-//			}
-//
-//			.calendar.left .calendar-table {
-//				padding-right: 12px;
-//			}
-//
-//			.ranges,
-//			.calendar {
-//				float: left;
-//			}
-//		}
-//		&.rtl {
-//			direction: rtl;
-//			text-align: right;
-//			.calendar {
-//				&.left {
-//					clear: right;
-//					margin-left: 0;
-//
-//					.calendar-table {
-//						border-left: none;
-//						border-top-left-radius: 0;
-//						border-bottom-left-radius: 0;
-//					}
-//				}
-//
-//				&.right {
-//					margin-right: 0;
-//
-//					.calendar-table {
-//						border-right: none;
-//						border-top-right-radius: 0;
-//						border-bottom-right-radius: 0;
-//					}
-//				}
-//			}
-//
-//			.left .md-drppicker_input {
-//				padding-left: 12px;
-//			}
-//
-//			.calendar.left .calendar-table {
-//				padding-left: 12px;
-//			}
-//
-//			.ranges,
-//			.calendar {
-//				text-align: right;
-//				float: right;
-//			}
-//		}
-//	}
-//	.drp-animate {
-//		transform: translate(0);
-//		transition: transform 0.2s ease, opacity 0.2s ease;
-//
-//		&.drp-picker-site-this {
-//			transition-timing-function: linear;
-//		}
-//
-//		&.drp-animate-right {
-//			transform: translateX(10%);
-//			opacity: 0;
-//		}
-//
-//		&.drp-animate-left {
-//			transform: translateX(-10%);
-//			opacity: 0;
-//		}
-//	}
-//}
-
-//@media (min-width: 730px) {
-//	.md-drppicker {
-//		.ranges {
-//			width: auto;
-//		}
-//		&.ltr {
-//			.ranges {
-//				float: left;
-//			}
-//		}
-//		&.rtl {
-//			.ranges {
-//				float: right;
-//			}
-//		}
-//
-//		.calendar.left {
-//			clear: none !important;
-//		}
-//	}
-//}
 
 .field-row {
 	width: 100%;
@@ -950,53 +791,97 @@ td.available:hover {
 	border: 2px solid #42a5f5;
 }
 
-//.mobile-datepicker {
-//	ngx-daterangepicker-material {
-//		top: 0;
-//		left: 0;
-//	}
-//
-//	.md-drppicker {
-//		height: calc(100vh);
-//		width: calc(100% - 8px);
-//		top: 0 !important;
-//		left: 0 !important;
-//		right: auto !important;
-//		overflow: hidden;
-//
-//		.calendar-table {
-//			padding: 0;
-//		}
-//
-//		.prev {
-//			top: 85px;
-//			left: 10px;
-//		}
-//
-//		.next {
-//			top: 85px;
-//			left: calc(100vw - 55px);
-//		}
-//	}
-//	.field-row {
-//		width: 100vw;
-//		height: 65px;
-//
-//		mat-form-field {
-//			float: right;
-//			margin-right: 10px;
-//			width: 36%;
-//		}
-//
-//		button {
-//			width: 20%;
-//			margin-right: 5px;
-//		}
-//	}
-//
-//	.calendar {
-//		text-align: center;
-//		margin: 35px 0 0 -5px;
-//		max-width: 100vw;
-//	}
-//}
+.full-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	.dp-header {
+		background-color: #1565C0;
+		color: white;
+		width: 100%;
+		padding: 0 16px;
+
+		flex: 0 0 56px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		.header-icon {
+			height: 40px;
+			width: 40px;
+			line-height: 40px;
+			vertical-align: middle;
+			text-align: center;
+
+			mat-icon {
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.body-container {
+		height: 100%;
+		overflow: hidden;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.dp-body {
+		margin-bottom: auto;
+		overflow-y: auto;
+
+		flex: 1 1 auto;
+		flex-direction: column;
+
+		.calendar {
+			flex: 1 1 100%;
+			max-width: 616px;
+			width: 100%;
+			height: auto;
+			margin: 0 auto;
+		}
+
+		.calendar-table {
+			flex: 1 0 100%;
+		}
+
+		.available {
+			z-index: 999;
+
+			&.next {
+				right: 10px;
+			}
+
+			&.prev {
+				left: 10px;
+			}
+		}
+	}
+
+	.dp-footer {
+		flex: 0 0 56px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+
+		.control-buttons {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			width: 166px;
+		}
+	}
+}

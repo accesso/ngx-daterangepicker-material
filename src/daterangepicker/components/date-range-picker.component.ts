@@ -58,8 +58,6 @@ export class DateRangePickerComponent implements OnInit {
 	dateLimit: number = null;
 	// used in template for compile time support of enum values.
 	sideEnum = SideEnum;
-	// @Input()
-	// isMobile = false;
 	@Input()
 	minDate: _moment.Moment = null;
 	@Input()
@@ -110,6 +108,9 @@ export class DateRangePickerComponent implements OnInit {
 	buttonClassReset: string = null;
 	@Input()
 	buttonClassRange: string = null;
+	@Input()
+	isFullScreenPicker: boolean;
+
 	_locale: LocaleConfig = {};
 	@Input() set locale(value) {
 		this._locale = { ...this._localeService.config, ...value };
@@ -199,6 +200,7 @@ export class DateRangePickerComponent implements OnInit {
 		this.renderCalendar(SideEnum.right);
 		this.renderRanges();
 	}
+
 	renderRanges() {
 		let start, end;
 		this.ranges.forEach(preset => {

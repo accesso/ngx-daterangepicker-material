@@ -7,7 +7,7 @@ import {
 	ElementRef,
 	EmbeddedViewRef,
 	EventEmitter,
-	forwardRef, Host,
+	forwardRef,
 	HostListener,
 	Injector,
 	Input,
@@ -61,15 +61,14 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	@Input()
 	autoApply: boolean;
 
-	// @Input()
-	// isMobile: boolean = false;
-
 	@Input()
 	targetElementId: string;
 	@Input()
 	topAdjustment: number;
 	@Input()
 	leftAdjustment: number;
+	@Input()
+	isFullScreenPicker: boolean;
 
 	@Input()
 	alwaysShowCalendars: boolean;
@@ -201,7 +200,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		this.applicationRef.attachView(componentRef.hostView);
 		const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
 
-		if (dateRangePickerElement) {
+		if (dateRangePickerElement && applicationRoot.contains(dateRangePickerElement)) {
 			applicationRoot.removeChild(dateRangePickerElement);
 		}
 
@@ -245,6 +244,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		this.picker.opens = this.opens;
 		this.localeDiffer = this.differs.find(this.locale).create();
 		this.picker.closeOnAutoApply = this.closeOnAutoApply;
+		this.picker.isFullScreenPicker = this.isFullScreenPicker;
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -380,7 +380,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 			}
 		}
 
-		if (style /*&& !this.isMobile*/) {
+		if (!this.isFullScreenPicker && style) {
 			this._renderer.setStyle(container, 'top', style.top);
 			this._renderer.setStyle(container, 'left', style.left);
 			this._renderer.setStyle(container, 'right', style.right);
