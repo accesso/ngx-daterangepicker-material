@@ -827,6 +827,8 @@ td.available:hover {
 
 	.dp-body {
 		flex-direction: column;
+		padding: 150px 0;
+		overflow-y: scroll;
 
 		.calendar {
 			flex: 1 1 100%;

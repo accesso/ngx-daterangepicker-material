@@ -12,6 +12,9 @@ export declare class DateRangePickerComponent implements OnInit {
     private el;
     private _ref;
     private _localeService;
+    locale: LocaleConfig;
+    ranges: DateRangePreset[];
+    constructor(el: ElementRef, _ref: ChangeDetectorRef, _localeService: LocaleService);
     private _old;
     chosenLabel: string;
     calendarVariables: {
@@ -59,9 +62,7 @@ export declare class DateRangePickerComponent implements OnInit {
     buttonClassRange: string;
     isFullScreenPicker: boolean;
     _locale: LocaleConfig;
-    locale: LocaleConfig;
     _ranges: DateRangePreset[];
-    ranges: DateRangePreset[];
     showCustomRangeLabel: boolean;
     showCancel: boolean;
     keepCalendarOpeningWithRange: boolean;
@@ -84,7 +85,6 @@ export declare class DateRangePickerComponent implements OnInit {
     endDateChanged: EventEmitter<Object>;
     pickerContainer: ElementRef;
     $event: any;
-    constructor(el: ElementRef, _ref: ChangeDetectorRef, _localeService: LocaleService);
     ngOnInit(): void;
     renderRanges(): void;
     renderTimePicker(side: SideEnum): void;
@@ -193,4 +193,5 @@ export declare class DateRangePickerComponent implements OnInit {
      * (as opposed to consisting of only previous/next month days)
      */
     hasCurrentMonthDays(currentMonth: any, row: any): boolean;
+    scrollDetection(event: any): void;
 }

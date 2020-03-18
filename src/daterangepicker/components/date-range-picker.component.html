@@ -394,7 +394,7 @@
 		</div>
 	</div>
 	<ng-template #fullScreenView>
-		<div class="dp-header">
+		<div class="dp-header" id="scroll-top">
 			<button mat-icon-button (click)="clickCancel($event)">
 				<mat-icon>close</mat-icon>
 			</button>
@@ -405,11 +405,11 @@
 				<mat-icon>date_range</mat-icon>
 			</div>
 		</div>
-		<div class="dp-body">
+		<div class="dp-body" id="scroll-body" (scroll)="scrollDetection($event)">
 			<div class="calendar" [ngClass]="{ right: singleDatePicker, left: !singleDatePicker }" *ngIf="showCalInRanges">
-				<button color="primary" mat-mini-fab class="prev available" (click)="clickPrev(sideEnum.left)" data-cy="date-range-picker-previous__button">
-					<mat-icon>arrow_forward_ios</mat-icon>
-				</button>
+<!--				<button color="primary" mat-mini-fab class="prev available" (click)="clickPrev(sideEnum.left)" data-cy="date-range-picker-previous__button">-->
+<!--					<mat-icon>arrow_forward_ios</mat-icon>-->
+<!--				</button>-->
 				<div class="calendar-table">
 					<table class="table-condensed" *ngIf="calendarVariables">
 						<thead>
@@ -494,9 +494,9 @@
 				</div>
 			</div>
 			<div class="calendar right" *ngIf="showCalInRanges && !singleDatePicker">
-				<button color="primary" mat-mini-fab class="next available" (click)="clickNext(sideEnum.right)" data-cy="date-range-picker-next__button">
-					<mat-icon>arrow_forward_ios</mat-icon>
-				</button>
+<!--				<button color="primary" mat-mini-fab class="next available" (click)="clickNext(sideEnum.right)" data-cy="date-range-picker-next__button">-->
+<!--					<mat-icon>arrow_forward_ios</mat-icon>-->
+<!--				</button>-->
 				<div class="calendar-table">
 					<table class="table-condensed" *ngIf="calendarVariables">
 						<thead>
@@ -580,7 +580,7 @@
 			</div>
 		</div>
 		<div class="dp-footer">
-			<div class="control-buttons">
+			<div class="control-buttons" id="scroll-bottom">
 				<button mat-button *ngIf="showClearButton" class="cal-reset-btn" (click)="clear()" data-cy="date-range-picker-clear__button">
 					{{ _locale.clearLabel }}
 				</button>
