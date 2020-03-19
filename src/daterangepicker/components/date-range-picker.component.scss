@@ -765,30 +765,6 @@ button {
 			fill: currentColor;
 		}
 	}
-
-	&.mobile:not(.inline) {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: auto;
-		width: 100vw;
-		height: 100vh;
-		z-index: 9999;
-
-		.dp-header {
-			background-color: #1565C0;
-			justify-content: flex-start;
-		}
-
-		.dp-body {
-			flex-direction: column;
-		}
-
-		.calendar {
-			align-self: center;
-			margin: 0 auto;
-		}
-	}
 }
 
 .field-row {
@@ -816,16 +792,56 @@ td.available:hover {
 }
 
 .full-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
 	height: 100%;
 
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
 	.dp-header {
-		justify-content: space-between;
 		background-color: #1565C0;
-		height: 56px;
 		color: white;
+		width: 100%;
+		padding: 0 16px;
+
+		flex: 0 0 56px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		.header-icon {
+			height: 40px;
+			width: 40px;
+			line-height: 40px;
+			vertical-align: middle;
+			text-align: center;
+
+			mat-icon {
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.body-container {
+		height: 100%;
+		overflow: hidden;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	.dp-body {
+		margin-bottom: auto;
+		overflow-y: auto;
+
+		flex: 1 1 auto;
 		flex-direction: column;
 		padding: 150px 0;
 		overflow-y: scroll;
@@ -844,7 +860,6 @@ td.available:hover {
 
 		.available {
 			z-index: 999;
-			top: calc(50% - 60px);
 
 			&.next {
 				right: 10px;
@@ -857,7 +872,12 @@ td.available:hover {
 	}
 
 	.dp-footer {
-		flex-direction: row-reverse;
+		flex: 0 0 56px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
 
 		.control-buttons {
 			display: flex;

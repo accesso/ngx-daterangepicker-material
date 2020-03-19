@@ -1603,13 +1603,7 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
                 };
             }
         }
-        if (this.isFullScreenPicker) {
-            this._renderer.setStyle(container, 'position', 'fixed');
-            this._renderer.setStyle(container, 'top', 0);
-            this._renderer.setStyle(container, 'left', 0);
-            this._renderer.setStyle(container, 'right', 0);
-        }
-        else if (style) {
+        if (!this.isFullScreenPicker && style) {
             this._renderer.setStyle(container, 'top', style.top);
             this._renderer.setStyle(container, 'left', style.left);
             this._renderer.setStyle(container, 'right', style.right);
