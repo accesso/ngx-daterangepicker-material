@@ -43,6 +43,28 @@ export enum SideEnum {
 	]
 })
 export class DateRangePickerComponent implements OnInit {
+	@Input() set locale(value) {
+		this._locale = { ...this._localeService.config, ...value };
+	}
+	get locale(): LocaleConfig {
+		return this._locale;
+	}
+
+	@Input() set ranges(value: DateRangePreset[]) {
+		this._ranges = value;
+		this.renderRanges();
+	}
+	get ranges(): DateRangePreset[] {
+		return this._ranges;
+	}
+
+	constructor(private el: ElementRef, private _ref: ChangeDetectorRef, private _localeService: LocaleService) {
+		this.choosedDate = new EventEmitter();
+		this.rangeClicked = new EventEmitter();
+		this.datesUpdated = new EventEmitter();
+		this.startDateChanged = new EventEmitter();
+		this.endDateChanged = new EventEmitter();
+	}
 	private _old: { start: any; end: any } = { start: null, end: null };
 	chosenLabel: string;
 	calendarVariables: { left: any; right: any } = { left: {}, right: {} };
@@ -112,22 +134,8 @@ export class DateRangePickerComponent implements OnInit {
 	isFullScreenPicker: boolean;
 
 	_locale: LocaleConfig = {};
-	@Input() set locale(value) {
-		this._locale = { ...this._localeService.config, ...value };
-	}
-	get locale(): LocaleConfig {
-		return this._locale;
-	}
 	// custom ranges
 	_ranges: DateRangePreset[] = [];
-
-	@Input() set ranges(value: DateRangePreset[]) {
-		this._ranges = value;
-		this.renderRanges();
-	}
-	get ranges(): DateRangePreset[] {
-		return this._ranges;
-	}
 
 	@Input()
 	showCustomRangeLabel: boolean;
@@ -160,14 +168,6 @@ export class DateRangePickerComponent implements OnInit {
 	// @ts-ignore
 	@ViewChild('pickerContainer', { static: true }) pickerContainer: ElementRef;
 	$event: any;
-
-	constructor(private el: ElementRef, private _ref: ChangeDetectorRef, private _localeService: LocaleService) {
-		this.choosedDate = new EventEmitter();
-		this.rangeClicked = new EventEmitter();
-		this.datesUpdated = new EventEmitter();
-		this.startDateChanged = new EventEmitter();
-		this.endDateChanged = new EventEmitter();
-	}
 
 	ngOnInit() {
 		this._buildLocale();
@@ -1064,6 +1064,11 @@ export class DateRangePickerComponent implements OnInit {
 		this._old.start = this.startDate.clone();
 		this._old.end = this.endDate.clone();
 		this.isShown = true;
+		if (this.isFullScreenPicker) {
+			setTimeout(() => {
+				document.getElementById('scroll-body').scrollTo({ top: 150 });
+			});
+		}
 		this.updateView();
 	}
 
@@ -1316,5 +1321,19 @@ export class DateRangePickerComponent implements OnInit {
 			}
 		}
 		return false;
+	}
+	scrollDetection(event): void {
+		const scrollBodyTop = event.target.scrollTop;
+		const scrollBodyBottom = scrollBodyTop + event.target.clientHeight + 1;
+
+		if (scrollBodyTop <= 0) {
+			this.clickPrev(SideEnum.left);
+			event.target.scrollTop = 150;
+		}
+
+		if (scrollBodyBottom >= event.target.scrollHeight) {
+			this.clickNext(SideEnum.right);
+			event.target.scrollTop = event.target.scrollTop - 150;
+		}
 	}
 }

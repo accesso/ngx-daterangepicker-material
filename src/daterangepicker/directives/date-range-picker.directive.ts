@@ -48,6 +48,67 @@ const moment = _moment;
 	]
 })
 export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
+	@Input() set locale(value) {
+		this._locale = { ...this._localeService.config, ...value };
+	}
+	get locale(): any {
+		return this._locale;
+	}
+	@Input() set startKey(value) {
+		if (value !== null) {
+			this._startKey = value;
+		} else {
+			this._startKey = 'startDate';
+		}
+	}
+	@Input() set endKey(value) {
+		if (value !== null) {
+			this._endKey = value;
+		} else {
+			this._endKey = 'endDate';
+		}
+	}
+
+	get value() {
+		return this._value || null;
+	}
+	set value(val) {
+		this._value = val;
+		this._onChange(val);
+		this._changeDetectorRef.markForCheck();
+	}
+
+	constructor(
+		public applicationRef: ApplicationRef,
+		public viewContainerRef: ViewContainerRef,
+		public injector: Injector,
+		public _changeDetectorRef: ChangeDetectorRef,
+		private _componentFactoryResolver: ComponentFactoryResolver,
+		private _el: ElementRef,
+		private _renderer: Renderer2,
+		private differs: KeyValueDiffers,
+		private _localeService: LocaleService,
+		private elementRef: ElementRef,
+	) {
+		this.drops = 'down';
+		this.opens = 'auto';
+
+		const applicationRoot = document.body.querySelector('*[ng-version]') as HTMLElement;
+		const dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
+		const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
+		const componentRef = componentFactory.create(injector);
+		this.applicationRef.attachView(componentRef.hostView);
+		const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+
+		if (dateRangePickerElement && applicationRoot.contains(dateRangePickerElement)) {
+			applicationRoot.removeChild(dateRangePickerElement);
+		}
+
+		applicationRoot.appendChild(componentElem);
+
+		this.picker = <DateRangePickerComponent>componentRef.instance;
+		this.picker.inline = false;
+	}
 	public picker: DateRangePickerComponent;
 	private _onChange = Function.prototype;
 	private _onTouched = Function.prototype;
@@ -134,39 +195,10 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	timePickerSeconds: Boolean = false;
 	@Input() closeOnAutoApply = true;
 	_locale: LocaleConfig = {};
-	@Input() set locale(value) {
-		this._locale = { ...this._localeService.config, ...value };
-	}
-	get locale(): any {
-		return this._locale;
-	}
 	@Input()
 	private _endKey: string = 'endDate';
 	private _startKey: string = 'startDate';
-	@Input() set startKey(value) {
-		if (value !== null) {
-			this._startKey = value;
-		} else {
-			this._startKey = 'startDate';
-		}
-	}
-	@Input() set endKey(value) {
-		if (value !== null) {
-			this._endKey = value;
-		} else {
-			this._endKey = 'endDate';
-		}
-	}
 	notForChangesProperty: Array<string> = ['locale', 'endKey', 'startKey'];
-
-	get value() {
-		return this._value || null;
-	}
-	set value(val) {
-		this._value = val;
-		this._onChange(val);
-		this._changeDetectorRef.markForCheck();
-	}
 
 	// tslint:disable-next-line:no-output-on-prefix no-output-rename
 	@Output('change') onChange: EventEmitter<Object> = new EventEmitter();
@@ -178,37 +210,7 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 	@Output() endDateChanged: EventEmitter<Object> = new EventEmitter();
 	$event: any;
 
-	constructor(
-		public applicationRef: ApplicationRef,
-		public viewContainerRef: ViewContainerRef,
-		public injector: Injector,
-		public _changeDetectorRef: ChangeDetectorRef,
-		private _componentFactoryResolver: ComponentFactoryResolver,
-		private _el: ElementRef,
-		private _renderer: Renderer2,
-		private differs: KeyValueDiffers,
-		private _localeService: LocaleService,
-		private elementRef: ElementRef,
-	) {
-		this.drops = 'down';
-		this.opens = 'auto';
-
-		const applicationRoot = document.body.querySelector('*[ng-version]') as HTMLElement;
-		const dateRangePickerElement = applicationRoot.querySelector('ngx-daterangepicker-material');
-		const componentFactory = this._componentFactoryResolver.resolveComponentFactory(DateRangePickerComponent);
-		const componentRef = componentFactory.create(injector);
-		this.applicationRef.attachView(componentRef.hostView);
-		const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-
-		if (dateRangePickerElement && applicationRoot.contains(dateRangePickerElement)) {
-			applicationRoot.removeChild(dateRangePickerElement);
-		}
-
-		applicationRoot.appendChild(componentElem);
-
-		this.picker = <DateRangePickerComponent>componentRef.instance;
-		this.picker.inline = false;
-	}
+	scrollPos = 0;
 
 	ngOnInit() {
 		this.picker.startDateChanged.asObservable().subscribe((itemChanged: any) => {
