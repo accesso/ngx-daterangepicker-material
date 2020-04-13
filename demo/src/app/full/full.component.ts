@@ -42,7 +42,7 @@ export class FullComponent implements OnInit {
 	timePicker: boolean;
 	dateLimit: number;
 	selected = { start: moment().subtract(3, 'days'), end: moment().add(3, 'days') };
-	@ViewChild(DateRangePickerDirective) daterangepicker: DateRangePickerDirective;
+	@ViewChild(DateRangePickerDirective, { static: true }) daterangepicker: DateRangePickerDirective;
 	click() {}
 
 	clear(): void {
