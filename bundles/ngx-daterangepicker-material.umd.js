@@ -1607,7 +1607,9 @@
             var componentRef = componentFactory.create(injector);
             this.applicationRef.attachView(componentRef.hostView);
             var componentElem = componentRef.hostView.rootNodes[0];
+            componentElem.classList.add('hidden');
             if (dateRangePickerElement && applicationRoot.contains(dateRangePickerElement)) {
+                dateRangePickerElement.classList.add('hidden');
                 applicationRoot.removeChild(dateRangePickerElement);
             }
             applicationRoot.appendChild(componentElem);

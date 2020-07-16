@@ -99,8 +99,10 @@ export class DateRangePickerDirective implements OnInit, OnChanges, DoCheck {
 		const componentRef = componentFactory.create(injector);
 		this.applicationRef.attachView(componentRef.hostView);
 		const componentElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+		componentElem.classList.add('hidden');
 
 		if (dateRangePickerElement && applicationRoot.contains(dateRangePickerElement)) {
+			dateRangePickerElement.classList.add('hidden');
 			applicationRoot.removeChild(dateRangePickerElement);
 		}
 

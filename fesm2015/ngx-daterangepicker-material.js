@@ -1402,7 +1402,9 @@ let DateRangePickerDirective = DateRangePickerDirective_1 = class DateRangePicke
         const componentRef = componentFactory.create(injector);
         this.applicationRef.attachView(componentRef.hostView);
         const componentElem = componentRef.hostView.rootNodes[0];
+        componentElem.classList.add('hidden');
         if (dateRangePickerElement && applicationRoot.contains(dateRangePickerElement)) {
+            dateRangePickerElement.classList.add('hidden');
             applicationRoot.removeChild(dateRangePickerElement);
         }
         applicationRoot.appendChild(componentElem);
